@@ -4,6 +4,15 @@
   "description": "Preview a React Native .tsx screen beside its source in VS Code.",
   "version": "0.1.2",
   "publisher": "Sage2vish",
+  "icon": "assets/lexvora-consulting-logo.png",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Sage2vish/LXC-React-Previewer-UI.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Sage2vish/LXC-React-Previewer-UI/issues"
+  },
+  "homepage": "https://github.com/Sage2vish/LXC-React-Previewer-UI#readme",
   "engines": {
     "vscode": "^1.85.0"
   },

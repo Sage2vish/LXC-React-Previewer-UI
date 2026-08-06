@@ -201,12 +201,12 @@ It tracks what has been completed, what is in progress, and what remains before 
 
 ### 4.3 Publishing Metadata
 
-- [ ] Add publisher-ready metadata
-  - [ ] Confirm display name
-  - [ ] Confirm extension identifier
-  - [ ] Confirm versioning approach
-  - [ ] Confirm category and keywords
-- [ ] Prepare publish instructions
+- [x] Add publisher-ready metadata
+  - [x] Confirm display name
+  - [x] Confirm extension identifier
+  - [x] Confirm versioning approach
+  - [x] Confirm category and keywords
+- [x] Prepare publish instructions
 - [ ] Validate extension packaging
 
 ### 4.4 Marketplace Publishing
@@ -246,7 +246,7 @@ It tracks what has been completed, what is in progress, and what remains before 
 - [x] README foundation exists
 - [x] License and brand asset exist
 - [ ] Marketplace-facing README still needs completion
-- [ ] Publisher metadata still needs completion
+- [x] Publisher metadata is in place
 - [ ] Packaging validation still needs completion
 - [ ] Marketplace publishing still needs completion
 
