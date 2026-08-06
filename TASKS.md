@@ -142,6 +142,38 @@ It tracks what has been completed, what is in progress, and what remains before 
 - [ ] Prepare publish instructions
 - [ ] Validate extension packaging
 
+### 4.4 Marketplace Publishing
+
+- [ ] Prepare the Marketplace release package
+  - [ ] Confirm extension name and display name
+  - [ ] Confirm publisher account
+  - [ ] Confirm repository URL
+  - [ ] Confirm license and ownership
+  - [ ] Confirm version number for release
+- [ ] Prepare Marketplace listing content
+  - [ ] Write a concise product summary
+  - [ ] Write a long-form description
+  - [ ] Add feature highlights
+  - [ ] Add usage notes
+  - [ ] Add limitations and known issues
+  - [ ] Add support and contribution notes
+- [ ] Prepare Marketplace visuals
+  - [ ] Add extension icon
+  - [ ] Add screenshots
+  - [ ] Add preview imagery or a short demo
+- [ ] Validate Marketplace requirements
+  - [ ] Confirm `package.json` metadata
+  - [ ] Confirm `README.md` content
+  - [ ] Confirm `LICENSE`
+  - [ ] Confirm `.vsix` package contents
+  - [ ] Confirm extension activation and commands
+- [ ] Publish to the VS Code Marketplace
+  - [ ] Create or verify publisher identity
+  - [ ] Publish the first version
+  - [ ] Verify the Marketplace listing
+  - [ ] Install the published extension in VS Code
+  - [ ] Record the published version and release notes
+
 ## 5. Cross-Platform Support
 
 ### 5.1 macOS Baseline
@@ -178,7 +210,7 @@ It tracks what has been completed, what is in progress, and what remains before 
 
 - [x] Keep one source of truth for planning
 - [x] Merge the old `TODO.md` into this file
-- [ ] Remove any stale references to `TODO.md`
+- [x] Remove any stale references to `TODO.md`
 - [ ] Add a release checklist
 - [ ] Add screenshots and visual references
 
@@ -193,7 +225,7 @@ It tracks what has been completed, what is in progress, and what remains before 
 
 - [x] Remove the duplicate tracker
 - [x] Keep `TASKS.md` as the single backlog file
-- [ ] Confirm the repo contains no stale TODO references
+- [x] Confirm the repo contains no stale TODO references
 - [ ] Confirm docs and branding are aligned
 - [ ] Commit the documentation set as a coherent update
 
@@ -228,6 +260,14 @@ It tracks what has been completed, what is in progress, and what remains before 
 - [ ] Create a release candidate
 - [ ] Prepare Marketplace submission notes
 - [ ] Keep the GitHub repository synchronized after every meaningful milestone
+- [ ] Prepare the Marketplace publish runbook
+  - [ ] Verify publisher access
+  - [ ] Verify version bump
+  - [ ] Verify package contents
+  - [ ] Verify listing copy
+  - [ ] Verify icon and screenshots
+  - [ ] Verify install smoke test
+  - [ ] Verify final release notes
 
 ## 9. Acceptance Criteria
 
@@ -240,6 +280,9 @@ The project can be considered ready for a first public release when all of the f
 - The repo has a license, branding, and contributor guidance
 - The packaging flow works from a clean checkout
 - The repository is ready for GitHub publishing and future marketplace work
+- The Marketplace listing is prepared and publishable
+- The extension can be installed from the VS Code Marketplace
+- The release notes and listing materials are complete
 
 ## 10. Milestones
 
@@ -249,4 +292,5 @@ The project can be considered ready for a first public release when all of the f
 - Milestone 4: open-source docs and branding complete
 - Milestone 5: Windows contributor notes added
 - Milestone 6: packaging and validation complete
-- Milestone 7: GitHub release or publish complete
+- Milestone 7: Marketplace listing prepared
+- Milestone 8: GitHub release or publish complete

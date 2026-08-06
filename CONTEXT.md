@@ -29,7 +29,6 @@ The project is in a scaffolded stage and is being prepared for a cleaner install
 
 - `README.md`
 - `TASKS.md`
-- `TODO.md`
 
 ## Branding And Legal
 
@@ -41,6 +40,7 @@ The project is in a scaffolded stage and is being prepared for a cleaner install
 
 - Keep changes relevant to the previewer
 - Update the tracker files when scope changes
+- Use `TASKS.md` as the single source of truth for planning
 - Preserve the Lexvora Consulting attribution
 - Prefer small, reviewable commits
 
@@ -53,6 +53,6 @@ The project is in a scaffolded stage and is being prepared for a cleaner install
 ## Future Maintenance Notes
 
 - If the architecture changes, update this file first
-- If the project scope changes, update the README and TODO list
+- If the project scope changes, update the README and `TASKS.md`
 - If the publishing plan changes, record it here before implementation
 - If the logo or license changes, update this file and the README together
