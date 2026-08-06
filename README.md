@@ -1,7 +1,7 @@
 # LXC React Previewer UI
 
 <p align="center">
-  <img src="assets/lexvora-consulting-logo.svg" alt="Lexvora Consulting" width="180" />
+  <img src="assets/lexvora-consulting-logo.png" alt="Lexvora Consulting" width="240" />
 </p>
 
 <p align="center">
@@ -357,7 +357,7 @@ This project is maintained under the Lexvora Consulting brand.
 
 Brand asset:
 
-[`assets/lexvora-consulting-logo.svg`](assets/lexvora-consulting-logo.svg)
+[`assets/lexvora-consulting-logo.png`](assets/lexvora-consulting-logo.png)
 
 ## Supported Development Environments
 

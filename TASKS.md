@@ -188,6 +188,10 @@ It tracks what has been completed, what is in progress, and what remains before 
 
 - [x] Add a license file
 - [x] Add a brand logo asset
+- [x] Copy the Lexvora Consulting logo assets locally
+  - [x] Add `assets/lexvora-consulting-logo.png`
+  - [x] Add `assets/lexvora-consulting-logo-meta.png`
+  - [x] Use the local branding image in the extension preview
 - [ ] Add marketplace icon assets if needed
 - [ ] Polish extension display metadata
 

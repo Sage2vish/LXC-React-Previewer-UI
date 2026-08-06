@@ -1,3 +1,5 @@
+import * as fs from 'fs';
+import * as path from 'path';
 import * as vscode from 'vscode';
 
 type PreviewState = {
@@ -110,20 +112,7 @@ function renderHtml(source: string, fileName: string, cspSource: string, framewo
   const frameworkHint = frameworksFolder
     ? 'This folder can provide the shared React Native framework and package root for preview work.'
     : 'Use the command palette to select your React Native frameworks folder.';
-  const logoSvg = encodeURIComponent(`
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-      <defs>
-        <linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stop-color="#38bdf8"/>
-          <stop offset="100%" stop-color="#0f172a"/>
-        </linearGradient>
-      </defs>
-      <rect width="64" height="64" rx="16" fill="url(#g)"/>
-      <path d="M18 20h10l9 24H27l-2-7h-8l-2 7H10zm6 13h6l-3-10z" fill="#fff"/>
-      <path d="M38 20h9l-4 10 5 14h-9l-3-8-3 8h-9l5-14-4-10h9l2 5z" fill="#e0f2fe"/>
-    </svg>
-  `);
-  const logoUri = `data:image/svg+xml,${logoSvg}`;
+  const logoUri = getBrandLogoUri();
 
   return `<!doctype html>
   <html lang="en">
@@ -361,7 +350,7 @@ function renderHtml(source: string, fileName: string, cspSource: string, framewo
               <div>
                 <div class="title" style="margin-bottom: 4px;">LXC React Previewer</div>
                 <h1>Source-side preview for React Native UI</h1>
-                <p>This shell keeps the current `.tsx` file visible, shows the source next to a preview panel, and stays ready for the renderer work that comes next.</p>
+                <p>This shell keeps the current .tsx file visible, shows the source next to a preview panel, and stays ready for the renderer work that comes next.</p>
               </div>
             </div>
             <div class="hero-meta">
@@ -418,7 +407,7 @@ function renderHtml(source: string, fileName: string, cspSource: string, framewo
               <p>${frameworkHint}</p>
               <p><strong>Selected file:</strong> ${fileName}</p>
               <ul>
-                <li>Tracks the active `.tsx` file</li>
+                <li>Tracks the active .tsx file</li>
                 <li>Refreshes when that file is saved</li>
                 <li>Shows source and preview side by side</li>
               </ul>
@@ -434,4 +423,25 @@ export function deactivate() {
   state.panel?.dispose();
   state.panel = undefined;
   state.uri = undefined;
+}
+
+function getBrandLogoUri(): string {
+  const candidates = [
+    path.join(__dirname, '..', 'assets', 'lexvora-consulting-logo.png'),
+    path.join(__dirname, '..', 'assets', 'lexvora-consulting-logo-meta.png'),
+    path.join(__dirname, '..', 'assets', 'lexvora-consulting-logo.svg')
+  ];
+
+  for (const candidate of candidates) {
+    if (!fs.existsSync(candidate)) {
+      continue;
+    }
+
+    const bytes = fs.readFileSync(candidate);
+    const extension = path.extname(candidate).toLowerCase();
+    const mimeType = extension === '.png' ? 'image/png' : extension === '.svg' ? 'image/svg+xml' : 'image/jpeg';
+    return `data:${mimeType};base64,${bytes.toString('base64')}`;
+  }
+
+  return '';
 }
