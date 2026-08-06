@@ -108,6 +108,14 @@ It tracks what has been completed, what is in progress, and what remains before 
   - [x] Add nested sample React files
   - [x] Document how to open it in VS Code
   - [x] Document the visible preview check
+- [x] Add the React Native frameworks picker
+  - [x] Let the user choose a frameworks folder
+  - [x] Store the frameworks folder in extension state
+  - [x] Surface the selected folder in the preview shell
+  - [x] Document the shared frameworks folder path
+- [x] Add a visible preview icon in the top-left of the shell
+  - [x] Use branded Lexvora Consulting styling
+  - [x] Keep the icon visible in the preview panel
 
 ### 3.2 Real Renderer
 
@@ -144,10 +152,13 @@ It tracks what has been completed, what is in progress, and what remains before 
   - [ ] Confirm the extension appears in the VS Code command palette
   - [ ] Confirm the preview opens in a VS Code window
   - [ ] Confirm the preview panel updates when a `.tsx` file is saved
+  - [ ] Confirm the file context menu shows the preview command
+  - [ ] Confirm the frameworks picker works and persists
 - [ ] Define the minimum required self-test for release
   - [ ] Activation test
   - [ ] Preview open test
   - [ ] Save-refresh test
+  - [ ] Preview icon visible test
 
 ### 3.5 Preview Experience Status
 
@@ -164,6 +175,7 @@ It tracks what has been completed, what is in progress, and what remains before 
 ### 4.1 Public README
 
 - [x] Add a polished README foundation
+- [x] Upgrade the README into a highly visual GitHub landing page
 - [ ] Finalize the marketplace-facing README
   - [ ] Add screenshots
   - [ ] Add installation steps
@@ -274,7 +286,7 @@ It tracks what has been completed, what is in progress, and what remains before 
 - [x] Merge the old `TODO.md` into this file
 - [x] Remove any stale references to `TODO.md`
 - [ ] Add a release checklist
-- [ ] Add screenshots and visual references
+- [x] Add screenshots and visual references
 - [x] Add a sample test case to the README
 - [x] Document that `sample/` can contain nested source files
 
@@ -336,6 +348,7 @@ It tracks what has been completed, what is in progress, and what remains before 
   - [ ] Verify the extension activates
   - [ ] Verify the preview opens
   - [ ] Verify save refresh works
+  - [ ] Verify the preview icon renders
 
 ### 8.5 Test Requirements
 
@@ -349,6 +362,8 @@ It tracks what has been completed, what is in progress, and what remains before 
   - [ ] Observe the preview panel in a VS Code window
   - [ ] Save a `.tsx` file and confirm update
   - [ ] Repeat with a nested file under `sample/`
+  - [ ] Use the frameworks picker before previewing
+  - [ ] Open the file context menu and choose preview
 - [x] Keep one sample screen for manual preview checks
   - [x] Add sample component source
   - [x] Document how to use it

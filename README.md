@@ -1,43 +1,212 @@
 # LXC React Previewer UI
 
-Open-source VS Code extension from Lexvora Consulting for previewing a React Native `.tsx` screen beside its source code without launching an emulator or simulator.
+<p align="center">
+  <img src="assets/lexvora-consulting-logo.svg" alt="Lexvora Consulting" width="180" />
+</p>
 
-## Marketplace Pitch
+<p align="center">
+  <strong>Source-side React Native preview for VS Code</strong>
+</p>
 
-Write React Native UI faster. Open a `.tsx` file, preview it beside the code, and keep the workflow inside VS Code.
+<p align="center">
+  <a href="#what-it-is">What It Is</a> ·
+  <a href="#visual-style">Visual Style</a> ·
+  <a href="#preview-workflow">Preview Workflow</a> ·
+  <a href="#sample-test-case">Sample Test Case</a> ·
+  <a href="#contributing">Contributing</a>
+</p>
 
-## What It Does
+<div align="center">
 
-- Opens a selected React Native `.tsx` file
+<table>
+  <tr>
+    <td align="center">
+      <strong>Platform</strong><br/>Visual Studio Code
+    </td>
+    <td align="center">
+      <strong>Package</strong><br/>`.vsix`
+    </td>
+    <td align="center">
+      <strong>Brand</strong><br/>Lexvora Consulting
+    </td>
+    <td align="center">
+      <strong>Focus</strong><br/>React Native `.tsx`
+    </td>
+  </tr>
+</table>
+
+</div>
+
+---
+
+## What It Is
+
+LXC React Previewer UI is an open-source VS Code extension that previews a React Native `.tsx` screen beside its source code without needing an emulator or simulator.
+
+It is designed for fast UI iteration, a cleaner local workflow, and a more visually focused development loop.
+
+## Visual Style
+
+The project aims for a polished, dramatic GitHub presence and a preview shell that feels intentional rather than placeholder-driven.
+
+<table>
+  <tr>
+    <td width="50%">
+
+### Design Goals
+
+- Bold, high-contrast presentation
+- Clear source-and-preview side-by-side layout
+- Strong visual hierarchy
+- Clean open-source branding
+- A workflow that feels fast and deliberate
+
+    </td>
+    <td width="50%">
+
+### Product Shape
+
+- Open a `.tsx` file
+- Show the preview beside the source
+- Refresh on save
+- Keep the current file context in memory
+- Stay ready for a richer React Native renderer
+
+    </td>
+  </tr>
+</table>
+
+## Preview Workflow
+
+<div align="center">
+
+<table>
+  <tr>
+    <td align="center"><strong>1</strong><br/>Open a `.tsx` file</td>
+    <td align="center"><strong>2</strong><br/>Run the preview command</td>
+    <td align="center"><strong>3</strong><br/>Inspect source and preview side by side</td>
+    <td align="center"><strong>4</strong><br/>Save the file and watch it refresh</td>
+  </tr>
+</table>
+
+</div>
+
+### Commands
+
+- `LXC React Previewer: Open Preview`
+- `LXC React Previewer: Refresh Preview`
+- `LXC React Previewer: Select Frameworks Folder`
+
+### Current Behavior
+
+<table>
+  <tr>
+    <td width="50%">
+
+#### Working Today
+
+- Opens the active `.tsx` file
 - Shows a preview panel beside the editor
-- Refreshes when the source file is saved
-- Keeps the workflow simple for local development
-- Avoids emulator and simulator overhead
+- Keeps the panel tied to the selected file
+- Refreshes when the file is saved
+- Stores a shared frameworks folder selection
+- Displays source metadata in the preview shell
 
-## Who It Is For
+    </td>
+    <td width="50%">
 
-- React Native developers
-- VS Code users who want faster UI iteration
-- Teams that prefer source-side previewing over device-first testing
+#### Still In Progress
 
-## Project Status
+- Real React Native renderer
+- Preview refresh when switching files
+- Better error handling for unsupported cases
+- Automated smoke tests
+- Marketplace publishing prep
 
-- Repository initialized
-- GitHub remote connected
-- Extension scaffold created
-- Installable VSIX package generated
-- Core rendering engine still in progress
+    </td>
+  </tr>
+</table>
+
+## Sample Test Case
+
+Use the `sample/` tree to validate the preview experience.
+
+<div align="center">
+
+<table>
+  <tr>
+    <td align="center"><strong>Sample Root</strong><br/>`sample/`</td>
+    <td align="center"><strong>Nested Files</strong><br/>React source anywhere below it</td>
+    <td align="center"><strong>Goal</strong><br/>Preview workflow sanity check</td>
+  </tr>
+</table>
+
+</div>
+
+### Try It
+
+1. Open the repository in VS Code.
+2. Open a `.tsx` file under `sample/`.
+3. Run `LXC React Previewer: Open Preview`.
+4. Confirm the preview opens beside the editor.
+5. Save the file and confirm the preview refreshes.
+6. Repeat with a nested file such as `sample/screens/Home/HomeScreen.tsx`.
+
+### Sample Files
+
+- [`sample/README.md`](sample/README.md)
+- [`sample/SamplePreview.tsx`](sample/SamplePreview.tsx)
+- [`sample/screens/Home/HomeScreen.tsx`](sample/screens/Home/HomeScreen.tsx)
+- [`sample/components/cards/PreviewCard.tsx`](sample/components/cards/PreviewCard.tsx)
+
+## Frameworks Folder
+
+If your React Native runtime or shared packages live separately, keep them in:
+
+`/Users/SageVish/Documents/Development Work/frameworks`
+
+The extension remembers the folder you choose with `LXC React Previewer: Select Frameworks Folder` and shows it in the preview shell.
+
+## Project Snapshot
+
+<table>
+  <tr>
+    <td width="50%">
+
+### Finished
+
+- Repository and GitHub remote
+- Extension scaffold
+- First build and package
+- Core product direction
+- Preview shell and save refresh
+- Sample test content
+- Brand and documentation base
+
+    </td>
+    <td width="50%">
+
+### Next Major Work
+
+- Real renderer
+- Better live update behavior
+- Smoke tests
+- Marketplace-facing polish
+- Packaging and publish prep
+
+    </td>
+  </tr>
+</table>
 
 ## Open Source
 
 This project is open source and welcomes contributors.
 
-- Anyone can contribute
 - Improvements should stay focused on the previewer
 - Issues, pull requests, and documentation help are welcome
-- Track major decisions in `CONTEXT.md`
-- Track work items and subtasks in `TASKS.md`
-- License: `MIT` in `LICENSE`
+- Track major decisions in [`CONTEXT.md`](CONTEXT.md)
+- Track work items and subtasks in [`TASKS.md`](TASKS.md)
+- License: [`MIT`](LICENSE)
 
 ## Organization
 
@@ -47,21 +216,13 @@ This project is maintained under the Lexvora Consulting brand.
 
 Brand asset:
 
-`assets/lexvora-consulting-logo.svg`
+[`assets/lexvora-consulting-logo.svg`](assets/lexvora-consulting-logo.svg)
 
 ## Supported Development Environments
 
 - macOS development and testing is the current primary setup
 - Windows testing and feedback are welcome
 - Linux support can be explored later if it helps the extension
-
-## Frameworks Folder Note
-
-If you keep shared packages, SDKs, or local runtime helpers, place them in:
-
-`/Users/SageVish/Documents/Development Work/frameworks`
-
-That folder is intended as a shared workspace for reusable development assets across projects.
 
 ## Decisions Already Made
 
@@ -76,49 +237,13 @@ That folder is intended as a shared workspace for reusable development assets ac
 
 1. Complete the real React Native preview renderer.
 2. Add stronger file watching and update logic.
-3. Polish the UI and marketplace presentation.
-4. Add tests, checks, and packaging validation.
-5. Prepare release metadata and publish notes.
-
-## Install Locally
-
-The current repo includes a packaged `.vsix` build for local installation in VS Code.
-
-## Sample Test Case
-
-Use the sample source tree under `sample/` to check the preview UI.
-
-The sample folder can contain any nested React source structure. The preview workflow should treat `sample/` as a source root and work with files found anywhere inside it.
-
-### What To Do
-
-1. Open the repository in VS Code.
-2. Open any `.tsx` file under `sample/`, for example:
-   - `sample/SamplePreview.tsx`
-   - `sample/screens/Home/HomeScreen.tsx`
-   - `sample/components/cards/PreviewCard.tsx`
-3. Run the command `LXC React Previewer: Open Preview`.
-4. Confirm a preview panel opens beside the editor.
-5. Save the `.tsx` file and confirm the preview refreshes.
-6. Repeat the same check for a nested file inside `sample/`.
-
-### What You Should See
-
-- A preview panel beside the source file
-- The sample content rendered or displayed in the preview shell
-- A visible update when the file is saved
-- The same behavior for nested React files inside `sample/`
-
-### Frameworks Folder Reminder
-
-If your React Native runtime or shared packages are installed separately, keep them in:
-
-`/Users/SageVish/Documents/Development Work/frameworks`
-
-That folder is the shared place for reusable frameworks and local package assets.
+3. Add tests, checks, and packaging validation.
+4. Prepare release metadata and publish notes.
+5. Continue polishing the README and marketplace story.
 
 ## Contributing
 
-Read `TASKS.md` before starting work.
-Read `CONTEXT.md` for project direction and contribution rules.
+Read [`TASKS.md`](TASKS.md) before starting work.
+Read [`CONTEXT.md`](CONTEXT.md) for project direction and contribution rules.
 Use small commits and keep changes aligned with the previewer goal.
+
