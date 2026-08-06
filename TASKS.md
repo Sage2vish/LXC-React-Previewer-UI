@@ -169,6 +169,7 @@ It tracks what has been completed, what is in progress, and what remains before 
 - [x] Switch-active-file refresh has been added
 - [x] Error handling has been added
 - [x] Automated smoke checks have been added
+- [ ] Manual VS Code smoke checks still need to be confirmed in the editor
 
 ## 4. Marketplace Readiness
 
@@ -194,7 +195,7 @@ It tracks what has been completed, what is in progress, and what remains before 
   - [x] Use the local branding image in the extension preview
 - [x] Add `assets/marketplace-style.css` as the shared brand token source
 - [x] Add `assets/marketplace-hero.svg` as the premium README hero
-- [x] Add `assets/lexvora-consulting-mark.svg` as the primary brand mark
+- [x] Add `assets/lexvora-consulting-mark.svg` as an optional vector brand asset
 - [ ] Add marketplace icon assets if needed
 - [ ] Polish extension display metadata
 

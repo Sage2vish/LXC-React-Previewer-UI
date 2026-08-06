@@ -483,7 +483,6 @@ export function deactivate() {
 
 function getBrandLogoUri(): string {
   const candidates = [
-    path.join(__dirname, '..', 'assets', 'lexvora-consulting-mark.svg'),
     path.join(__dirname, '..', 'assets', 'lexvora-consulting-logo.png'),
     path.join(__dirname, '..', 'assets', 'lexvora-consulting-logo-meta.png'),
     path.join(__dirname, '..', 'assets', 'lexvora-consulting-logo.svg')
