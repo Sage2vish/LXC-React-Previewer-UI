@@ -289,10 +289,11 @@ It tracks what has been completed, what is in progress, and what remains before 
 - [x] Keep one source of truth for planning
 - [x] Merge the old `TODO.md` into this file
 - [x] Remove any stale references to `TODO.md`
-- [ ] Add a release checklist
+- [x] Add a release checklist
 - [x] Add screenshots and visual references
 - [x] Add a sample test case to the README
 - [x] Document that `sample/` can contain nested source files
+- [x] Add a changelog
 
 ### 6.3 Contribution Guidance
 
@@ -306,8 +307,9 @@ It tracks what has been completed, what is in progress, and what remains before 
 - [x] Core documentation exists
 - [x] Planning and contribution docs exist
 - [x] Stale TODO references removed
-- [ ] Release checklist still needs to be added
-- [ ] Screenshots and visual references still need to be added
+- [x] Release checklist added
+- [x] Screenshots and visual references added
+- [x] Changelog added
 - [ ] Issue/PR template still optional and pending
 
 ## 7. Cleanup And Governance

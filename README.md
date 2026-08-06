@@ -37,9 +37,11 @@
 
 <p align="center">
   <a href="#what-it-is">What It Is</a> ·
+  <a href="#feature-highlights">Feature Highlights</a> ·
   <a href="#visual-style">Visual Style</a> ·
   <a href="#preview-workflow">Preview Workflow</a> ·
   <a href="#sample-test-case">Sample Test Case</a> ·
+  <a href="#changelog">Changelog</a> ·
   <a href="#contributing">Contributing</a>
 </p>
 
@@ -67,6 +69,46 @@
 LXC React Previewer UI is an open-source VS Code extension that previews a React Native `.tsx` screen beside its source code without needing an emulator or simulator.
 
 It is designed for fast UI iteration, a cleaner local workflow, and a more visually focused development loop.
+
+## Feature Highlights
+
+<table>
+  <tr>
+    <td width="50%" style="background: linear-gradient(180deg, #061421 0%, #102d40 100%); color: #ffffff; border: 0; border-radius: 16px; padding: 18px;">
+
+### Source-Side Preview
+
+Open a `.tsx` file and keep the preview directly beside the source so the design flow stays tight and easy to follow.
+
+    </td>
+    <td width="50%" style="background: linear-gradient(180deg, #0b2233 0%, #061421 100%); color: #ffffff; border: 0; border-radius: 16px; padding: 18px;">
+
+### Save-to-Refresh Workflow
+
+Make changes, save once, and keep the preview panel aligned with the current file without losing context.
+
+    </td>
+  </tr>
+</table>
+
+<table>
+  <tr>
+    <td width="50%" style="background: linear-gradient(180deg, #b88445 0%, #d2a15f 100%); color: #ffffff; border: 0; border-radius: 16px; padding: 18px;">
+
+### Lexvora Branding
+
+The extension ships with local Lexvora Consulting branding assets so the experience feels owned and polished.
+
+    </td>
+    <td width="50%" style="background: linear-gradient(180deg, #102d40 0%, #061421 100%); color: #ffffff; border: 0; border-radius: 16px; padding: 18px;">
+
+### Sample Test Surface
+
+A `sample/` tree is included so preview behavior can be checked on nested files instead of only a single flat example.
+
+    </td>
+  </tr>
+</table>
 
 <table>
   <tr>
@@ -186,12 +228,12 @@ The project aims for a polished, dramatic GitHub presence and a preview shell th
 
 #### Working Today
 
-- Opens the active `.tsx` file
-- Shows a preview panel beside the editor
-- Keeps the panel tied to the selected file
-- Refreshes when the file is saved
-- Stores a shared frameworks folder selection
-- Displays source metadata in the preview shell
+- Opens the active `.tsx` file and anchors the preview beside it
+- Shows the source and preview together for faster UI iteration
+- Keeps the preview tied to the selected file context
+- Refreshes the preview when the file is saved
+- Stores the selected shared frameworks folder for reuse
+- Displays source metadata and brand cues in the preview shell
 
     </td>
     <td width="50%" style="background: linear-gradient(180deg, #fdf2f8 0%, #ffffff 100%); border: 1px solid #f9a8d4; border-radius: 16px; padding: 18px;">
@@ -324,6 +366,10 @@ This project is open source and welcomes contributors.
 - Track major decisions in [`CONTEXT.md`](CONTEXT.md)
 - Track work items and subtasks in [`TASKS.md`](TASKS.md)
 - License: [`MIT`](LICENSE)
+
+## Changelog
+
+See [`CHANGELOG.md`](CHANGELOG.md) for the release history and unreleased notes.
 
 ## Organization
 
