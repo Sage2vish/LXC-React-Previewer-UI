@@ -267,6 +267,226 @@ function renderHtml(model: PreviewModel): string {
           padding: 18px;
           background: var(--panel-strong);
         }
+        .device-toolbar {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          gap: 12px;
+          margin-bottom: 14px;
+        }
+        .toolbar-left,
+        .toolbar-right {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          flex-wrap: wrap;
+        }
+        .toolbar-chip,
+        .toolbar-button,
+        .phone-badge,
+        .phone-action {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          border-radius: 999px;
+          border: 1px solid rgba(148, 163, 184, 0.22);
+          background: rgba(15, 23, 42, 0.68);
+          color: #d7e2f2;
+          font-size: 12px;
+        }
+        .toolbar-chip {
+          padding: 6px 10px;
+        }
+        .toolbar-chip.muted {
+          color: var(--muted);
+        }
+        .toolbar-button,
+        .phone-action,
+        .phone-badge {
+          width: 28px;
+          height: 28px;
+        }
+        .toolbar-button {
+          font-size: 15px;
+        }
+        .toolbar-button:first-child {
+          border-color: rgba(96, 165, 250, 0.45);
+        }
+        .device-shell {
+          display: flex;
+          justify-content: center;
+          padding: 8px 0 0;
+        }
+        .device-frame {
+          width: min(100%, 390px);
+          padding: 10px;
+          border-radius: 32px;
+          background: linear-gradient(180deg, rgba(3, 7, 18, 0.96), rgba(15, 23, 42, 0.92));
+          border: 1px solid rgba(148, 163, 184, 0.16);
+          box-shadow: 0 28px 56px rgba(2, 6, 23, 0.5);
+        }
+        .device-notch {
+          width: 128px;
+          height: 20px;
+          margin: 0 auto 10px;
+          border-radius: 999px;
+          background: rgba(2, 6, 23, 0.95);
+          box-shadow: inset 0 0 0 1px rgba(148, 163, 184, 0.08);
+        }
+        .device-screen {
+          min-height: 560px;
+          border-radius: 26px;
+          background:
+            linear-gradient(180deg, rgba(250, 250, 255, 0.98), rgba(239, 245, 255, 0.96));
+          color: #0f172a;
+          padding: 18px;
+          overflow: hidden;
+        }
+        .phone-status {
+          text-align: center;
+          font-size: 12px;
+          font-weight: 700;
+          margin-bottom: 12px;
+          color: #111827;
+        }
+        .phone-chrome {
+          display: grid;
+          gap: 12px;
+        }
+        .phone-topbar {
+          display: flex;
+          justify-content: space-between;
+          align-items: flex-start;
+          gap: 12px;
+        }
+        .phone-title {
+          display: grid;
+          gap: 3px;
+        }
+        .phone-title-kicker {
+          font-size: 12px;
+          font-weight: 700;
+          color: #2563eb;
+        }
+        .phone-title-main {
+          font-size: 20px;
+          font-weight: 800;
+          color: #111827;
+        }
+        .phone-actions {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          flex-wrap: wrap;
+        }
+        .phone-action {
+          color: #1d4ed8;
+          background: rgba(59, 130, 246, 0.08);
+        }
+        .phone-action.active {
+          border-color: rgba(37, 99, 235, 0.5);
+          background: rgba(37, 99, 235, 0.12);
+        }
+        .phone-badge {
+          width: 30px;
+          height: 30px;
+          border-color: rgba(37, 99, 235, 0.4);
+          color: #1d4ed8;
+          font-weight: 700;
+        }
+        .phone-card {
+          border-radius: 28px;
+          background: linear-gradient(180deg, #ffffff 0%, #f7fbff 100%);
+          box-shadow: 0 12px 30px rgba(15, 23, 42, 0.08);
+          padding: 16px;
+          border: 1px solid rgba(226, 232, 240, 0.95);
+        }
+        .phone-card-header {
+          display: flex;
+          justify-content: space-between;
+          align-items: flex-start;
+          gap: 12px;
+          margin-bottom: 12px;
+        }
+        .phone-greeting {
+          font-size: 20px;
+          font-weight: 800;
+          color: #111827;
+        }
+        .phone-subtext {
+          margin-top: 4px;
+          color: #6b7280;
+          font-size: 13px;
+        }
+        .phone-ring {
+          width: 54px;
+          height: 54px;
+          border-radius: 50%;
+          border: 4px solid rgba(59, 130, 246, 0.18);
+          display: grid;
+          place-items: center;
+          color: #1d4ed8;
+          font-weight: 800;
+          background: rgba(59, 130, 246, 0.06);
+        }
+        .phone-grid {
+          display: grid;
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+          gap: 10px;
+          margin-bottom: 12px;
+        }
+        .phone-tile {
+          min-height: 84px;
+          padding: 12px;
+          border-radius: 18px;
+          background: linear-gradient(180deg, #ffffff 0%, #f8fbff 100%);
+          border: 1px solid rgba(226, 232, 240, 0.96);
+          display: grid;
+          align-content: start;
+          gap: 4px;
+        }
+        .phone-tile span {
+          font-size: 12px;
+          color: #6b7280;
+        }
+        .phone-tile strong {
+          font-size: 17px;
+          color: #111827;
+        }
+        .phone-tile small {
+          color: #6b7280;
+        }
+        .phone-tile.accent {
+          background: linear-gradient(180deg, #fdf2f8 0%, #fff1f2 100%);
+          border-color: rgba(244, 114, 182, 0.2);
+        }
+        .phone-preview {
+          border-radius: 20px;
+          padding: 14px;
+          background: linear-gradient(180deg, #eff6ff 0%, #ffffff 100%);
+          border: 1px solid rgba(191, 219, 254, 0.75);
+        }
+        .phone-preview-title {
+          font-size: 15px;
+          font-weight: 800;
+          color: #111827;
+          margin-bottom: 6px;
+        }
+        .phone-preview-body {
+          color: #374151;
+          line-height: 1.5;
+          font-size: 13px;
+        }
+        .phone-preview-meta {
+          color: #2563eb;
+          margin-top: 8px;
+          font-size: 12px;
+          font-weight: 700;
+        }
+        .renderer-note {
+          color: var(--muted);
+          margin-top: 12px;
+        }
         .preview-grid {
           display: grid;
           gap: 12px;
@@ -484,8 +704,7 @@ export function deactivate() {
 function getBrandLogoUri(): string {
   const candidates = [
     path.join(__dirname, '..', 'assets', 'lexvora-consulting-logo.png'),
-    path.join(__dirname, '..', 'assets', 'lexvora-consulting-logo-meta.png'),
-    path.join(__dirname, '..', 'assets', 'lexvora-consulting-logo.svg')
+    path.join(__dirname, '..', 'assets', 'lexvora-consulting-logo-meta.png')
   ];
 
   for (const candidate of candidates) {
@@ -495,7 +714,7 @@ function getBrandLogoUri(): string {
 
     const bytes = fs.readFileSync(candidate);
     const extension = path.extname(candidate).toLowerCase();
-    const mimeType = extension === '.png' ? 'image/png' : extension === '.svg' ? 'image/svg+xml' : 'image/jpeg';
+    const mimeType = extension === '.png' ? 'image/png' : 'image/jpeg';
     return `data:${mimeType};base64,${bytes.toString('base64')}`;
   }
 

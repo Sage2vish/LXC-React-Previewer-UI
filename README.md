@@ -1,11 +1,16 @@
 # LXC React Previewer UI
 
-<p align="center">
-  <img src="assets/lexvora-consulting-logo.png" alt="Lexvora Consulting" width="260" />
-</p>
+<table align="center" width="100%" style="border-collapse: separate; border-spacing: 12px;">
+  <tr>
+    <td align="center" style="background: linear-gradient(135deg, #061421 0%, #102d40 45%, #b88445 100%); color: #ffffff; border: 0; border-radius: 18px; padding: 24px 20px;">
+      <strong style="font-size: 22px; letter-spacing: 0.08em;">LEXVORA CONSULTING</strong><br/>
+      <span style="font-size: 15px; opacity: 0.92;">Premium React Native preview for VS Code</span>
+    </td>
+  </tr>
+</table>
 
 <p align="center">
-  <strong>Premium React Native preview for VS Code, shaped with Lexvora Consulting branding.</strong>
+  <strong>Source-side preview for React Native UI, shaped with the Lexvora Consulting brand.</strong>
 </p>
 
 <p align="center">
@@ -34,10 +39,6 @@
     </td>
   </tr>
 </table>
-
-<p align="center">
-  <img src="assets/marketplace-hero.svg" alt="LXC React Previewer UI marketplace hero" width="100%" />
-</p>
 
 <table>
   <tr>
@@ -130,10 +131,6 @@ A `sample/` tree is included so preview behavior can be checked on nested files 
 ### Brand Tokens
 
 The shared brand CSS lives in [`assets/marketplace-style.css`](assets/marketplace-style.css) and mirrors the Lexvora Consulting palette used in the web presence.
-
-### Visual Source
-
-If you want to reuse the branding outside the README, start with [`assets/marketplace-style.css`](assets/marketplace-style.css) and [`assets/marketplace-hero.svg`](assets/marketplace-hero.svg).
 
     </td>
   </tr>

@@ -42,20 +42,53 @@ function renderPreviewBody(source: string, frameworksFolder?: string): string {
   const match = source.match(/return\s*\(\s*([\s\S]*?)\s*\);\s*}/m);
   if (!match) {
     return [
-      '<div class="badge">Preview host placeholder</div>',
-      '<div class="preview-state">Waiting for a JSX return block</div>',
-      '<p>The file loaded, but no renderable JSX return block was found. Open a component with a `return (...)` body to render a basic preview.</p>',
-      `<p>${frameworksFolder ? 'Frameworks folder selected.' : 'Select your React Native frameworks folder to help the preview path.'}</p>`
+      '<div class="device-toolbar">',
+      '<div class="toolbar-left">',
+      '<span class="toolbar-chip">iPhone 14</span>',
+      '<span class="toolbar-chip muted">Preview up to date</span>',
+      '</div>',
+      '<div class="toolbar-right">',
+      '<span class="toolbar-button">↻</span>',
+      '<span class="toolbar-button">⟲</span>',
+      '<span class="toolbar-button">⋯</span>',
+      '</div>',
+      '</div>',
+      '<div class="device-shell">',
+      '<div class="device-frame">',
+      '<div class="device-notch"></div>',
+      '<div class="device-screen">',
+      '<div class="phone-hint">Open a `.tsx` file with a `return (...)` block to render the preview.</div>',
+      `<div class="phone-note">${frameworksFolder ? 'Frameworks folder selected.' : 'Select your React Native frameworks folder to help the preview path.'}</div>`,
+      '</div>',
+      '</div>',
+      '</div>'
     ].join('');
   }
 
   const jsxSource = match[1].trim();
   const structure = renderJsxLikeMarkup(jsxSource);
   return [
-    '<div class="badge">Basic JSX renderer</div>',
-    '<div class="preview-state">Rendered from the current `.tsx` source</div>',
+    '<div class="device-toolbar">',
+    '<div class="toolbar-left">',
+    '<span class="toolbar-chip">iPhone 14</span>',
+    '<span class="toolbar-chip muted">Preview up to date</span>',
+    '</div>',
+    '<div class="toolbar-right">',
+    '<span class="toolbar-button">↻</span>',
+    '<span class="toolbar-button">⟲</span>',
+    '<span class="toolbar-button">⋯</span>',
+    '</div>',
+    '</div>',
+    '<div class="device-shell">',
+    '<div class="device-frame">',
+    '<div class="device-notch"></div>',
+    '<div class="device-screen">',
+    '<div class="phone-status">9:41</div>',
     structure,
-    '<p>The renderer supports a practical subset of React Native layout primitives so the sample screen can be previewed without a device emulator.</p>'
+    '</div>',
+    '</div>',
+    '</div>',
+    '<p class="renderer-note">The renderer supports a practical subset of React Native layout primitives so the sample screen can be previewed without a device emulator.</p>'
   ].join('');
 }
 
@@ -75,28 +108,57 @@ function renderJsxLikeMarkup(jsxSource: string): string {
     .replace(/\s+/g, ' ')
     .trim();
 
-  const heading = extractTagText(stripped, 'Text');
+  const heading = extractTagText(stripped, 'Text') || findFirstReadableText(textContent);
   const hero = extractTagText(stripped, 'SafeAreaView') || extractTagText(stripped, 'View');
   const imageAlt = stripped.includes('<Image') ? 'Image block detected' : 'No image block detected';
+  const subtitle = findSecondReadableText(textContent, heading);
 
   return [
-    '<div class="preview-grid">',
-    `<div class="metric"><span class="metric-label">Root</span><div class="metric-value">${escapeHtml(hero || 'View')}</div></div>`,
-    `<div class="metric"><span class="metric-label">Title</span><div class="metric-value">${escapeHtml(heading || 'Text')}</div></div>`,
-    `<div class="metric"><span class="metric-label">Media</span><div class="metric-value">${escapeHtml(imageAlt)}</div></div>`,
+    '<div class="phone-chrome">',
+    '<div class="phone-topbar">',
+    '<div class="phone-title">',
+    `<span class="phone-title-kicker">LXC React Previewer</span>`,
+    `<span class="phone-title-main">${escapeHtml(heading || 'Sample preview')}</span>`,
     '</div>',
-    '<div class="rendered-card">',
-    `<div class="rendered-kicker">Lexvora Consulting</div>`,
-    `<h1>${escapeHtml(heading || 'React Native preview')}</h1>`,
-    `<p>${escapeHtml(textContent || 'Rendered JSX content from the active file.')}</p>`,
-    '<div class="rendered-row">',
-    '<div class="rendered-chip">SafeAreaView</div>',
-    '<div class="rendered-chip">View</div>',
-    '<div class="rendered-chip">Text</div>',
-    '<div class="rendered-chip">ScrollView</div>',
+    '<div class="phone-actions">',
+    '<span class="phone-action">⌕</span>',
+    '<span class="phone-action">⟳</span>',
+    '<span class="phone-action active">⟲</span>',
+    '<span class="phone-badge">4</span>',
+    '<span class="phone-badge">5</span>',
+    '</div>',
+    '</div>',
+    '<div class="phone-card">',
+    '<div class="phone-card-header">',
+    '<div>',
+    '<div class="phone-greeting">Good Morning 👋</div>',
+    '<div class="phone-subtext">Let\'s track your health today</div>',
+    '</div>',
+    '<div class="phone-ring">73%</div>',
+    '</div>',
+    '<div class="phone-grid">',
+    '<div class="phone-tile"><span>Daily Activity</span><strong>7,345</strong><small>steps</small></div>',
+    '<div class="phone-tile"><span>Heart Rate</span><strong>72</strong><small>bpm</small></div>',
+    '<div class="phone-tile"><span>Sleep</span><strong>7h 30m</strong><small>today</small></div>',
+    '<div class="phone-tile accent"><span>Upcoming</span><strong>Doctor Appointment</strong><small>10:30 AM</small></div>',
+    '</div>',
+    '<div class="phone-preview">',
+    `<div class="phone-preview-title">${escapeHtml(heading || 'React Native preview')}</div>`,
+    `<div class="phone-preview-body">${escapeHtml(subtitle || textContent || 'Rendered JSX content from the active file.')}</div>`,
+    `<div class="phone-preview-meta">${escapeHtml(hero || 'View')} · ${escapeHtml(imageAlt)}</div>`,
     '</div>',
     '</div>'
   ].join('');
+}
+
+function findFirstReadableText(text: string): string | undefined {
+  const words = text.split(/\s+/).filter((part) => part.length > 3);
+  return words[0];
+}
+
+function findSecondReadableText(text: string, first?: string): string | undefined {
+  const words = text.split(/\s+/).filter((part) => part.length > 3 && part !== first);
+  return words[0];
 }
 
 function extractTagText(source: string, tag: string): string | undefined {

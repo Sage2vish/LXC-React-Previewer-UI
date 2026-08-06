@@ -154,6 +154,14 @@ It tracks what has been completed, what is in progress, and what remains before 
   - [ ] Confirm the preview panel updates when a `.tsx` file is saved
   - [ ] Confirm the file context menu shows the preview command
   - [ ] Confirm the frameworks picker works and persists
+- [ ] Match the preview shell to the reference UI layout
+  - [ ] Add the top preview toolbar controls
+  - [ ] Render the phone-style device frame
+  - [ ] Match the left-to-right editor and preview balance
+  - [ ] Keep the preview badge and live status visible
+- [x] Add the editor title-bar quick preview action
+  - [x] Expose the preview command in the `.tsx` editor header
+  - [x] Expose the refresh command in the `.tsx` editor header
 - [x] Define the minimum required self-test for release
   - [x] Activation test
   - [x] Preview open test
@@ -170,6 +178,7 @@ It tracks what has been completed, what is in progress, and what remains before 
 - [x] Error handling has been added
 - [x] Automated smoke checks have been added
 - [ ] Manual VS Code smoke checks still need to be confirmed in the editor
+- [ ] Reference UI alignment still needs a final visual pass
 
 ## 4. Marketplace Readiness
 
@@ -194,8 +203,6 @@ It tracks what has been completed, what is in progress, and what remains before 
   - [x] Add `assets/lexvora-consulting-logo-meta.png`
   - [x] Use the local branding image in the extension preview
 - [x] Add `assets/marketplace-style.css` as the shared brand token source
-- [x] Add `assets/marketplace-hero.svg` as the premium README hero
-- [x] Add `assets/lexvora-consulting-mark.svg` as an optional vector brand asset
 - [ ] Add marketplace icon assets if needed
 - [ ] Polish extension display metadata
 

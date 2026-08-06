@@ -48,6 +48,18 @@
       }
     ],
     "menus": {
+      "editor/title": [
+        {
+          "command": "lxcReactPreviewer.openPreview",
+          "when": "resourceExtname == .tsx",
+          "group": "navigation@1"
+        },
+        {
+          "command": "lxcReactPreviewer.refreshPreview",
+          "when": "resourceExtname == .tsx",
+          "group": "navigation@2"
+        }
+      ],
       "commandPalette": [
         {
           "command": "lxcReactPreviewer.openPreview"

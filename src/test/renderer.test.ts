@@ -23,7 +23,8 @@ test('buildPreviewModel summarizes a TSX preview source', () => {
   assert.equal(model.fileName, 'SamplePreview.tsx');
   assert.equal(model.status, 'ready');
   assert.ok(model.summary.includes('Default export'));
-  assert.ok(model.previewHtml.includes('Basic JSX renderer'));
+  assert.ok(model.previewHtml.includes('device-toolbar'));
+  assert.ok(model.previewHtml.includes('Good Morning'));
   assert.ok(model.previewHtml.includes('Hello Lexvora'));
   assert.ok(model.frameworksLabel.includes('frameworks'));
 });
