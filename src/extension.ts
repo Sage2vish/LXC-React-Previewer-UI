@@ -3,11 +3,14 @@ import * as vscode from 'vscode';
 type PreviewState = {
   panel?: vscode.WebviewPanel;
   uri?: vscode.Uri;
+  frameworksFolder?: string;
 };
 
 const state: PreviewState = {};
 
 export function activate(context: vscode.ExtensionContext) {
+  state.frameworksFolder = context.workspaceState.get<string>('lxcReactPreviewer.frameworksFolder');
+
   const updatePreview = (document: vscode.TextDocument) => {
     if (!state.panel || !state.uri) {
       return;
@@ -17,7 +20,7 @@ export function activate(context: vscode.ExtensionContext) {
       return;
     }
 
-    state.panel.webview.html = renderHtml(document.getText(), document.fileName, state.panel.webview.cspSource);
+    state.panel.webview.html = renderHtml(document.getText(), document.fileName, state.panel.webview.cspSource, state.frameworksFolder);
   };
 
   const openPreview = vscode.commands.registerCommand('lxcReactPreviewer.openPreview', async () => {
@@ -28,7 +31,7 @@ export function activate(context: vscode.ExtensionContext) {
     }
 
     const document = editor.document;
-    if (!/\.(tsx|ts)$/.test(document.fileName)) {
+    if (!document.fileName.endsWith('.tsx')) {
       vscode.window.showWarningMessage('This command is intended for .tsx files.');
       return;
     }
@@ -37,7 +40,7 @@ export function activate(context: vscode.ExtensionContext) {
 
     if (state.panel) {
       state.panel.reveal(vscode.ViewColumn.Beside);
-      state.panel.webview.html = renderHtml(document.getText(), document.fileName, state.panel.webview.cspSource);
+      state.panel.webview.html = renderHtml(document.getText(), document.fileName, state.panel.webview.cspSource, state.frameworksFolder);
       return;
     }
 
@@ -48,7 +51,7 @@ export function activate(context: vscode.ExtensionContext) {
       { enableScripts: true }
     );
 
-    state.panel.webview.html = renderHtml(document.getText(), document.fileName, state.panel.webview.cspSource);
+    state.panel.webview.html = renderHtml(document.getText(), document.fileName, state.panel.webview.cspSource, state.frameworksFolder);
 
     state.panel.onDidDispose(() => {
       state.panel = undefined;
@@ -63,14 +66,36 @@ export function activate(context: vscode.ExtensionContext) {
     }
 
     state.uri = editor.document.uri;
-    state.panel.webview.html = renderHtml(editor.document.getText(), editor.document.fileName, state.panel.webview.cspSource);
+    state.panel.webview.html = renderHtml(editor.document.getText(), editor.document.fileName, state.panel.webview.cspSource, state.frameworksFolder);
   });
 
-  context.subscriptions.push(openPreview, refreshPreview);
+  const selectFrameworksFolder = vscode.commands.registerCommand('lxcReactPreviewer.selectFrameworksFolder', async () => {
+    const selected = await vscode.window.showOpenDialog({
+      canSelectFiles: false,
+      canSelectFolders: true,
+      canSelectMany: false,
+      openLabel: 'Use this frameworks folder'
+    });
+
+    if (!selected || selected.length === 0) {
+      return;
+    }
+
+    state.frameworksFolder = selected[0].fsPath;
+    await context.workspaceState.update('lxcReactPreviewer.frameworksFolder', state.frameworksFolder);
+    vscode.window.showInformationMessage(`Frameworks folder set to ${state.frameworksFolder}`);
+
+    if (state.panel && state.uri) {
+      const activeDocument = await vscode.workspace.openTextDocument(state.uri);
+      state.panel.webview.html = renderHtml(activeDocument.getText(), activeDocument.fileName, state.panel.webview.cspSource, state.frameworksFolder);
+    }
+  });
+
+  context.subscriptions.push(openPreview, refreshPreview, selectFrameworksFolder);
   context.subscriptions.push(vscode.workspace.onDidSaveTextDocument(updatePreview));
 }
 
-function renderHtml(source: string, fileName: string, cspSource: string): string {
+function renderHtml(source: string, fileName: string, cspSource: string, frameworksFolder?: string): string {
   const escapedSource = source
     .replace(/&/g, '&amp;')
     .replace(/</g, '&lt;')
@@ -81,6 +106,10 @@ function renderHtml(source: string, fileName: string, cspSource: string): string
   const previewSummary = source.includes('export default') ? 'Default export detected' : 'Source loaded and waiting for a renderer';
   const fileStem = fileName.split(/[\\/]/).pop() ?? fileName;
   const accentState = source.includes('export default') ? 'ready' : 'waiting';
+  const frameworksLabel = frameworksFolder ?? 'Not selected yet';
+  const frameworkHint = frameworksFolder
+    ? 'This folder can provide the shared React Native framework and package root for preview work.'
+    : 'Use the command palette to select your React Native frameworks folder.';
 
   return `<!doctype html>
   <html lang="en">
@@ -313,6 +342,10 @@ function renderHtml(source: string, fileName: string, cspSource: string): string
               <div class="title">Render status</div>
               <div class="meta">${previewSummary}</div>
             </div>
+            <div>
+              <div class="title">Frameworks folder</div>
+              <div class="meta">${frameworksLabel}</div>
+            </div>
           </div>
           <div class="card">
             <div class="source-header">
@@ -342,6 +375,7 @@ function renderHtml(source: string, fileName: string, cspSource: string): string
               </div>
               <h1>React Native preview host</h1>
               <p>The extension is now structured for a safer webview lifecycle and live refresh on save. The renderer itself still needs to be replaced with real component execution or a React Native-to-web translation layer.</p>
+              <p>${frameworkHint}</p>
               <p><strong>Selected file:</strong> ${fileName}</p>
               <ul>
                 <li>Tracks the active `.tsx` file</li>

@@ -102,6 +102,12 @@ It tracks what has been completed, what is in progress, and what remains before 
 - [x] Refresh the panel when the file is saved
 - [x] Keep the webview lifecycle and panel state stable
 - [x] Render source metadata alongside the preview host
+- [x] Add a sample `.tsx` screen for testing
+  - [x] Create `sample/SamplePreview.tsx`
+  - [x] Allow nested sample source structure
+  - [x] Add nested sample React files
+  - [x] Document how to open it in VS Code
+  - [x] Document the visible preview check
 
 ### 3.2 Real Renderer
 
@@ -269,6 +275,8 @@ It tracks what has been completed, what is in progress, and what remains before 
 - [x] Remove any stale references to `TODO.md`
 - [ ] Add a release checklist
 - [ ] Add screenshots and visual references
+- [x] Add a sample test case to the README
+- [x] Document that `sample/` can contain nested source files
 
 ### 6.3 Contribution Guidance
 
@@ -340,6 +348,10 @@ It tracks what has been completed, what is in progress, and what remains before 
   - [ ] Run the preview command
   - [ ] Observe the preview panel in a VS Code window
   - [ ] Save a `.tsx` file and confirm update
+  - [ ] Repeat with a nested file under `sample/`
+- [x] Keep one sample screen for manual preview checks
+  - [x] Add sample component source
+  - [x] Document how to use it
 
 ### 8.4 Release Path
 

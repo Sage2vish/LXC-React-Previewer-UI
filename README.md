@@ -84,6 +84,39 @@ That folder is intended as a shared workspace for reusable development assets ac
 
 The current repo includes a packaged `.vsix` build for local installation in VS Code.
 
+## Sample Test Case
+
+Use the sample source tree under `sample/` to check the preview UI.
+
+The sample folder can contain any nested React source structure. The preview workflow should treat `sample/` as a source root and work with files found anywhere inside it.
+
+### What To Do
+
+1. Open the repository in VS Code.
+2. Open any `.tsx` file under `sample/`, for example:
+   - `sample/SamplePreview.tsx`
+   - `sample/screens/Home/HomeScreen.tsx`
+   - `sample/components/cards/PreviewCard.tsx`
+3. Run the command `LXC React Previewer: Open Preview`.
+4. Confirm a preview panel opens beside the editor.
+5. Save the `.tsx` file and confirm the preview refreshes.
+6. Repeat the same check for a nested file inside `sample/`.
+
+### What You Should See
+
+- A preview panel beside the source file
+- The sample content rendered or displayed in the preview shell
+- A visible update when the file is saved
+- The same behavior for nested React files inside `sample/`
+
+### Frameworks Folder Reminder
+
+If your React Native runtime or shared packages are installed separately, keep them in:
+
+`/Users/SageVish/Documents/Development Work/frameworks`
+
+That folder is the shared place for reusable frameworks and local package assets.
+
 ## Contributing
 
 Read `TASKS.md` before starting work.

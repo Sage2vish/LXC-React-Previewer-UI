@@ -19,7 +19,8 @@
   ],
   "activationEvents": [
     "onCommand:lxcReactPreviewer.openPreview",
-    "onCommand:lxcReactPreviewer.refreshPreview"
+    "onCommand:lxcReactPreviewer.refreshPreview",
+    "onCommand:lxcReactPreviewer.selectFrameworksFolder"
   ],
   "main": "./out/extension.js",
   "contributes": {
@@ -31,6 +32,10 @@
       {
         "command": "lxcReactPreviewer.refreshPreview",
         "title": "LXC React Previewer: Refresh Preview"
+      },
+      {
+        "command": "lxcReactPreviewer.selectFrameworksFolder",
+        "title": "LXC React Previewer: Select Frameworks Folder"
       }
     ],
     "menus": {
@@ -40,6 +45,15 @@
         },
         {
           "command": "lxcReactPreviewer.refreshPreview"
+        },
+        {
+          "command": "lxcReactPreviewer.selectFrameworksFolder"
+        }
+      ],
+      "explorer/context": [
+        {
+          "command": "lxcReactPreviewer.openPreview",
+          "when": "resourceExtname == .tsx"
         }
       ]
     }
