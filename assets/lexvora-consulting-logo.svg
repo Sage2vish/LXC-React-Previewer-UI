@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 320" role="img" aria-labelledby="title desc">
+  <title id="title">Lexvora Consulting logo</title>
+  <desc id="desc">A geometric monogram and wordmark for Lexvora Consulting.</desc>
+  <defs>
+    <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0ea5e9"/>
+      <stop offset="55%" stop-color="#2563eb"/>
+      <stop offset="100%" stop-color="#0f172a"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="320" rx="36" fill="#0b1120"/>
+  <g transform="translate(56,52)">
+    <circle cx="108" cy="108" r="108" fill="url(#grad)"/>
+    <path d="M58 78h36l32 108h-34l-7-26H72l-7 26H30zm19 58h20l-10-36z" fill="#f8fafc"/>
+    <path d="M150 76h34l-16 52 20 56h-34l-10-34-10 34h-34l20-56-16-52h34l6 26z" fill="#e0f2fe" opacity="0.96"/>
+  </g>
+  <g transform="translate(310,90)">
+    <text x="0" y="70" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="72" font-weight="700" fill="#f8fafc">Lexvora Consulting</text>
+    <text x="2" y="128" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="28" font-weight="500" fill="#93c5fd">Open-source VS Code tools for faster product work</text>
+  </g>
+</svg>

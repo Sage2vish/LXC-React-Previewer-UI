@@ -1,0 +1,8 @@
+src/**
+.vscode/**
+TODO.md
+README.md
+tsconfig.json
+*.map
+*.ts
+node_modules/**/test/**

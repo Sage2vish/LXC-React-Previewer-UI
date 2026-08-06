@@ -1,0 +1,62 @@
+{
+  "name": "lxc-react-previewer-ui",
+  "displayName": "LXC React Previewer UI",
+  "description": "Preview a React Native .tsx screen beside its source in VS Code.",
+  "version": "0.1.0",
+  "publisher": "Sage2vish",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "keywords": [
+    "react-native",
+    "preview",
+    "tsx",
+    "webview",
+    "vscode-extension"
+  ],
+  "activationEvents": [
+    "onCommand:lxcReactPreviewer.openPreview",
+    "onCommand:lxcReactPreviewer.refreshPreview"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "lxcReactPreviewer.openPreview",
+        "title": "LXC React Previewer: Open Preview"
+      },
+      {
+        "command": "lxcReactPreviewer.refreshPreview",
+        "title": "LXC React Previewer: Refresh Preview"
+      }
+    ],
+    "menus": {
+      "commandPalette": [
+        {
+          "command": "lxcReactPreviewer.openPreview"
+        },
+        {
+          "command": "lxcReactPreviewer.refreshPreview"
+        }
+      ]
+    }
+  },
+  "scripts": {
+    "build": "tsc -p ./tsconfig.json",
+    "watch": "tsc -w -p ./tsconfig.json",
+    "lint": "eslint \"src/**/*.ts\"",
+    "test": "echo \"No tests yet\"",
+    "package": "echo \"Package by zipping the extension contents into a .vsix\""
+  },
+  "devDependencies": {
+    "@types/node": "^22.15.0",
+    "@types/vscode": "^1.85.0",
+    "@typescript-eslint/eslint-plugin": "^8.32.0",
+    "@typescript-eslint/parser": "^8.32.0",
+    "eslint": "^9.30.0",
+    "typescript": "^5.8.3"
+  }
+}
