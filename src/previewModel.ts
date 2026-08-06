@@ -57,8 +57,7 @@ function renderPreviewBody(source: string, frameworksFolder?: string): string {
       '<div class="device-frame">',
       '<div class="device-notch"></div>',
       '<div class="device-screen">',
-      '<div class="phone-hint">Open a `.tsx` file with a `return (...)` block to render the preview.</div>',
-      `<div class="phone-note">${frameworksFolder ? 'Frameworks folder selected.' : 'Select your React Native frameworks folder to help the preview path.'}</div>`,
+      '<div class="phone-empty">Open a `.tsx` file with a `return (...)` block to render the preview.</div>',
       '</div>',
       '</div>',
       '</div>'
@@ -87,8 +86,7 @@ function renderPreviewBody(source: string, frameworksFolder?: string): string {
     structure,
     '</div>',
     '</div>',
-    '</div>',
-    '<p class="renderer-note">The renderer supports a practical subset of React Native layout primitives so the sample screen can be previewed without a device emulator.</p>'
+    '</div>'
   ].join('');
 }
 

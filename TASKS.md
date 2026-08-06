@@ -159,6 +159,7 @@ It tracks what has been completed, what is in progress, and what remains before 
   - [ ] Render the phone-style device frame
   - [ ] Match the left-to-right editor and preview balance
   - [ ] Keep the preview badge and live status visible
+  - [ ] Remove extra diagnostic cards and keep only the mobile preview surface
 - [x] Add the editor title-bar quick preview action
   - [x] Expose the preview command in the `.tsx` editor header
   - [x] Expose the refresh command in the `.tsx` editor header
@@ -179,6 +180,7 @@ It tracks what has been completed, what is in progress, and what remains before 
 - [x] Automated smoke checks have been added
 - [ ] Manual VS Code smoke checks still need to be confirmed in the editor
 - [ ] Reference UI alignment still needs a final visual pass
+- [ ] Mobile preview surface still needs to be simplified to the target screenshot
 
 ## 4. Marketplace Readiness
 
@@ -203,6 +205,7 @@ It tracks what has been completed, what is in progress, and what remains before 
   - [x] Add `assets/lexvora-consulting-logo-meta.png`
   - [x] Use the local branding image in the extension preview
 - [x] Add `assets/marketplace-style.css` as the shared brand token source
+- [x] Add `assets/webview-preview.css` for the extension preview shell
 - [ ] Add marketplace icon assets if needed
 - [ ] Polish extension display metadata
 
