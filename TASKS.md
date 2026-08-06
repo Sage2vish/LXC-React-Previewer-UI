@@ -44,6 +44,13 @@ It tracks what has been completed, what is in progress, and what remains before 
   - [x] Create manifest files
   - [x] Create package archive
 
+### 1.4 Foundation Status
+
+- [x] Foundation work completed
+  - [x] Repository setup complete
+  - [x] Extension scaffold complete
+  - [x] Initial build and package created
+
 ## 2. Product Direction
 
 ### 2.1 Project Goal
@@ -63,7 +70,7 @@ It tracks what has been completed, what is in progress, and what remains before 
   - [x] Contributor-friendly
 - [x] Define the release posture
   - [x] Local install first
-  - [ ] Marketplace-ready later
+  - [x] Marketplace-ready later
 
 ### 2.3 User Experience Principles
 
@@ -71,10 +78,19 @@ It tracks what has been completed, what is in progress, and what remains before 
   - [x] Open file
   - [x] Show preview beside the editor
   - [x] Refresh on save
-- [ ] Make the preview feel polished
-  - [ ] Improve preview layout
-  - [ ] Add stronger visual hierarchy
-  - [ ] Reduce placeholder behavior
+- [x] Make the preview feel polished
+  - [x] Improve preview layout
+  - [x] Add stronger visual hierarchy
+  - [x] Reduce placeholder behavior
+
+### 2.4 Product Direction Status
+
+- [x] Core product goal defined
+- [x] VS Code and `.vsix` target established
+- [x] Open-source Lexvora Consulting identity established
+- [x] Basic workflow defined
+- [x] Marketplace-ready release posture defined
+- [x] Preview polish work completed
 
 ## 3. Preview Experience
 
@@ -111,6 +127,31 @@ It tracks what has been completed, what is in progress, and what remains before 
   - [ ] Show useful messages for non-`.tsx` files
   - [ ] Warn when a preview cannot be rendered
   - [ ] Avoid blank or silent failures
+
+### 3.4 Self-Test And Smoke Check
+
+- [ ] Add at least one basic automated test
+  - [ ] Decide the test runner
+  - [ ] Add a smoke test for extension activation or preview rendering
+  - [ ] Verify the test can run locally
+- [ ] Add a visible VS Code smoke check
+  - [ ] Confirm the extension appears in the VS Code command palette
+  - [ ] Confirm the preview opens in a VS Code window
+  - [ ] Confirm the preview panel updates when a `.tsx` file is saved
+- [ ] Define the minimum required self-test for release
+  - [ ] Activation test
+  - [ ] Preview open test
+  - [ ] Save-refresh test
+
+### 3.5 Preview Experience Status
+
+- [x] Preview shell exists and is wired to the active file
+- [x] Preview refreshes on save
+- [x] Preview state is tracked correctly
+- [ ] Real renderer still needs to be built
+- [ ] Switch-active-file refresh still needs to be added
+- [ ] Error handling still needs to be added
+- [ ] Automated and manual smoke checks still need to be added
 
 ## 4. Marketplace Readiness
 
@@ -174,6 +215,15 @@ It tracks what has been completed, what is in progress, and what remains before 
   - [ ] Install the published extension in VS Code
   - [ ] Record the published version and release notes
 
+### 4.5 Marketplace Status
+
+- [x] README foundation exists
+- [x] License and brand asset exist
+- [ ] Marketplace-facing README still needs completion
+- [ ] Publisher metadata still needs completion
+- [ ] Packaging validation still needs completion
+- [ ] Marketplace publishing still needs completion
+
 ## 5. Cross-Platform Support
 
 ### 5.1 macOS Baseline
@@ -195,6 +245,12 @@ It tracks what has been completed, what is in progress, and what remains before 
 - [ ] Review Linux compatibility later
   - [ ] Check file system assumptions
   - [ ] Check packaging assumptions
+
+### 5.4 Cross-Platform Status
+
+- [x] macOS baseline documented
+- [ ] Windows contributor notes still need to be written
+- [ ] Linux review still pending
 
 ## 6. Documentation
 
@@ -221,6 +277,15 @@ It tracks what has been completed, what is in progress, and what remains before 
 - [x] Keep work items in this file
 - [ ] Add a short issue/PR template if needed
 
+### 6.4 Documentation Status
+
+- [x] Core documentation exists
+- [x] Planning and contribution docs exist
+- [x] Stale TODO references removed
+- [ ] Release checklist still needs to be added
+- [ ] Screenshots and visual references still need to be added
+- [ ] Issue/PR template still optional and pending
+
 ## 7. Cleanup And Governance
 
 - [x] Remove the duplicate tracker
@@ -228,6 +293,14 @@ It tracks what has been completed, what is in progress, and what remains before 
 - [x] Confirm the repo contains no stale TODO references
 - [ ] Confirm docs and branding are aligned
 - [ ] Commit the documentation set as a coherent update
+
+### 7.1 Cleanup Status
+
+- [x] Duplicate tracker removed
+- [x] Single backlog file retained
+- [x] No stale TODO references remain in the docs
+- [ ] Docs and branding still need one final alignment pass
+- [ ] Documentation set has been updated, but this status note remains open until the next full review is committed
 
 ## 8. Implementation Backlog
 
@@ -252,6 +325,21 @@ It tracks what has been completed, what is in progress, and what remains before 
 - [ ] Fix packaging issues
 - [ ] Add automated validation where practical
 - [ ] Run an end-to-end preview smoke test inside VS Code
+  - [ ] Verify the extension activates
+  - [ ] Verify the preview opens
+  - [ ] Verify save refresh works
+
+### 8.5 Test Requirements
+
+- [ ] Keep at least one basic automated test in the repo
+  - [ ] Extension activation smoke test
+  - [ ] Preview command smoke test
+  - [ ] File-save refresh smoke test
+- [ ] Keep at least one manual VS Code self-test
+  - [ ] Open command palette
+  - [ ] Run the preview command
+  - [ ] Observe the preview panel in a VS Code window
+  - [ ] Save a `.tsx` file and confirm update
 
 ### 8.4 Release Path
 
@@ -276,6 +364,8 @@ The project can be considered ready for a first public release when all of the f
 - The extension installs in VS Code
 - A `.tsx` file can be opened and previewed beside the source
 - The preview refreshes reliably after save
+- At least one automated smoke test exists and passes
+- A manual self-test works inside a VS Code window
 - The README presents the project clearly as open source and Lexvora Consulting maintained
 - The repo has a license, branding, and contributor guidance
 - The packaging flow works from a clean checkout
@@ -294,3 +384,4 @@ The project can be considered ready for a first public release when all of the f
 - Milestone 6: packaging and validation complete
 - Milestone 7: Marketplace listing prepared
 - Milestone 8: GitHub release or publish complete
+- Milestone 9: basic automated test and self-test in place

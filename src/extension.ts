@@ -79,6 +79,8 @@ function renderHtml(source: string, fileName: string, cspSource: string): string
 
   const lineCount = source ? source.split(/\r?\n/).length : 0;
   const previewSummary = source.includes('export default') ? 'Default export detected' : 'Source loaded and waiting for a renderer';
+  const fileStem = fileName.split(/[\\/]/).pop() ?? fileName;
+  const accentState = source.includes('export default') ? 'ready' : 'waiting';
 
   return `<!doctype html>
   <html lang="en">
@@ -96,7 +98,10 @@ function renderHtml(source: string, fileName: string, cspSource: string): string
           --text: #e5eefb;
           --muted: #8fa3bf;
           --accent: #7dd3fc;
+          --accent-soft: rgba(56, 189, 248, 0.16);
           --accent-strong: #38bdf8;
+          --success: #4ade80;
+          --warning: #fbbf24;
         }
         body {
           font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
@@ -108,11 +113,11 @@ function renderHtml(source: string, fileName: string, cspSource: string): string
             var(--bg);
         }
         .frame {
-          padding: 20px;
+          padding: 18px;
         }
         .shell {
           display: grid;
-          grid-template-columns: 280px 1fr;
+          grid-template-columns: 300px 1fr;
           gap: 16px;
         }
         .card {
@@ -123,11 +128,58 @@ function renderHtml(source: string, fileName: string, cspSource: string): string
           box-shadow: 0 18px 40px rgba(2, 6, 23, 0.35);
           backdrop-filter: blur(12px);
         }
+        .hero {
+          grid-column: 1 / -1;
+          display: flex;
+          justify-content: space-between;
+          gap: 16px;
+          align-items: center;
+          padding: 18px 20px;
+          background:
+            linear-gradient(135deg, rgba(14, 165, 233, 0.18), rgba(15, 23, 42, 0.88)),
+            var(--panel);
+        }
+        .hero h1 {
+          margin: 6px 0 8px;
+          font-size: 22px;
+          letter-spacing: -0.02em;
+        }
+        .hero p {
+          margin: 0;
+          color: #d7e2f2;
+          line-height: 1.55;
+          max-width: 68ch;
+        }
+        .hero-meta {
+          display: grid;
+          gap: 8px;
+          justify-items: end;
+        }
+        .status-chip {
+          display: inline-flex;
+          align-items: center;
+          gap: 8px;
+          padding: 8px 12px;
+          border-radius: 999px;
+          background: var(--accent-soft);
+          color: #d8f7ff;
+          border: 1px solid rgba(56, 189, 248, 0.28);
+          font-size: 12px;
+          font-weight: 600;
+          white-space: nowrap;
+        }
+        .status-dot {
+          width: 8px;
+          height: 8px;
+          border-radius: 999px;
+          background: var(--success);
+          box-shadow: 0 0 0 4px rgba(74, 222, 128, 0.15);
+        }
         pre {
           white-space: pre-wrap;
           word-break: break-word;
           margin: 0;
-          font-size: 13px;
+          font-size: 12.5px;
           line-height: 1.55;
           color: #d2def0;
         }
@@ -148,6 +200,31 @@ function renderHtml(source: string, fileName: string, cspSource: string): string
           border-radius: 10px;
           padding: 18px;
           background: var(--panel-strong);
+        }
+        .preview-grid {
+          display: grid;
+          gap: 12px;
+          grid-template-columns: repeat(3, minmax(0, 1fr));
+          margin-bottom: 14px;
+        }
+        .metric {
+          padding: 12px;
+          border-radius: 12px;
+          background: rgba(15, 23, 42, 0.55);
+          border: 1px solid rgba(148, 163, 184, 0.18);
+        }
+        .metric-label {
+          display: block;
+          font-size: 11px;
+          color: var(--muted);
+          text-transform: uppercase;
+          letter-spacing: 0.08em;
+          margin-bottom: 6px;
+        }
+        .metric-value {
+          font-size: 16px;
+          font-weight: 700;
+          color: #f0f9ff;
         }
         .preview h1 {
           margin: 0 0 8px;
@@ -175,6 +252,12 @@ function renderHtml(source: string, fileName: string, cspSource: string): string
           border: 1px solid rgba(56, 189, 248, 0.35);
           font-size: 12px;
           margin-bottom: 12px;
+        }
+        .preview-state {
+          display: inline-block;
+          margin-bottom: 12px;
+          font-size: 12px;
+          color: ${accentState === 'ready' ? 'var(--success)' : 'var(--warning)'};
         }
         .grid {
           display: grid;
@@ -206,10 +289,21 @@ function renderHtml(source: string, fileName: string, cspSource: string): string
     <body>
       <div class="frame">
         <div class="shell">
+          <div class="card hero">
+            <div>
+              <div class="title" style="margin-bottom: 4px;">LXC React Previewer</div>
+              <h1>Source-side preview for React Native UI</h1>
+              <p>This shell keeps the current `.tsx` file visible, shows the source next to a preview panel, and stays ready for the renderer work that comes next.</p>
+            </div>
+            <div class="hero-meta">
+              <div class="status-chip"><span class="status-dot"></span>Live preview shell</div>
+              <div class="meta" style="text-align: right;">Polished layout and active-file tracking</div>
+            </div>
+          </div>
           <div class="card grid">
             <div>
               <div class="title">Preview target</div>
-              <div class="meta">${fileName}</div>
+              <div class="meta">${fileStem}</div>
             </div>
             <div>
               <div class="title">Source facts</div>
@@ -231,6 +325,21 @@ function renderHtml(source: string, fileName: string, cspSource: string): string
             <div class="title">Preview surface</div>
             <div class="preview">
               <div class="badge">Preview host placeholder</div>
+              <div class="preview-state">${accentState === 'ready' ? 'Ready for renderer integration' : 'Waiting for renderer integration'}</div>
+              <div class="preview-grid">
+                <div class="metric">
+                  <span class="metric-label">File</span>
+                  <div class="metric-value">${fileStem}</div>
+                </div>
+                <div class="metric">
+                  <span class="metric-label">Lines</span>
+                  <div class="metric-value">${lineCount}</div>
+                </div>
+                <div class="metric">
+                  <span class="metric-label">Mode</span>
+                  <div class="metric-value">${accentState}</div>
+                </div>
+              </div>
               <h1>React Native preview host</h1>
               <p>The extension is now structured for a safer webview lifecycle and live refresh on save. The renderer itself still needs to be replaced with real component execution or a React Native-to-web translation layer.</p>
               <p><strong>Selected file:</strong> ${fileName}</p>
@@ -248,6 +357,7 @@ function renderHtml(source: string, fileName: string, cspSource: string): string
 }
 
 export function deactivate() {
-  currentPanel?.dispose();
-  currentPanel = undefined;
+  state.panel?.dispose();
+  state.panel = undefined;
+  state.uri = undefined;
 }
