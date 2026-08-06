@@ -14,6 +14,27 @@
   <img src="https://img.shields.io/badge/Open%20Source-Lexvora%20Consulting-111827?style=for-the-badge" alt="Open Source Lexvora Consulting" />
 </p>
 
+<table align="center" width="100%" style="border-collapse: separate; border-spacing: 12px;">
+  <tr>
+    <td align="center" style="background: linear-gradient(135deg, #061421 0%, #102d40 45%, #b88445 100%); color: #ffffff; border: 0; border-radius: 18px; padding: 16px 18px;">
+      <strong style="font-size: 16px;">Fast</strong><br/>
+      Preview inside the editor flow
+    </td>
+    <td align="center" style="background: linear-gradient(135deg, #061421 0%, #0b2233 45%, #d2a15f 100%); color: #ffffff; border: 0; border-radius: 18px; padding: 16px 18px;">
+      <strong style="font-size: 16px;">Focused</strong><br/>
+      Built for `.tsx` UI work
+    </td>
+    <td align="center" style="background: linear-gradient(135deg, #061421 0%, #102d40 50%, #f7f3ed 100%); color: #ffffff; border: 0; border-radius: 18px; padding: 16px 18px;">
+      <strong style="font-size: 16px;">Flexible</strong><br/>
+      Sample tree and frameworks picker
+    </td>
+    <td align="center" style="background: linear-gradient(135deg, #061421 0%, #b88445 50%, #d2a15f 100%); color: #ffffff; border: 0; border-radius: 18px; padding: 16px 18px;">
+      <strong style="font-size: 16px;">Brand-led</strong><br/>
+      Lexvora Consulting identity
+    </td>
+  </tr>
+</table>
+
 <p align="center">
   <a href="#what-it-is">What It Is</a> ·
   <a href="#visual-style">Visual Style</a> ·
@@ -22,47 +43,22 @@
   <a href="#contributing">Contributing</a>
 </p>
 
-<div align="center">
-
 <table>
   <tr>
-    <td align="center">
+    <td align="center" style="background: linear-gradient(180deg, #fbf8f3 0%, #ffffff 100%); border: 1px solid #d2a15f; border-radius: 14px; padding: 14px 16px;">
       <strong>Platform</strong><br/>Visual Studio Code
     </td>
-    <td align="center">
+    <td align="center" style="background: linear-gradient(180deg, #fffdf9 0%, #ffffff 100%); border: 1px solid #b88445; border-radius: 14px; padding: 14px 16px;">
       <strong>Package</strong><br/>`.vsix`
     </td>
-    <td align="center">
+    <td align="center" style="background: linear-gradient(180deg, #fffaf1 0%, #ffffff 100%); border: 1px solid #c8ba94; border-radius: 14px; padding: 14px 16px;">
       <strong>Brand</strong><br/>Lexvora Consulting
     </td>
-    <td align="center">
+    <td align="center" style="background: linear-gradient(180deg, #fbf8f3 0%, #ffffff 100%); border: 1px solid #d2a15f; border-radius: 14px; padding: 14px 16px;">
       <strong>Focus</strong><br/>React Native `.tsx`
     </td>
   </tr>
 </table>
-
-</div>
-
-<div align="center">
-
-<table>
-  <tr>
-    <td align="center">
-      <strong>Fast</strong><br/>Preview in the editor flow
-    </td>
-    <td align="center">
-      <strong>Focused</strong><br/>Built for `.tsx` UI work
-    </td>
-    <td align="center">
-      <strong>Flexible</strong><br/>Sample tree and frameworks picker
-    </td>
-    <td align="center">
-      <strong>Brand-led</strong><br/>Lexvora Consulting identity
-    </td>
-  </tr>
-</table>
-
-</div>
 
 ---
 
@@ -74,7 +70,7 @@ It is designed for fast UI iteration, a cleaner local workflow, and a more visua
 
 <table>
   <tr>
-    <td width="33%">
+    <td width="33%" style="background: linear-gradient(180deg, #fffaf1 0%, #ffffff 100%); border: 1px solid #d2a15f; border-radius: 16px; padding: 18px;">
 
 ### Built For
 
@@ -84,7 +80,7 @@ It is designed for fast UI iteration, a cleaner local workflow, and a more visua
 - Local development clarity
 
     </td>
-    <td width="33%">
+    <td width="33%" style="background: linear-gradient(180deg, #fbf8f3 0%, #ffffff 100%); border: 1px solid #c8ba94; border-radius: 16px; padding: 18px;">
 
 ### Intended Feel
 
@@ -94,7 +90,7 @@ It is designed for fast UI iteration, a cleaner local workflow, and a more visua
 - Deliberate presentation
 
     </td>
-    <td width="33%">
+    <td width="33%" style="background: linear-gradient(180deg, #fffdf9 0%, #ffffff 100%); border: 1px solid #b88445; border-radius: 16px; padding: 18px;">
 
 ### Brand Promise
 
@@ -111,26 +107,22 @@ It is designed for fast UI iteration, a cleaner local workflow, and a more visua
 
 The project aims for a polished, dramatic GitHub presence and a preview shell that feels intentional rather than placeholder-driven.
 
-<div align="center">
-
 <table>
   <tr>
-    <td>
+    <td style="background: linear-gradient(135deg, #061421 0%, #102d40 45%, #b88445 100%); color: #ffffff; border: 0; border-radius: 16px; padding: 18px;">
       <strong>Visual Language</strong><br/>
       Dark depth, bright accents, wide spacing, and strong contrast.
     </td>
-    <td>
+    <td style="background: linear-gradient(135deg, #061421 0%, #0b2233 45%, #d2a15f 100%); color: #ffffff; border: 0; border-radius: 16px; padding: 18px;">
       <strong>Experience Goal</strong><br/>
       Make the repo feel like a premium product page, not a bare scaffold.
     </td>
   </tr>
 </table>
 
-</div>
-
 <table>
   <tr>
-    <td width="50%">
+    <td width="50%" style="background: linear-gradient(180deg, #fffaf1 0%, #ffffff 100%); border: 1px solid #d2a15f; border-radius: 16px; padding: 18px;">
 
 ### Design Goals
 
@@ -141,7 +133,7 @@ The project aims for a polished, dramatic GitHub presence and a preview shell th
 - A workflow that feels fast and deliberate
 
     </td>
-    <td width="50%">
+    <td width="50%" style="background: linear-gradient(180deg, #fbf8f3 0%, #ffffff 100%); border: 1px solid #c8ba94; border-radius: 16px; padding: 18px;">
 
 ### Product Shape
 
@@ -157,36 +149,28 @@ The project aims for a polished, dramatic GitHub presence and a preview shell th
 
 ## Preview Workflow
 
-<div align="center">
-
 <table>
   <tr>
-    <td align="center"><strong>1</strong><br/>Open a `.tsx` file</td>
-    <td align="center"><strong>2</strong><br/>Run the preview command</td>
-    <td align="center"><strong>3</strong><br/>Inspect source and preview side by side</td>
-    <td align="center"><strong>4</strong><br/>Save the file and watch it refresh</td>
+    <td align="center" style="background: linear-gradient(180deg, #fbf8f3 0%, #ffffff 100%); border: 1px solid #d2a15f; border-radius: 14px; padding: 14px;"><strong>1</strong><br/>Open a `.tsx` file</td>
+    <td align="center" style="background: linear-gradient(180deg, #fffdf9 0%, #ffffff 100%); border: 1px solid #b88445; border-radius: 14px; padding: 14px;"><strong>2</strong><br/>Run the preview command</td>
+    <td align="center" style="background: linear-gradient(180deg, #fffaf1 0%, #ffffff 100%); border: 1px solid #c8ba94; border-radius: 14px; padding: 14px;"><strong>3</strong><br/>Inspect source and preview side by side</td>
+    <td align="center" style="background: linear-gradient(180deg, #fdfbf7 0%, #ffffff 100%); border: 1px solid #e6ad47; border-radius: 14px; padding: 14px;"><strong>4</strong><br/>Save the file and watch it refresh</td>
   </tr>
 </table>
 
-</div>
-
-<div align="center">
-
 <table>
   <tr>
-    <td align="center">
+    <td align="center" style="background: linear-gradient(135deg, #061421 0%, #102d40 45%, #b88445 100%); color: #ffffff; border: 0; border-radius: 16px; padding: 12px 16px;">
       <strong>Open</strong><br/>Choose the target `.tsx`
     </td>
-    <td align="center">
+    <td align="center" style="background: linear-gradient(135deg, #061421 0%, #0b2233 45%, #d2a15f 100%); color: #ffffff; border: 0; border-radius: 16px; padding: 12px 16px;">
       <strong>Preview</strong><br/>Side panel appears beside source
     </td>
-    <td align="center">
+    <td align="center" style="background: linear-gradient(135deg, #061421 0%, #102d40 50%, #f7f3ed 100%); color: #ffffff; border: 0; border-radius: 16px; padding: 12px 16px;">
       <strong>Refresh</strong><br/>Save the file and update live
     </td>
   </tr>
 </table>
-
-</div>
 
 ### Commands
 
@@ -198,7 +182,7 @@ The project aims for a polished, dramatic GitHub presence and a preview shell th
 
 <table>
   <tr>
-    <td width="50%">
+    <td width="50%" style="background: linear-gradient(180deg, #f0f9ff 0%, #ffffff 100%); border: 1px solid #7dd3fc; border-radius: 16px; padding: 18px;">
 
 #### Working Today
 
@@ -210,7 +194,7 @@ The project aims for a polished, dramatic GitHub presence and a preview shell th
 - Displays source metadata in the preview shell
 
     </td>
-    <td width="50%">
+    <td width="50%" style="background: linear-gradient(180deg, #fdf2f8 0%, #ffffff 100%); border: 1px solid #f9a8d4; border-radius: 16px; padding: 18px;">
 
 #### Still In Progress
 
@@ -230,7 +214,7 @@ Use the `sample/` tree to validate the preview experience.
 
 <table>
   <tr>
-    <td width="50%">
+    <td width="50%" style="background: linear-gradient(180deg, #faf5ff 0%, #ffffff 100%); border: 1px solid #d8b4fe; border-radius: 16px; padding: 18px;">
 
 ### Why It Exists
 
@@ -239,7 +223,7 @@ Use the `sample/` tree to validate the preview experience.
 - Makes manual preview checks repeatable
 
     </td>
-    <td width="50%">
+    <td width="50%" style="background: linear-gradient(180deg, #ecfeff 0%, #ffffff 100%); border: 1px solid #67e8f9; border-radius: 16px; padding: 18px;">
 
 ### What It Proves
 
@@ -252,17 +236,13 @@ Use the `sample/` tree to validate the preview experience.
   </tr>
 </table>
 
-<div align="center">
-
 <table>
   <tr>
-    <td align="center"><strong>Sample Root</strong><br/>`sample/`</td>
-    <td align="center"><strong>Nested Files</strong><br/>React source anywhere below it</td>
-    <td align="center"><strong>Goal</strong><br/>Preview workflow sanity check</td>
+    <td align="center" style="background: linear-gradient(180deg, #fbf8f3 0%, #ffffff 100%); border: 1px solid #d2a15f; border-radius: 14px; padding: 14px;"><strong>Sample Root</strong><br/>`sample/`</td>
+    <td align="center" style="background: linear-gradient(180deg, #fffaf1 0%, #ffffff 100%); border: 1px solid #c8ba94; border-radius: 14px; padding: 14px;"><strong>Nested Files</strong><br/>React source anywhere below it</td>
+    <td align="center" style="background: linear-gradient(180deg, #fffdf9 0%, #ffffff 100%); border: 1px solid #b88445; border-radius: 14px; padding: 14px;"><strong>Goal</strong><br/>Preview workflow sanity check</td>
   </tr>
 </table>
-
-</div>
 
 ### Try It
 
@@ -292,7 +272,7 @@ The extension remembers the folder you choose with `LXC React Previewer: Select 
 
 <table>
   <tr>
-    <td width="50%">
+    <td width="50%" style="background: linear-gradient(180deg, #f0f9ff 0%, #ffffff 100%); border: 1px solid #7dd3fc; border-radius: 16px; padding: 18px;">
 
 ### Finished
 
@@ -305,7 +285,7 @@ The extension remembers the folder you choose with `LXC React Previewer: Select 
 - Brand and documentation base
 
     </td>
-    <td width="50%">
+    <td width="50%" style="background: linear-gradient(180deg, #fff7ed 0%, #ffffff 100%); border: 1px solid #fdba74; border-radius: 16px; padding: 18px;">
 
 ### Next Major Work
 
@@ -319,23 +299,19 @@ The extension remembers the folder you choose with `LXC React Previewer: Select 
   </tr>
 </table>
 
-<div align="center">
-
 <table>
   <tr>
-    <td align="center">
+    <td align="center" style="background: linear-gradient(135deg, #061421 0%, #102d40 45%, #b88445 100%); color: #ffffff; border: 0; border-radius: 14px; padding: 12px 16px;">
       <strong>Repository Mood</strong><br/>Premium, focused, and extendable
     </td>
-    <td align="center">
+    <td align="center" style="background: linear-gradient(135deg, #061421 0%, #0b2233 45%, #d2a15f 100%); color: #ffffff; border: 0; border-radius: 14px; padding: 12px 16px;">
       <strong>Current Priority</strong><br/>Renderer, tests, and marketplace prep
     </td>
-    <td align="center">
+    <td align="center" style="background: linear-gradient(135deg, #061421 0%, #102d40 50%, #f7f3ed 100%); color: #ffffff; border: 0; border-radius: 14px; padding: 12px 16px;">
       <strong>Current State</strong><br/>Ready to iterate
     </td>
   </tr>
 </table>
-
-</div>
 
 ## Open Source
 
