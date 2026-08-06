@@ -8,10 +8,33 @@ type PreviewState = {
   frameworksFolder?: string;
 };
 
+type PreviewModel = {
+  fileName: string;
+  lineCount: number;
+  summary: string;
+  status: 'ready' | 'waiting' | 'error';
+  errorMessage?: string;
+  sourceHtml: string;
+  previewHtml: string;
+  frameworksLabel: string;
+  frameworkHint: string;
+};
+
 const state: PreviewState = {};
 
 export function activate(context: vscode.ExtensionContext) {
   state.frameworksFolder = context.workspaceState.get<string>('lxcReactPreviewer.frameworksFolder');
+
+  const renderDocument = (document: vscode.TextDocument) => {
+    if (!state.panel) {
+      return;
+    }
+
+    state.uri = document.uri;
+    state.panel.webview.html = renderHtml(
+      buildPreviewModel(document.getText(), document.fileName, state.frameworksFolder)
+    );
+  };
 
   const updatePreview = (document: vscode.TextDocument) => {
     if (!state.panel || !state.uri) {
@@ -22,7 +45,7 @@ export function activate(context: vscode.ExtensionContext) {
       return;
     }
 
-    state.panel.webview.html = renderHtml(document.getText(), document.fileName, state.panel.webview.cspSource, state.frameworksFolder);
+    renderDocument(document);
   };
 
   const openPreview = vscode.commands.registerCommand('lxcReactPreviewer.openPreview', async () => {
@@ -42,7 +65,7 @@ export function activate(context: vscode.ExtensionContext) {
 
     if (state.panel) {
       state.panel.reveal(vscode.ViewColumn.Beside);
-      state.panel.webview.html = renderHtml(document.getText(), document.fileName, state.panel.webview.cspSource, state.frameworksFolder);
+      renderDocument(document);
       return;
     }
 
@@ -53,7 +76,7 @@ export function activate(context: vscode.ExtensionContext) {
       { enableScripts: true }
     );
 
-    state.panel.webview.html = renderHtml(document.getText(), document.fileName, state.panel.webview.cspSource, state.frameworksFolder);
+    renderDocument(document);
 
     state.panel.onDidDispose(() => {
       state.panel = undefined;
@@ -68,7 +91,7 @@ export function activate(context: vscode.ExtensionContext) {
     }
 
     state.uri = editor.document.uri;
-    state.panel.webview.html = renderHtml(editor.document.getText(), editor.document.fileName, state.panel.webview.cspSource, state.frameworksFolder);
+    renderDocument(editor.document);
   });
 
   const selectFrameworksFolder = vscode.commands.registerCommand('lxcReactPreviewer.selectFrameworksFolder', async () => {
@@ -89,15 +112,30 @@ export function activate(context: vscode.ExtensionContext) {
 
     if (state.panel && state.uri) {
       const activeDocument = await vscode.workspace.openTextDocument(state.uri);
-      state.panel.webview.html = renderHtml(activeDocument.getText(), activeDocument.fileName, state.panel.webview.cspSource, state.frameworksFolder);
+      renderDocument(activeDocument);
     }
+  });
+
+  const activeEditorSubscription = vscode.window.onDidChangeActiveTextEditor((editor) => {
+    if (!editor || !state.panel) {
+      return;
+    }
+
+    const document = editor.document;
+    if (!document.fileName.endsWith('.tsx')) {
+      return;
+    }
+
+    state.uri = document.uri;
+    renderDocument(document);
   });
 
   context.subscriptions.push(openPreview, refreshPreview, selectFrameworksFolder);
   context.subscriptions.push(vscode.workspace.onDidSaveTextDocument(updatePreview));
+  context.subscriptions.push(activeEditorSubscription);
 }
 
-function renderHtml(source: string, fileName: string, cspSource: string, frameworksFolder?: string): string {
+export function buildPreviewModel(source: string, fileName: string, frameworksFolder?: string): PreviewModel {
   const escapedSource = source
     .replace(/&/g, '&amp;')
     .replace(/</g, '&lt;')
@@ -112,6 +150,104 @@ function renderHtml(source: string, fileName: string, cspSource: string, framewo
   const frameworkHint = frameworksFolder
     ? 'This folder can provide the shared React Native framework and package root for preview work.'
     : 'Use the command palette to select your React Native frameworks folder.';
+  const previewHtml = renderPreviewBody(source, frameworksFolder);
+
+  return {
+    fileName,
+    lineCount,
+    summary: previewSummary,
+    status: accentState,
+    sourceHtml: escapedSource || 'No source content loaded.',
+    previewHtml,
+    frameworksLabel,
+    frameworkHint
+  };
+}
+
+function renderPreviewBody(source: string, frameworksFolder?: string): string {
+  const match = source.match(/return\s*\(\s*([\s\S]*?)\s*\);\s*}/m);
+  if (!match) {
+    return [
+      '<div class="badge">Preview host placeholder</div>',
+      '<div class="preview-state">Waiting for a JSX return block</div>',
+      '<p>The file loaded, but no renderable JSX return block was found. Open a component with a `return (...)` body to render a basic preview.</p>',
+      `<p>${frameworksFolder ? 'Frameworks folder selected.' : 'Select your React Native frameworks folder to help the preview path.'}</p>`
+    ].join('');
+  }
+
+  const jsxSource = match[1].trim();
+  const structure = renderJsxLikeMarkup(jsxSource);
+  return [
+    '<div class="badge">Basic JSX renderer</div>',
+    '<div class="preview-state">Rendered from the current `.tsx` source</div>',
+    structure,
+    '<p>The renderer supports a practical subset of React Native layout primitives so the sample screen can be previewed without a device emulator.</p>'
+  ].join('');
+}
+
+function renderJsxLikeMarkup(jsxSource: string): string {
+  const stripped = jsxSource
+    .replace(/^\s*import[\s\S]*?from\s+['"][^'"]+['"];?/gm, '')
+    .replace(/\{\s*\/\*[\s\S]*?\*\/\s*\}/g, '')
+    .trim();
+
+  if (!stripped) {
+    return '<div class="preview-empty">No JSX markup found.</div>';
+  }
+
+  const textContent = stripped
+    .replace(/<[^>]+>/g, ' ')
+    .replace(/\{[^}]*\}/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+
+  const heading = extractTagText(stripped, 'Text');
+  const hero = extractTagText(stripped, 'SafeAreaView') || extractTagText(stripped, 'View');
+  const imageAlt = stripped.includes('<Image') ? 'Image block detected' : 'No image block detected';
+
+  return [
+    '<div class="preview-grid">',
+    `<div class="metric"><span class="metric-label">Root</span><div class="metric-value">${escapeHtml(hero || 'View')}</div></div>`,
+    `<div class="metric"><span class="metric-label">Title</span><div class="metric-value">${escapeHtml(heading || 'Text')}</div></div>`,
+    `<div class="metric"><span class="metric-label">Media</span><div class="metric-value">${escapeHtml(imageAlt)}</div></div>`,
+    '</div>',
+    '<div class="rendered-card">',
+    `<div class="rendered-kicker">Lexvora Consulting</div>`,
+    `<h1>${escapeHtml(heading || 'React Native preview')}</h1>`,
+    `<p>${escapeHtml(textContent || 'Rendered JSX content from the active file.')}</p>`,
+    '<div class="rendered-row">',
+    '<div class="rendered-chip">SafeAreaView</div>',
+    '<div class="rendered-chip">View</div>',
+    '<div class="rendered-chip">Text</div>',
+    '<div class="rendered-chip">ScrollView</div>',
+    '</div>',
+    '</div>'
+  ].join('');
+}
+
+function extractTagText(source: string, tag: string): string | undefined {
+  const regex = new RegExp(`<${tag}[^>]*>([\\s\\S]*?)<\\/${tag}>`, 'm');
+  const match = source.match(regex);
+  if (!match) {
+    return undefined;
+  }
+
+  return match[1]
+    .replace(/<[^>]+>/g, ' ')
+    .replace(/\{[^}]*\}/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+function escapeHtml(value: string): string {
+  return value
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
+}
+
+function renderHtml(model: PreviewModel): string {
   const logoUri = getBrandLogoUri();
 
   return `<!doctype html>
@@ -119,7 +255,7 @@ function renderHtml(source: string, fileName: string, cspSource: string, framewo
     <head>
       <meta charset="UTF-8" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src ${cspSource} 'unsafe-inline'; img-src ${cspSource} https: data:; script-src 'none';" />
+      <meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; img-src data: https:; script-src 'none';" />
       <style>
         :root {
           color-scheme: dark;
@@ -310,11 +446,45 @@ function renderHtml(source: string, fileName: string, cspSource: string, framewo
           display: inline-block;
           margin-bottom: 12px;
           font-size: 12px;
-          color: ${accentState === 'ready' ? 'var(--success)' : 'var(--warning)'};
+          color: ${model.status === 'ready' ? 'var(--success)' : model.status === 'error' ? '#fca5a5' : 'var(--warning)'};
         }
         .grid {
           display: grid;
           gap: 16px;
+        }
+        .rendered-card {
+          padding: 18px;
+          border-radius: 14px;
+          background: linear-gradient(180deg, rgba(15, 23, 42, 0.9), rgba(15, 23, 42, 0.72));
+          border: 1px solid rgba(148, 163, 184, 0.16);
+          box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.03);
+        }
+        .rendered-kicker {
+          font-size: 11px;
+          letter-spacing: 0.12em;
+          text-transform: uppercase;
+          color: #93c5fd;
+          margin-bottom: 10px;
+        }
+        .rendered-row {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 8px;
+          margin-top: 14px;
+        }
+        .rendered-chip {
+          padding: 6px 10px;
+          border-radius: 999px;
+          background: rgba(96, 165, 250, 0.12);
+          border: 1px solid rgba(96, 165, 250, 0.24);
+          color: #dbeafe;
+          font-size: 12px;
+        }
+        .preview-empty {
+          padding: 12px;
+          border-radius: 10px;
+          border: 1px dashed rgba(148, 163, 184, 0.25);
+          color: #d7e2f2;
         }
         .source-header {
           display: flex;
@@ -348,7 +518,7 @@ function renderHtml(source: string, fileName: string, cspSource: string, framewo
                 <img src="${logoUri}" alt="Lexvora Consulting logo" />
               </div>
               <div>
-                <div class="title" style="margin-bottom: 4px;">LXC React Previewer</div>
+              <div class="title" style="margin-bottom: 4px;">LXC React Previewer</div>
                 <h1>Source-side preview for React Native UI</h1>
                 <p>This shell keeps the current .tsx file visible, shows the source next to a preview panel, and stays ready for the renderer work that comes next.</p>
               </div>
@@ -361,19 +531,19 @@ function renderHtml(source: string, fileName: string, cspSource: string, framewo
           <div class="card grid">
             <div>
               <div class="title">Preview target</div>
-              <div class="meta">${fileStem}</div>
+              <div class="meta">${model.fileName}</div>
             </div>
             <div>
               <div class="title">Source facts</div>
-              <div class="meta">${lineCount} lines loaded</div>
+              <div class="meta">${model.lineCount} lines loaded</div>
             </div>
             <div>
               <div class="title">Render status</div>
-              <div class="meta">${previewSummary}</div>
+              <div class="meta">${model.summary}</div>
             </div>
             <div>
               <div class="title">Frameworks folder</div>
-              <div class="meta">${frameworksLabel}</div>
+              <div class="meta">${model.frameworksLabel}</div>
             </div>
           </div>
           <div class="card">
@@ -381,35 +551,36 @@ function renderHtml(source: string, fileName: string, cspSource: string, framewo
               <div class="title" style="margin: 0;">Source snapshot</div>
               <div class="pill">Live refresh on save</div>
             </div>
-            <pre>${escapedSource || 'No source content loaded.'}</pre>
+            <pre>${model.sourceHtml}</pre>
           </div>
           <div class="card" style="grid-column: 1 / -1;">
             <div class="title">Preview surface</div>
             <div class="preview">
-              <div class="badge">Preview host placeholder</div>
-              <div class="preview-state">${accentState === 'ready' ? 'Ready for renderer integration' : 'Waiting for renderer integration'}</div>
+              ${model.previewHtml}
               <div class="preview-grid">
                 <div class="metric">
                   <span class="metric-label">File</span>
-                  <div class="metric-value">${fileStem}</div>
+                  <div class="metric-value">${model.fileName}</div>
                 </div>
                 <div class="metric">
                   <span class="metric-label">Lines</span>
-                  <div class="metric-value">${lineCount}</div>
+                  <div class="metric-value">${model.lineCount}</div>
                 </div>
                 <div class="metric">
                   <span class="metric-label">Mode</span>
-                  <div class="metric-value">${accentState}</div>
+                  <div class="metric-value">${model.status}</div>
                 </div>
               </div>
               <h1>React Native preview host</h1>
               <p>The extension is now structured for a safer webview lifecycle and live refresh on save. The renderer itself still needs to be replaced with real component execution or a React Native-to-web translation layer.</p>
-              <p>${frameworkHint}</p>
-              <p><strong>Selected file:</strong> ${fileName}</p>
+              <p>${model.frameworkHint}</p>
+              <p><strong>Selected file:</strong> ${model.fileName}</p>
+              ${model.status === 'error' && model.errorMessage ? `<p style="color: #fca5a5;"><strong>Render issue:</strong> ${escapeHtml(model.errorMessage)}</p>` : ''}
               <ul>
                 <li>Tracks the active .tsx file</li>
                 <li>Refreshes when that file is saved</li>
                 <li>Shows source and preview side by side</li>
+                <li>Refreshes when you switch to a different '.tsx' file</li>
               </ul>
             </div>
           </div>

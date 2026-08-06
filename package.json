@@ -62,7 +62,7 @@
     "build": "tsc -p ./tsconfig.json",
     "watch": "tsc -w -p ./tsconfig.json",
     "lint": "eslint \"src/**/*.ts\"",
-    "test": "echo \"No tests yet\"",
+    "test": "node --test out/test/**/*.test.js",
     "package": "echo \"Package by zipping the extension contents into a .vsix\""
   },
   "devDependencies": {

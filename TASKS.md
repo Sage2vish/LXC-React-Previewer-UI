@@ -119,56 +119,56 @@ It tracks what has been completed, what is in progress, and what remains before 
 
 ### 3.2 Real Renderer
 
-- [ ] Replace the preview placeholder with a real React Native renderer
-  - [ ] Decide the renderer strategy
-  - [ ] Evaluate component parsing needs
-  - [ ] Determine how props and style should be handled
-  - [ ] Support the first useful subset of React Native UI patterns
-- [ ] Handle common React Native patterns
-  - [ ] Text
-  - [ ] View
-  - [ ] Image
-  - [ ] Scrollable layouts
-  - [ ] Basic style props
+- [x] Replace the preview placeholder with a practical React Native renderer
+  - [x] Decide the renderer strategy
+  - [x] Evaluate component parsing needs
+  - [x] Determine how props and style should be handled
+  - [x] Support the first useful subset of React Native UI patterns
+- [x] Handle common React Native patterns
+  - [x] Text
+  - [x] View
+  - [x] Image
+  - [x] Scrollable layouts
+  - [x] Basic style props
 
 ### 3.3 Update Behavior
 
-- [ ] Improve live refresh behavior
+- [x] Improve live refresh behavior
   - [x] Refresh on save
-  - [ ] Refresh when switching the active file
+  - [x] Refresh when switching the active file
   - [x] Keep the preview panel synchronized with the selected source
-- [ ] Add error handling
-  - [ ] Show useful messages for non-`.tsx` files
-  - [ ] Warn when a preview cannot be rendered
-  - [ ] Avoid blank or silent failures
+- [x] Add error handling
+  - [x] Show useful messages for non-`.tsx` files
+  - [x] Warn when a preview cannot be rendered
+  - [x] Avoid blank or silent failures
 
 ### 3.4 Self-Test And Smoke Check
 
-- [ ] Add at least one basic automated test
-  - [ ] Decide the test runner
-  - [ ] Add a smoke test for extension activation or preview rendering
-  - [ ] Verify the test can run locally
+- [x] Add at least one basic automated test
+  - [x] Decide the test runner
+  - [x] Add a smoke test for extension activation or preview rendering
+  - [x] Verify the test can run locally
 - [ ] Add a visible VS Code smoke check
   - [ ] Confirm the extension appears in the VS Code command palette
   - [ ] Confirm the preview opens in a VS Code window
   - [ ] Confirm the preview panel updates when a `.tsx` file is saved
   - [ ] Confirm the file context menu shows the preview command
   - [ ] Confirm the frameworks picker works and persists
-- [ ] Define the minimum required self-test for release
-  - [ ] Activation test
-  - [ ] Preview open test
-  - [ ] Save-refresh test
-  - [ ] Preview icon visible test
+- [x] Define the minimum required self-test for release
+  - [x] Activation test
+  - [x] Preview open test
+  - [x] Save-refresh test
+  - [x] Preview icon visible test
 
 ### 3.5 Preview Experience Status
 
 - [x] Preview shell exists and is wired to the active file
 - [x] Preview refreshes on save
 - [x] Preview state is tracked correctly
-- [ ] Real renderer still needs to be built
-- [ ] Switch-active-file refresh still needs to be added
-- [ ] Error handling still needs to be added
-- [ ] Automated and manual smoke checks still need to be added
+- [x] Real renderer has been added
+- [x] Switch-active-file refresh has been added
+- [x] Error handling has been added
+- [x] Automated smoke checks have been added
 
 ## 4. Marketplace Readiness
 
@@ -192,6 +192,8 @@ It tracks what has been completed, what is in progress, and what remains before 
   - [x] Add `assets/lexvora-consulting-logo.png`
   - [x] Add `assets/lexvora-consulting-logo-meta.png`
   - [x] Use the local branding image in the extension preview
+- [x] Add `assets/marketplace-style.css` as the shared brand token source
+- [x] Add `assets/marketplace-hero.svg` as the premium README hero
 - [ ] Add marketplace icon assets if needed
 - [ ] Polish extension display metadata
 

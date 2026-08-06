@@ -1,0 +1,41 @@
+:root {
+  --lxc-bg: #061421;
+  --lxc-bg-2: #0b2233;
+  --lxc-blue: #102d40;
+  --lxc-gold: #b88445;
+  --lxc-gold-light: #d2a15f;
+  --lxc-cream: #f7f3ed;
+  --lxc-paper: #fffdf9;
+  --lxc-text: #101820;
+  --lxc-muted: #5c6670;
+}
+
+/* GitHub README note:
+   This stylesheet is the brand source of truth for any future HTML landing page
+   or local preview page. GitHub README rendering cannot load external CSS, so
+   the README uses inline styles derived from these tokens. */
+
+.lxc-hero {
+  background: linear-gradient(135deg, var(--lxc-bg) 0%, var(--lxc-bg-2) 45%, var(--lxc-gold) 100%);
+  color: #fff;
+}
+
+.lxc-card {
+  background: linear-gradient(180deg, var(--lxc-paper) 0%, #ffffff 100%);
+  border: 1px solid rgba(184, 132, 69, 0.35);
+  border-radius: 16px;
+  box-shadow: 0 18px 32px rgba(2, 6, 23, 0.18);
+}
+
+.lxc-chip {
+  background: linear-gradient(135deg, var(--lxc-bg) 0%, var(--lxc-blue) 45%, var(--lxc-gold-light) 100%);
+  color: #fff;
+  border-radius: 999px;
+  padding: 10px 16px;
+}
+
+.lxc-section-title {
+  color: var(--lxc-text);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
