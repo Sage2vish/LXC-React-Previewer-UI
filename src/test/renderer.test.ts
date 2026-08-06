@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { buildPreviewModel } from '../extension';
+import { buildPreviewModel } from '../previewModel';
 
 test('buildPreviewModel summarizes a TSX preview source', () => {
   const source = `
@@ -27,4 +27,3 @@ test('buildPreviewModel summarizes a TSX preview source', () => {
   assert.ok(model.previewHtml.includes('Hello Lexvora'));
   assert.ok(model.frameworksLabel.includes('frameworks'));
 });
-

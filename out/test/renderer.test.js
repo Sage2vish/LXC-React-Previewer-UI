@@ -5,7 +5,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const node_test_1 = __importDefault(require("node:test"));
 const strict_1 = __importDefault(require("node:assert/strict"));
-const extension_1 = require("../extension");
+const previewModel_1 = require("../previewModel");
 (0, node_test_1.default)('buildPreviewModel summarizes a TSX preview source', () => {
     const source = `
     import React from 'react';
@@ -21,7 +21,7 @@ const extension_1 = require("../extension");
       );
     }
   `;
-    const model = (0, extension_1.buildPreviewModel)(source, 'SamplePreview.tsx', '/Users/SageVish/Documents/Development Work/frameworks');
+    const model = (0, previewModel_1.buildPreviewModel)(source, 'SamplePreview.tsx', '/Users/SageVish/Documents/Development Work/frameworks');
     strict_1.default.equal(model.fileName, 'SamplePreview.tsx');
     strict_1.default.equal(model.status, 'ready');
     strict_1.default.ok(model.summary.includes('Default export'));

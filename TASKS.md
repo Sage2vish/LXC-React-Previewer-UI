@@ -194,6 +194,7 @@ It tracks what has been completed, what is in progress, and what remains before 
   - [x] Use the local branding image in the extension preview
 - [x] Add `assets/marketplace-style.css` as the shared brand token source
 - [x] Add `assets/marketplace-hero.svg` as the premium README hero
+- [x] Add `assets/lexvora-consulting-mark.svg` as the primary brand mark
 - [ ] Add marketplace icon assets if needed
 - [ ] Polish extension display metadata
 
