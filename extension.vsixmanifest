@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PackageManifest xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" Version="2.0.0">
   <Metadata>
-    <Identity Id="LXC-React-Previewer-UI" Version="0.1.0" Language="en-US" Publisher="Sage2vish" />
+    <Identity Id="LXC-React-Previewer-UI" Version="0.1.2" Language="en-US" Publisher="Sage2vish" />
     <DisplayName>LXC React Previewer UI</DisplayName>
     <Description xml:space="preserve">Preview a React Native .tsx screen beside its source in VS Code.</Description>
   </Metadata>

@@ -2,7 +2,7 @@
   "name": "lxc-react-previewer-ui",
   "displayName": "LXC React Previewer UI",
   "description": "Preview a React Native .tsx screen beside its source in VS Code.",
-  "version": "0.1.0",
+  "version": "0.1.2",
   "publisher": "Sage2vish",
   "engines": {
     "vscode": "^1.85.0"
