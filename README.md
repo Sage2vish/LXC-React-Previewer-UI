@@ -9,6 +9,12 @@
 </p>
 
 <p align="center">
+  <img src="https://img.shields.io/badge/VS%20Code-Extension-007ACC?style=for-the-badge&logo=visualstudiocode&logoColor=white" alt="VS Code Extension" />
+  <img src="https://img.shields.io/badge/React%20Native-Preview-38BDF8?style=for-the-badge&logo=react&logoColor=white" alt="React Native Preview" />
+  <img src="https://img.shields.io/badge/Open%20Source-Lexvora%20Consulting-111827?style=for-the-badge" alt="Open Source Lexvora Consulting" />
+</p>
+
+<p align="center">
   <a href="#what-it-is">What It Is</a> ·
   <a href="#visual-style">Visual Style</a> ·
   <a href="#preview-workflow">Preview Workflow</a> ·
@@ -37,6 +43,27 @@
 
 </div>
 
+<div align="center">
+
+<table>
+  <tr>
+    <td align="center">
+      <strong>Fast</strong><br/>Preview in the editor flow
+    </td>
+    <td align="center">
+      <strong>Focused</strong><br/>Built for `.tsx` UI work
+    </td>
+    <td align="center">
+      <strong>Flexible</strong><br/>Sample tree and frameworks picker
+    </td>
+    <td align="center">
+      <strong>Brand-led</strong><br/>Lexvora Consulting identity
+    </td>
+  </tr>
+</table>
+
+</div>
+
 ---
 
 ## What It Is
@@ -45,9 +72,61 @@ LXC React Previewer UI is an open-source VS Code extension that previews a React
 
 It is designed for fast UI iteration, a cleaner local workflow, and a more visually focused development loop.
 
+<table>
+  <tr>
+    <td width="33%">
+
+### Built For
+
+- React Native UI previews
+- Source-side iteration
+- VS Code workflow speed
+- Local development clarity
+
+    </td>
+    <td width="33%">
+
+### Intended Feel
+
+- High signal
+- Low friction
+- Clean visual separation
+- Deliberate presentation
+
+    </td>
+    <td width="33%">
+
+### Brand Promise
+
+- Open source
+- Maintained under Lexvora Consulting
+- Contributor-friendly
+- Easy to resume and extend
+
+    </td>
+  </tr>
+</table>
+
 ## Visual Style
 
 The project aims for a polished, dramatic GitHub presence and a preview shell that feels intentional rather than placeholder-driven.
+
+<div align="center">
+
+<table>
+  <tr>
+    <td>
+      <strong>Visual Language</strong><br/>
+      Dark depth, bright accents, wide spacing, and strong contrast.
+    </td>
+    <td>
+      <strong>Experience Goal</strong><br/>
+      Make the repo feel like a premium product page, not a bare scaffold.
+    </td>
+  </tr>
+</table>
+
+</div>
 
 <table>
   <tr>
@@ -86,6 +165,24 @@ The project aims for a polished, dramatic GitHub presence and a preview shell th
     <td align="center"><strong>2</strong><br/>Run the preview command</td>
     <td align="center"><strong>3</strong><br/>Inspect source and preview side by side</td>
     <td align="center"><strong>4</strong><br/>Save the file and watch it refresh</td>
+  </tr>
+</table>
+
+</div>
+
+<div align="center">
+
+<table>
+  <tr>
+    <td align="center">
+      <strong>Open</strong><br/>Choose the target `.tsx`
+    </td>
+    <td align="center">
+      <strong>Preview</strong><br/>Side panel appears beside source
+    </td>
+    <td align="center">
+      <strong>Refresh</strong><br/>Save the file and update live
+    </td>
   </tr>
 </table>
 
@@ -130,6 +227,30 @@ The project aims for a polished, dramatic GitHub presence and a preview shell th
 ## Sample Test Case
 
 Use the `sample/` tree to validate the preview experience.
+
+<table>
+  <tr>
+    <td width="50%">
+
+### Why It Exists
+
+- Gives you a visible test workspace
+- Lets you try nested file paths
+- Makes manual preview checks repeatable
+
+    </td>
+    <td width="50%">
+
+### What It Proves
+
+- The command works
+- The preview panel opens
+- The saved file refreshes
+- Nested React source stays usable
+
+    </td>
+  </tr>
+</table>
 
 <div align="center">
 
@@ -198,9 +319,29 @@ The extension remembers the folder you choose with `LXC React Previewer: Select 
   </tr>
 </table>
 
+<div align="center">
+
+<table>
+  <tr>
+    <td align="center">
+      <strong>Repository Mood</strong><br/>Premium, focused, and extendable
+    </td>
+    <td align="center">
+      <strong>Current Priority</strong><br/>Renderer, tests, and marketplace prep
+    </td>
+    <td align="center">
+      <strong>Current State</strong><br/>Ready to iterate
+    </td>
+  </tr>
+</table>
+
+</div>
+
 ## Open Source
 
 This project is open source and welcomes contributors.
+
+> The goal is to make the preview workflow feel fast, beautiful, and practical.
 
 - Improvements should stay focused on the previewer
 - Issues, pull requests, and documentation help are welcome
@@ -246,4 +387,3 @@ Brand asset:
 Read [`TASKS.md`](TASKS.md) before starting work.
 Read [`CONTEXT.md`](CONTEXT.md) for project direction and contribution rules.
 Use small commits and keep changes aligned with the previewer goal.
-
