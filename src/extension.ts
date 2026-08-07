@@ -63,7 +63,7 @@ export function activate(context: vscode.ExtensionContext) {
   const openPreview = vscode.commands.registerCommand('lxcReactPreviewer.openPreview', async () => {
     const editor = vscode.window.activeTextEditor;
     if (!editor) {
-      vscode.window.showWarningMessage('Open a .tsx file first.');
+      vscode.window.showWarningMessage('Please select a .tsx file first.');
       return;
     }
 

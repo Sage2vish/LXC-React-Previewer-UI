@@ -23,6 +23,7 @@ The format follows a simple keep-a-changelog style so future releases stay easy 
 - Preview shell styling updated to use the Lexvora consulting palette
 - Feature presentation upgraded to emphasize workflow, branding, and sample validation
 - Release package rebuilt at version `0.1.4` to carry the settings and device updates
+- Preview command presentation updated to use the asset-backed `Preview` label instead of the `Open` codicon
 
 ### Fixed
 
@@ -34,7 +35,7 @@ The format follows a simple keep-a-changelog style so future releases stay easy 
 ### Added
 
 - Extension scaffold
-- Open preview and refresh preview commands
+- Preview and refresh preview commands
 - First packaged `.vsix`
 - GitHub repository and remote setup
 

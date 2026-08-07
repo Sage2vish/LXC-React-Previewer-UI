@@ -14,7 +14,7 @@ Use it as the separate checklist for packaging, publishing, and Marketplace read
 ## 1. Build And Package
 
 - [x] Keep the extension versioned
-  - [x] Use `0.1.3` for the current release line
+  - [x] Use `0.1.4` for the current release line
   - [x] Rebuild the VSIX package after branding updates
 - [x] Produce a valid VSIX package
   - [x] Package the extension with `vsce`
@@ -34,6 +34,9 @@ Use it as the separate checklist for packaging, publishing, and Marketplace read
   - [x] Use the Lexvora Consulting name and identity
   - [x] Keep the branding aligned with the extension preview
   - [x] Use matching gold and blue presentation tokens
+- [x] Keep the preview command icon-backed
+  - [x] Remove the `$(eye)` editor title override
+  - [x] Use the asset icon for the preview command
 
 ## 3. Repository Sync
 
@@ -42,7 +45,7 @@ Use it as the separate checklist for packaging, publishing, and Marketplace read
   - [x] Push the current `main` branch to GitHub
 - [x] Keep the GitHub repo synchronized
   - [x] Confirm the remote repository is current
-  - [x] Keep the release line on `0.1.3`
+  - [x] Keep the release line on `0.1.4`
 
 ## 4. Marketplace Publish
 
@@ -81,7 +84,7 @@ Use it as the separate checklist for packaging, publishing, and Marketplace read
 
 When auth is available, run:
 
-`vsce publish --packagePath "lxc-react-previewer-ui-0.1.3.vsix" --no-dependencies --azure-credential`
+`vsce publish --packagePath "lxc-react-previewer-ui-0.1.4.vsix" --no-dependencies --azure-credential`
 
 ## 8. Notes
 

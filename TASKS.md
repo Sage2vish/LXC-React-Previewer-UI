@@ -116,6 +116,10 @@ It tracks what has been completed, what is in progress, and what remains before 
 - [x] Add a visible preview icon in the top-left of the shell
   - [x] Use branded Lexvora Consulting styling
   - [x] Keep the icon visible in the preview panel
+- [x] Replace the `Open`-style preview action with the asset-backed `Preview` command
+  - [x] Remove the `$(eye)` editor title override
+  - [x] Keep the command label as `Preview`
+  - [x] Keep the release line on `0.1.4`
 
 ### 3.2 Real Renderer
 
@@ -237,7 +241,18 @@ It tracks what has been completed, what is in progress, and what remains before 
 - [x] Prepare publish instructions
 - [x] Validate extension packaging
 
-### 4.4 Marketplace Publishing
+### 4.4 Feature And Release Tracking
+
+- [x] Create a release feature map
+  - [x] Document the release line from `0.1.1` through `0.1.4`
+  - [x] Note that no distinct `0.1.1` tag exists in the current git history
+  - [x] Capture the icon-led preview command feature
+- [x] Keep feature docs aligned with the release notes
+  - [x] Add [`FEATURES.md`](FEATURES.md)
+  - [x] Keep `TASKS.md` as the implementation checklist
+  - [x] Keep the current release work anchored to `0.1.4`
+
+### 4.5 Marketplace Publishing
 
 - [x] Prepare the Marketplace release package
   - [x] Confirm extension name and display name

@@ -37,8 +37,12 @@
     "commands": [
       {
         "command": "lxcReactPreviewer.openPreview",
-        "title": "Open with LXC React UI Previewer",
-        "shortTitle": "Open"
+        "title": "Preview",
+        "shortTitle": "Preview",
+        "icon": {
+          "light": "assets/icons-all-size/icon-16.png",
+          "dark": "assets/icons-all-size/icon-16.png"
+        }
       },
       {
         "command": "lxcReactPreviewer.refreshPreview",
@@ -63,7 +67,10 @@
       "editor/title": [
         {
           "command": "lxcReactPreviewer.openPreview",
-          "icon": "$(eye)",
+          "icon": {
+            "light": "assets/icons-all-size/icon-16.png",
+            "dark": "assets/icons-all-size/icon-16.png"
+          },
           "when": "resourceExtname == .tsx",
           "group": "navigation@1"
         },

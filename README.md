@@ -109,7 +109,7 @@ It is designed for fast UI iteration, a cleaner local workflow, and a more visua
 
 ### Source-Side Preview
 
-Open a `.tsx` file and keep the preview directly beside the source so the design flow stays tight, visual, and easy to follow.
+Select a `.tsx` file and keep the preview directly beside the source so the design flow stays tight, visual, and easy to follow.
 
     </td>
     <td width="50%" style="background: linear-gradient(180deg, #0b2233 0%, #061421 100%); color: #ffffff; border: 0; border-radius: 16px; padding: 18px;">
@@ -214,7 +214,7 @@ The project aims for a polished, dramatic GitHub presence and a preview shell th
 
 ### Product Shape
 
-- Open a `.tsx` file
+- Select a `.tsx` file
 - Show the preview beside the source
 - Refresh on save
 - Keep the current file context in memory
@@ -228,7 +228,7 @@ The project aims for a polished, dramatic GitHub presence and a preview shell th
 
 <table>
   <tr>
-    <td align="center" style="background: linear-gradient(180deg, #fbf8f3 0%, #ffffff 100%); border: 1px solid #d2a15f; border-radius: 14px; padding: 14px;"><strong>1</strong><br/>Open a `.tsx` file</td>
+    <td align="center" style="background: linear-gradient(180deg, #fbf8f3 0%, #ffffff 100%); border: 1px solid #d2a15f; border-radius: 14px; padding: 14px;"><strong>1</strong><br/>Select a `.tsx` file</td>
     <td align="center" style="background: linear-gradient(180deg, #fffdf9 0%, #ffffff 100%); border: 1px solid #b88445; border-radius: 14px; padding: 14px;"><strong>2</strong><br/>Run the preview command</td>
     <td align="center" style="background: linear-gradient(180deg, #fffaf1 0%, #ffffff 100%); border: 1px solid #c8ba94; border-radius: 14px; padding: 14px;"><strong>3</strong><br/>Inspect source and preview side by side</td>
     <td align="center" style="background: linear-gradient(180deg, #fdfbf7 0%, #ffffff 100%); border: 1px solid #e6ad47; border-radius: 14px; padding: 14px;"><strong>4</strong><br/>Save the file and watch it refresh</td>
@@ -238,7 +238,7 @@ The project aims for a polished, dramatic GitHub presence and a preview shell th
 <table>
   <tr>
     <td align="center" style="background: linear-gradient(135deg, #061421 0%, #102d40 45%, #b88445 100%); color: #ffffff; border: 0; border-radius: 16px; padding: 12px 16px;">
-      <strong>Open</strong><br/>Choose the target `.tsx`
+      <strong>Select</strong><br/>Choose the target `.tsx`
     </td>
     <td align="center" style="background: linear-gradient(135deg, #061421 0%, #0b2233 45%, #d2a15f 100%); color: #ffffff; border: 0; border-radius: 16px; padding: 12px 16px;">
       <strong>Preview</strong><br/>Side panel appears beside source
@@ -251,7 +251,7 @@ The project aims for a polished, dramatic GitHub presence and a preview shell th
 
 ### Commands
 
-- `Open with LXC React UI Previewer`
+- `Preview`
 - `LXC React Previewer: Refresh Preview`
 - `LXC React Previewer: Select Frameworks Folder`
 
@@ -262,19 +262,19 @@ The project aims for a polished, dramatic GitHub presence and a preview shell th
 1. Clone this repository.
 2. Run the extension build steps for your local environment.
 3. Open the folder in VS Code and start the extension host.
-4. Open any `.tsx` file and launch `Open with LXC React UI Previewer`.
+4. Open any `.tsx` file and launch `Preview`.
 
 ### From Marketplace
 
 1. Open the Visual Studio Code Marketplace entry.
 2. Install the extension in VS Code.
-3. Open a `.tsx` file and choose `Open with LXC React UI Previewer`.
+3. Open a `.tsx` file and choose `Preview`.
 4. Use `LXC React Previewer: Refresh Preview` whenever you want to re-sync the view.
 
 ## Usage
 
 1. Open a React Native `.tsx` screen.
-2. Run `Open with LXC React UI Previewer`.
+2. Run `Preview`.
 3. Keep the preview side by side with the source.
 4. Save the file to refresh the preview.
 5. Use `LXC React Previewer: Select Frameworks Folder` if your shared runtime packages live elsewhere.
@@ -351,7 +351,7 @@ Use the `sample/` tree to validate the preview experience.
 
 1. Open the repository in VS Code.
 2. Open a `.tsx` file under `sample/`.
-3. Run `Open with LXC React UI Previewer`.
+3. Run `Preview`.
 4. Confirm the preview opens beside the editor.
 5. Save the file and confirm the preview refreshes.
 6. Repeat with a nested file such as `sample/screens/Home/HomeScreen.tsx`.
@@ -449,6 +449,10 @@ This project is open source and welcomes contributors.
 - Open pull requests for fixes, polish, and documentation improvements.
 - Keep repo notes in [`CONTEXT.md`](CONTEXT.md) and work items in [`TASKS.md`](TASKS.md).
 - If you use a shared frameworks folder, set it through `LXC React Previewer: Select Frameworks Folder`.
+
+## Local Rebuild Script
+
+Run [`rebuild-preview.sh`](rebuild-preview.sh) to rebuild the extension, verify the `0.1.4` metadata, and package a VSIX if `vsce` is installed.
 
 ## Changelog
 
