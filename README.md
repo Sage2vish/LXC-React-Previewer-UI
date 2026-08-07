@@ -242,9 +242,33 @@ The project aims for a polished, dramatic GitHub presence and a preview shell th
 
 ### Commands
 
-- `LXC React Previewer: Open Preview`
+- `Open with LXC React UI Previewer`
 - `LXC React Previewer: Refresh Preview`
 - `LXC React Previewer: Select Frameworks Folder`
+
+## Installation
+
+### From source
+
+1. Clone this repository.
+2. Run the extension build steps for your local environment.
+3. Open the folder in VS Code and start the extension host.
+4. Open any `.tsx` file and launch `Open with LXC React UI Previewer`.
+
+### From Marketplace
+
+1. Open the Visual Studio Code Marketplace entry.
+2. Install the extension in VS Code.
+3. Open a `.tsx` file and choose `Open with LXC React UI Previewer`.
+4. Use `LXC React Previewer: Refresh Preview` whenever you want to re-sync the view.
+
+## Usage
+
+1. Open a React Native `.tsx` screen.
+2. Run `Open with LXC React UI Previewer`.
+3. Keep the preview side by side with the source.
+4. Save the file to refresh the preview.
+5. Use `LXC React Previewer: Select Frameworks Folder` if your shared runtime packages live elsewhere.
 
 ### Current Behavior
 
@@ -318,7 +342,7 @@ Use the `sample/` tree to validate the preview experience.
 
 1. Open the repository in VS Code.
 2. Open a `.tsx` file under `sample/`.
-3. Run `LXC React Previewer: Open Preview`.
+3. Run `Open with LXC React UI Previewer`.
 4. Confirm the preview opens beside the editor.
 5. Save the file and confirm the preview refreshes.
 6. Repeat with a nested file such as `sample/screens/Home/HomeScreen.tsx`.
@@ -394,6 +418,28 @@ This project is open source and welcomes contributors.
 - Track major decisions in [`CONTEXT.md`](CONTEXT.md)
 - Track work items and subtasks in [`TASKS.md`](TASKS.md)
 - License: [`MIT`](LICENSE)
+
+## Limitations
+
+- The preview shell is focused on source-side workflow and not a full device emulator.
+- The renderer is still evolving toward richer React Native execution coverage.
+- Nested or unsupported UI patterns may need follow-up rendering work.
+- Marketplace visuals are intentionally text-first in this repo so the README stays stable without fragile image dependencies.
+
+## Roadmap
+
+- Finish the full mobile-style preview shell polish.
+- Expand React Native rendering coverage for more component patterns.
+- Improve toolbar controls and state feedback in the preview host.
+- Add more automated smoke and packaging checks before each release.
+- Publish the extension and keep the Marketplace listing current.
+
+## Support
+
+- File issues in the GitHub repository.
+- Open pull requests for fixes, polish, and documentation improvements.
+- Keep repo notes in [`CONTEXT.md`](CONTEXT.md) and work items in [`TASKS.md`](TASKS.md).
+- If you use a shared frameworks folder, set it through `LXC React Previewer: Select Frameworks Folder`.
 
 ## Changelog
 

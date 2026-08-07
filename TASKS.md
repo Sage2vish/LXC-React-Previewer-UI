@@ -154,12 +154,12 @@ It tracks what has been completed, what is in progress, and what remains before 
   - [ ] Confirm the preview panel updates when a `.tsx` file is saved
   - [ ] Confirm the file context menu shows the preview command
   - [ ] Confirm the frameworks picker works and persists
-- [ ] Match the preview shell to the reference UI layout
-  - [ ] Add the top preview toolbar controls
-  - [ ] Render the phone-style device frame
-  - [ ] Match the left-to-right editor and preview balance
-  - [ ] Keep the preview badge and live status visible
-  - [ ] Remove extra diagnostic cards and keep only the mobile preview surface
+- [x] Match the preview shell to the reference UI layout
+  - [x] Add the top preview toolbar controls
+  - [x] Render the phone-style device frame
+  - [x] Match the left-to-right editor and preview balance
+  - [x] Keep the preview badge and live status visible
+  - [x] Remove extra diagnostic cards and keep only the mobile preview surface
 - [x] Add the editor title-bar quick preview action
   - [x] Expose the preview command in the `.tsx` editor header
   - [x] Expose the refresh command in the `.tsx` editor header
@@ -179,8 +179,8 @@ It tracks what has been completed, what is in progress, and what remains before 
 - [x] Error handling has been added
 - [x] Automated smoke checks have been added
 - [ ] Manual VS Code smoke checks still need to be confirmed in the editor
-- [ ] Reference UI alignment still needs a final visual pass
-- [ ] Mobile preview surface still needs to be simplified to the target screenshot
+- [x] Reference UI alignment has been completed to the current code target
+- [x] Mobile preview surface has been simplified toward the target screenshot
 
 ## 4. Marketplace Readiness
 
@@ -188,13 +188,13 @@ It tracks what has been completed, what is in progress, and what remains before 
 
 - [x] Add a polished README foundation
 - [x] Upgrade the README into a highly visual GitHub landing page
-- [ ] Finalize the marketplace-facing README
-  - [ ] Add screenshots
-  - [ ] Add installation steps
-  - [ ] Add usage steps
-  - [ ] Add limitations
-  - [ ] Add roadmap
-  - [ ] Add support notes
+- [x] Finalize the marketplace-facing README
+  - [x] Add screenshots
+  - [x] Add installation steps
+  - [x] Add usage steps
+  - [x] Add limitations
+  - [x] Add roadmap
+  - [x] Add support notes
 
 ### 4.2 Branding Assets
 
@@ -255,7 +255,7 @@ It tracks what has been completed, what is in progress, and what remains before 
 
 - [x] README foundation exists
 - [x] License and brand asset exist
-- [ ] Marketplace-facing README still needs completion
+- [x] Marketplace-facing README is complete
 - [x] Publisher metadata is in place
 - [ ] Packaging validation still needs completion
 - [ ] Marketplace publishing still needs completion

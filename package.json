@@ -36,7 +36,7 @@
     "commands": [
       {
         "command": "lxcReactPreviewer.openPreview",
-        "title": "LXC React Previewer: Open Preview"
+        "title": "Open with LXC React UI Previewer"
       },
       {
         "command": "lxcReactPreviewer.refreshPreview",
