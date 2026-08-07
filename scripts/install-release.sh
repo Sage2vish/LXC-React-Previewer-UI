@@ -5,6 +5,9 @@ ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 VERSION=""
 EXTENSION_ID="sage2vish-career.lxc-react-previewer-ui"
 CODE_BIN=""
+USER_DATA_DIR="/private/tmp/lxc-react-previewer-ui-code-user-data"
+EXTENSIONS_DIR="/private/tmp/lxc-react-previewer-ui-code-extensions"
+CODE_HOME="/private/tmp/lxc-react-previewer-ui-code-home"
 
 usage() {
   cat <<'EOF'
@@ -60,14 +63,19 @@ fi
 printf 'Extension ID: %s\n' "$EXTENSION_ID"
 printf 'VSIX path: %s\n' "$VSIX_PATH"
 printf 'Code binary: %s\n' "$CODE_BIN"
+printf 'User data dir: %s\n' "$USER_DATA_DIR"
+printf 'Extensions dir: %s\n' "$EXTENSIONS_DIR"
+printf 'Temp HOME: %s\n' "$CODE_HOME"
 
-if "$CODE_BIN" --list-extensions | grep -Fxq "$EXTENSION_ID"; then
+mkdir -p "$USER_DATA_DIR" "$EXTENSIONS_DIR" "$CODE_HOME"
+
+if HOME="$CODE_HOME" "$CODE_BIN" --user-data-dir "$USER_DATA_DIR" --extensions-dir "$EXTENSIONS_DIR" --list-extensions | grep -Fxq "$EXTENSION_ID"; then
   printf '[OK] Existing extension found, uninstalling first...\n'
-  "$CODE_BIN" --uninstall-extension "$EXTENSION_ID"
+  HOME="$CODE_HOME" "$CODE_BIN" --user-data-dir "$USER_DATA_DIR" --extensions-dir "$EXTENSIONS_DIR" --uninstall-extension "$EXTENSION_ID"
 else
   printf '[OK] Extension not currently installed\n'
 fi
 
 printf '[OK] Installing %s\n' "$VSIX_PATH"
-"$CODE_BIN" --install-extension "$VSIX_PATH" --force
+HOME="$CODE_HOME" "$CODE_BIN" --user-data-dir "$USER_DATA_DIR" --extensions-dir "$EXTENSIONS_DIR" --install-extension "$VSIX_PATH" --force
 printf '[OK] Installation complete\n'
