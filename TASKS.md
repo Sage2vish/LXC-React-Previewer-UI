@@ -163,6 +163,10 @@ It tracks what has been completed, what is in progress, and what remains before 
 - [x] Add the editor title-bar quick preview action
   - [x] Expose the preview command in the `.tsx` editor header
   - [x] Expose the refresh command in the `.tsx` editor header
+- [x] Place the explorer context action in the top navigation group
+  - [x] Keep the preview command near the built-in open actions
+  - [x] Preserve the `.tsx` file filter for the command
+  - [x] Keep the release version at `0.1.3`
 - [x] Define the minimum required self-test for release
   - [x] Activation test
   - [x] Preview open test
@@ -209,7 +213,7 @@ It tracks what has been completed, what is in progress, and what remains before 
 - [x] Add marketplace icon assets
   - [x] Create a Lexvora Consulting marketplace logo asset
   - [x] Point the extension icon at the marketplace logo
-- [ ] Polish extension display metadata
+- [x] Polish extension display metadata
 
 ### 4.3 Publishing Metadata
 
@@ -219,33 +223,33 @@ It tracks what has been completed, what is in progress, and what remains before 
   - [x] Confirm versioning approach
   - [x] Confirm category and keywords
 - [x] Prepare publish instructions
-- [ ] Validate extension packaging
+- [x] Validate extension packaging
 
 ### 4.4 Marketplace Publishing
 
-- [ ] Prepare the Marketplace release package
-  - [ ] Confirm extension name and display name
-  - [ ] Confirm publisher account
-  - [ ] Confirm repository URL
-  - [ ] Confirm license and ownership
-  - [ ] Confirm version number for release
-- [ ] Prepare Marketplace listing content
-  - [ ] Write a concise product summary
-  - [ ] Write a long-form description
-  - [ ] Add feature highlights
-  - [ ] Add usage notes
-  - [ ] Add limitations and known issues
-  - [ ] Add support and contribution notes
-- [ ] Prepare Marketplace visuals
-  - [ ] Add extension icon
-  - [ ] Add screenshots
-  - [ ] Add preview imagery or a short demo
-- [ ] Validate Marketplace requirements
-  - [ ] Confirm `package.json` metadata
-  - [ ] Confirm `README.md` content
-  - [ ] Confirm `LICENSE`
-  - [ ] Confirm `.vsix` package contents
-  - [ ] Confirm extension activation and commands
+- [x] Prepare the Marketplace release package
+  - [x] Confirm extension name and display name
+  - [x] Confirm publisher account
+  - [x] Confirm repository URL
+  - [x] Confirm license and ownership
+  - [x] Confirm version number for release
+- [x] Prepare Marketplace listing content
+  - [x] Write a concise product summary
+  - [x] Write a long-form description
+  - [x] Add feature highlights
+  - [x] Add usage notes
+  - [x] Add limitations and known issues
+  - [x] Add support and contribution notes
+- [x] Prepare Marketplace visuals
+  - [x] Add extension icon
+  - [x] Add screenshots
+  - [x] Add preview imagery or a short demo
+- [x] Validate Marketplace requirements
+  - [x] Confirm `package.json` metadata
+  - [x] Confirm `README.md` content
+  - [x] Confirm `LICENSE`
+  - [x] Confirm `.vsix` package contents
+  - [x] Confirm extension activation and commands
 - [ ] Publish to the VS Code Marketplace
   - [ ] Create or verify publisher identity
   - [ ] Publish the first version
@@ -258,6 +262,10 @@ It tracks what has been completed, what is in progress, and what remains before 
 - [x] README foundation exists
 - [x] License and brand asset exist
 - [x] Marketplace-facing README is complete
+- [x] Packaging validation is complete
+- [x] Marketplace listing content is prepared
+- [x] Marketplace visuals are prepared
+- [~] Marketplace publish still blocked by publisher auth
 - [x] Publisher metadata is in place
 - [ ] Packaging validation still needs completion
 - [ ] Marketplace publishing still needs completion

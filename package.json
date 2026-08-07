@@ -4,7 +4,7 @@
   "description": "Preview a React Native .tsx screen beside its source in VS Code.",
   "version": "0.1.3",
   "publisher": "Sage2vish",
-  "icon": "assets/lexvora-consulting-marketplace-logo.png",
+  "icon": "assets/icons-all-size/icon-128.png",
   "repository": {
     "type": "git",
     "url": "https://github.com/Sage2vish/LXC-React-Previewer-UI.git"
@@ -51,11 +51,13 @@
       "editor/title": [
         {
           "command": "lxcReactPreviewer.openPreview",
+          "icon": "$(eye)",
           "when": "resourceExtname == .tsx",
           "group": "navigation@1"
         },
         {
           "command": "lxcReactPreviewer.refreshPreview",
+          "icon": "$(refresh)",
           "when": "resourceExtname == .tsx",
           "group": "navigation@2"
         }
@@ -74,7 +76,18 @@
       "explorer/context": [
         {
           "command": "lxcReactPreviewer.openPreview",
-          "when": "resourceExtname == .tsx"
+          "when": "resourceExtname == .tsx",
+          "group": "navigation@1"
+        },
+        {
+          "command": "lxcReactPreviewer.refreshPreview",
+          "when": "resourceExtname == .tsx",
+          "group": "navigation@2"
+        },
+        {
+          "command": "lxcReactPreviewer.selectFrameworksFolder",
+          "when": "resourceExtname == .tsx",
+          "group": "navigation@3"
         }
       ]
     }

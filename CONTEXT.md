@@ -14,7 +14,7 @@ Build an open-source VS Code extension that previews a React Native `.tsx` scree
 
 ## Current Direction
 
-The project is in a scaffolded stage and is being prepared for a cleaner installable and eventually marketplace-ready extension workflow.
+The project is in a packaged installable stage and is being prepared for a cleaner Marketplace-ready extension workflow.
 
 ## Decisions Already Made
 
@@ -24,11 +24,14 @@ The project is in a scaffolded stage and is being prepared for a cleaner install
 - Keep the project open source
 - Allow outside contributions
 - Keep the implementation focused on React Native UI previewing
+- Keep the explorer context action in the top navigation group for `.tsx` files
 
 ## Files That Track Progress
 
 - `README.md`
 - `TASKS.md`
+- `VSCODE_PUBLISH.md`
+- `changelog.md`
 
 ## Branding And Legal
 
@@ -49,6 +52,7 @@ The project is in a scaffolded stage and is being prepared for a cleaner install
 - The extension should stay easy to install locally
 - The code should remain easy to package and distribute
 - The project should remain friendly to contributor input
+- Release packages should stay on the same semantic version until a deliberate version bump is approved
 
 ## Future Maintenance Notes
 
@@ -56,3 +60,4 @@ The project is in a scaffolded stage and is being prepared for a cleaner install
 - If the project scope changes, update the README and `TASKS.md`
 - If the publishing plan changes, record it here before implementation
 - If the logo or license changes, update this file and the README together
+- If a new explorer or editor action is added, keep the task tracker and changelog in sync
