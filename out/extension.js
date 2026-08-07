@@ -135,78 +135,9 @@ function renderHtml(model, extensionUri, webview) {
     </head>
     <body>
       <div class="frame">
-        <div class="shell">
-          <div class="card hero">
-            <div class="hero-brand">
-              <div class="brand-mark">
-                <img src="${logoUri}" alt="Lexvora Consulting logo" />
-              </div>
-              <div class="hero-copy">
-                <div class="title hero-kicker">LXC React Previewer</div>
-                <h1>Source-side preview for React Native UI</h1>
-                <p>This shell keeps the current .tsx file visible, shows the source next to a preview panel, and stays ready for the renderer work that comes next.</p>
-              </div>
-            </div>
-            <div class="hero-meta">
-              <div class="status-chip"><span class="status-dot"></span>Live preview shell</div>
-              <div class="meta hero-note">Polished layout and active-file tracking</div>
-            </div>
-          </div>
-          <div class="card grid meta-grid">
-            <div>
-              <div class="title">Preview target</div>
-              <div class="meta">${model.fileName}</div>
-            </div>
-            <div>
-              <div class="title">Source facts</div>
-              <div class="meta">${model.lineCount} lines loaded</div>
-            </div>
-            <div>
-              <div class="title">Render status</div>
-              <div class="meta">${model.summary}</div>
-            </div>
-            <div>
-              <div class="title">Frameworks folder</div>
-              <div class="meta">${model.frameworksLabel}</div>
-            </div>
-          </div>
-          <div class="card">
-            <div class="source-header">
-              <div class="title source-title">Source snapshot</div>
-              <div class="pill">Live refresh on save</div>
-            </div>
-            <pre>${model.sourceHtml}</pre>
-          </div>
-          <div class="card preview-card">
-            <div class="title">Preview surface</div>
-            <div class="preview">
-              ${model.previewHtml}
-              <div class="preview-grid">
-                <div class="metric">
-                  <span class="metric-label">File</span>
-                  <div class="metric-value">${model.fileName}</div>
-                </div>
-                <div class="metric">
-                  <span class="metric-label">Lines</span>
-                  <div class="metric-value">${model.lineCount}</div>
-                </div>
-                <div class="metric">
-                  <span class="metric-label">Mode</span>
-                  <div class="metric-value">${model.status}</div>
-                </div>
-              </div>
-              <h1>React Native preview host</h1>
-              <p>The extension is now structured for a safer webview lifecycle and live refresh on save. The renderer itself still needs to be replaced with real component execution or a React Native-to-web translation layer.</p>
-              <p>${model.frameworkHint}</p>
-              <p><strong>Selected file:</strong> ${model.fileName}</p>
-              ${model.status === 'error' && model.errorMessage ? `<p class="render-error"><strong>Render issue:</strong> ${escapeHtml(model.errorMessage)}</p>` : ''}
-              <ul>
-                <li>Tracks the active .tsx file</li>
-                <li>Refreshes when that file is saved</li>
-                <li>Shows source and preview side by side</li>
-                <li>Refreshes when you switch to a different '.tsx' file</li>
-              </ul>
-            </div>
+        <div class="mobile-stage">
+          <div class="preview">
+            ${model.previewHtml}
           </div>
         </div>
       </div>
