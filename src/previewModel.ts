@@ -18,7 +18,32 @@ export type DeviceProfile = {
   viewportClass: string;
 };
 
-export function buildPreviewModel(source: string, fileName: string, frameworksFolder?: string, device?: DeviceProfile): PreviewModel {
+export type IosVersionProfile = {
+  id: string;
+  label: string;
+};
+
+const DEVICE_PROFILES: DeviceProfile[] = [
+  { id: 'iphone-11', label: 'iPhone 11', pixels: '1792 x 828', dpi: '326 PPI', viewportClass: 'device-iphone-11' },
+  { id: 'iphone-12', label: 'iPhone 12', pixels: '2532 x 1170', dpi: '460 PPI', viewportClass: 'device-iphone-12' },
+  { id: 'iphone-13', label: 'iPhone 13', pixels: '2532 x 1170', dpi: '460 PPI', viewportClass: 'device-iphone-13' },
+  { id: 'iphone-14', label: 'iPhone 14', pixels: '2532 x 1170', dpi: '460 PPI', viewportClass: 'device-iphone-14' }
+];
+
+const IOS_VERSIONS: IosVersionProfile[] = [
+  { id: 'ios-15', label: 'iOS 15' },
+  { id: 'ios-16', label: 'iOS 16' },
+  { id: 'ios-17', label: 'iOS 17' },
+  { id: 'ios-18', label: 'iOS 18' }
+];
+
+export function buildPreviewModel(
+  source: string,
+  fileName: string,
+  frameworksFolder?: string,
+  device?: DeviceProfile,
+  iosVersionId?: string
+): PreviewModel {
   const escapedSource = source
     .replace(/&/g, '&amp;')
     .replace(/</g, '&lt;')
@@ -32,7 +57,7 @@ export function buildPreviewModel(source: string, fileName: string, frameworksFo
   const frameworkHint = frameworksFolder
     ? 'This folder can provide the shared React Native framework and package root for preview work.'
     : 'Use the command palette to select your React Native frameworks folder.';
-  const previewHtml = renderPreviewBody(source, frameworksFolder, device);
+  const previewHtml = renderPreviewBody(source, frameworksFolder, device, iosVersionId);
 
   return {
     fileName,
@@ -46,27 +71,27 @@ export function buildPreviewModel(source: string, fileName: string, frameworksFo
   };
 }
 
-function renderPreviewBody(source: string, frameworksFolder?: string, device?: DeviceProfile): string {
-  const deviceLabel = device?.label ?? 'iPhone 14';
-  const devicePixels = device?.pixels ?? '1170 x 2532';
-  const deviceDpi = device?.dpi ?? '460 PPI';
-  const viewportClass = device?.viewportClass ?? 'device-iphone-14';
+function renderPreviewBody(source: string, frameworksFolder?: string, device?: DeviceProfile, iosVersionId?: string): string {
+  const activeDevice = device ?? DEVICE_PROFILES[DEVICE_PROFILES.length - 1];
+  const iosVersion = IOS_VERSIONS.find((entry) => entry.id === iosVersionId) ?? IOS_VERSIONS[IOS_VERSIONS.length - 1];
+  const deviceOptions = renderDeviceOptions(activeDevice.id);
+  const iosOptions = renderIosOptions(iosVersion.id);
   const match = source.match(/return\s*\(\s*([\s\S]*?)\s*\);\s*}/m);
   if (!match) {
     return [
       '<div class="device-toolbar">',
       '<div class="toolbar-left">',
-      `<span class="toolbar-chip">${escapeHtml(deviceLabel)} · ${escapeHtml(devicePixels)} · ${escapeHtml(deviceDpi)}</span>`,
-      '<span class="toolbar-chip muted">Preview up to date</span>',
+      `<label class="toolbar-select-wrap" aria-label="Preview device">${deviceOptions}</label>`,
+      `<label class="toolbar-select-wrap" aria-label="iOS version">${iosOptions}</label>`,
       '</div>',
       '<div class="toolbar-right">',
-      '<span class="toolbar-button">↻</span>',
-      '<span class="toolbar-button">⟲</span>',
-      '<span class="toolbar-button">⋯</span>',
+      '<button class="toolbar-button" data-action="refresh" type="button" aria-label="Refresh preview">↻</button>',
+      '<button class="toolbar-button" data-action="settings" type="button" aria-label="Open preview settings">⚙</button>',
+      '<button class="toolbar-button" data-action="preview" type="button" aria-label="Open preview">▶</button>',
       '</div>',
       '</div>',
       '<div class="device-shell">',
-      `<div class="device-frame ${viewportClass}">`,
+      `<div class="device-frame ${activeDevice.viewportClass}">`,
       '<div class="device-notch"></div>',
       '<div class="device-screen">',
       '<div class="phone-empty">Open a `.tsx` file with a `return (...)` block to render the preview.</div>',
@@ -81,17 +106,17 @@ function renderPreviewBody(source: string, frameworksFolder?: string, device?: D
   return [
     '<div class="device-toolbar">',
     '<div class="toolbar-left">',
-    `<span class="toolbar-chip">${escapeHtml(deviceLabel)} · ${escapeHtml(devicePixels)} · ${escapeHtml(deviceDpi)}</span>`,
-    '<span class="toolbar-chip muted">Preview up to date</span>',
+    `<label class="toolbar-select-wrap" aria-label="Preview device">${deviceOptions}</label>`,
+    `<label class="toolbar-select-wrap" aria-label="iOS version">${iosOptions}</label>`,
     '</div>',
     '<div class="toolbar-right">',
-    '<span class="toolbar-button">↻</span>',
-    '<span class="toolbar-button">⟲</span>',
-    '<span class="toolbar-button">⋯</span>',
+    '<button class="toolbar-button" data-action="refresh" type="button" aria-label="Refresh preview">↻</button>',
+    '<button class="toolbar-button" data-action="settings" type="button" aria-label="Open preview settings">⚙</button>',
+    '<button class="toolbar-button" data-action="preview" type="button" aria-label="Open preview">▶</button>',
     '</div>',
     '</div>',
     '<div class="device-shell">',
-    `<div class="device-frame ${viewportClass}">`,
+    `<div class="device-frame ${activeDevice.viewportClass}">`,
     '<div class="device-notch"></div>',
     '<div class="device-screen">',
     '<div class="phone-status">9:41</div>',
@@ -99,6 +124,22 @@ function renderPreviewBody(source: string, frameworksFolder?: string, device?: D
     '</div>',
     '</div>',
     '</div>'
+  ].join('');
+}
+
+function renderDeviceOptions(selectedId: string): string {
+  return [
+    '<select class="toolbar-select" data-action="device" aria-label="Preview device">',
+    ...DEVICE_PROFILES.map((profile) => `<option value="${profile.id}"${profile.id === selectedId ? ' selected' : ''}>${escapeHtml(profile.label)} · ${escapeHtml(profile.pixels)} · ${escapeHtml(profile.dpi)}</option>`),
+    '</select>'
+  ].join('');
+}
+
+function renderIosOptions(selectedId: string): string {
+  return [
+    '<select class="toolbar-select" data-action="ios" aria-label="iOS version">',
+    ...IOS_VERSIONS.map((entry) => `<option value="${entry.id}"${entry.id === selectedId ? ' selected' : ''}>${escapeHtml(entry.label)}</option>`),
+    '</select>'
   ].join('');
 }
 

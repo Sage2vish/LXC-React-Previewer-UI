@@ -29,6 +29,20 @@
 - Icon-led command presentation
 - Release docs and task tracking updates
 
+### `0.1.5`
+
+- Marketplace publisher alignment fix
+- Extension metadata updated for the signed-in publisher account
+- Release package prepared for the Marketplace upload retry
+
+### `0.1.6`
+
+- Device presets from iPhone 11 through iPhone 14
+- In-preview device dropdown with pixel and PPI labels
+- In-preview iOS version dropdown
+- Working preview toolbar buttons
+- Preview-helper scope preserved without drag-and-drop editor behavior
+
 ## Icon-Led Preview Command
 
 ### Summary
@@ -54,7 +68,7 @@ Replace the old preview command button that showed the `Open` codicon with an ic
 
 - The preview command is shown as `Preview`
 - The editor title action uses the asset-backed command icon
-- The packaged extension stays on version `0.1.4`
+- The packaged extension stays on version `0.1.6`
 
 ### Notes
 

@@ -1,5 +1,3 @@
-import * as fs from 'fs';
-import * as path from 'path';
 import * as vscode from 'vscode';
 import { buildPreviewModel, type PreviewModel } from './previewModel';
 
@@ -8,6 +6,7 @@ type PreviewState = {
   uri?: vscode.Uri;
   frameworksFolder?: string;
   device?: DeviceProfile;
+  iosVersionId?: string;
 };
 
 type DeviceProfile = {
@@ -19,11 +18,17 @@ type DeviceProfile = {
 };
 
 const DEVICE_PROFILES: DeviceProfile[] = [
-  { id: 'iphone-14', label: 'iPhone 14', pixels: '1170 x 2532', dpi: '460 PPI', viewportClass: 'device-iphone-14' },
-  { id: 'iphone-14-pro', label: 'iPhone 14 Pro', pixels: '1179 x 2556', dpi: '460 PPI', viewportClass: 'device-iphone-14-pro' },
-  { id: 'iphone-14-plus', label: 'iPhone 14 Plus', pixels: '1284 x 2778', dpi: '458 PPI', viewportClass: 'device-iphone-14-plus' },
-  { id: 'iphone-14-pro-max', label: 'iPhone 14 Pro Max', pixels: '1290 x 2796', dpi: '460 PPI', viewportClass: 'device-iphone-14-pro-max' },
-  { id: 'iphone-14-mini', label: 'iPhone 14 mini', pixels: '1080 x 2340', dpi: '476 PPI', viewportClass: 'device-iphone-14-mini' }
+  { id: 'iphone-11', label: 'iPhone 11', pixels: '1792 x 828', dpi: '326 PPI', viewportClass: 'device-iphone-11' },
+  { id: 'iphone-12', label: 'iPhone 12', pixels: '2532 x 1170', dpi: '460 PPI', viewportClass: 'device-iphone-12' },
+  { id: 'iphone-13', label: 'iPhone 13', pixels: '2532 x 1170', dpi: '460 PPI', viewportClass: 'device-iphone-13' },
+  { id: 'iphone-14', label: 'iPhone 14', pixels: '2532 x 1170', dpi: '460 PPI', viewportClass: 'device-iphone-14' }
+];
+
+const IOS_VERSION_OPTIONS = [
+  { id: 'ios-15', label: 'iOS 15' },
+  { id: 'ios-16', label: 'iOS 16' },
+  { id: 'ios-17', label: 'iOS 17' },
+  { id: 'ios-18', label: 'iOS 18' }
 ];
 
 const state: PreviewState = {};
@@ -31,7 +36,9 @@ const state: PreviewState = {};
 export function activate(context: vscode.ExtensionContext) {
   state.frameworksFolder = context.workspaceState.get<string>('lxcReactPreviewer.frameworksFolder');
   const savedDeviceId = context.workspaceState.get<string>('lxcReactPreviewer.deviceId');
+  const savedIosVersionId = context.workspaceState.get<string>('lxcReactPreviewer.iosVersionId');
   state.device = DEVICE_PROFILES.find((device) => device.id === savedDeviceId) ?? DEVICE_PROFILES[0];
+  state.iosVersionId = IOS_VERSION_OPTIONS.find((option) => option.id === savedIosVersionId)?.id ?? IOS_VERSION_OPTIONS[IOS_VERSION_OPTIONS.length - 1].id;
 
   const renderDocument = (document: vscode.TextDocument) => {
     if (!state.panel) {
@@ -40,9 +47,11 @@ export function activate(context: vscode.ExtensionContext) {
 
     state.uri = document.uri;
     const activeDevice = state.device ?? DEVICE_PROFILES[0];
+    const activeIosVersionId = state.iosVersionId ?? IOS_VERSION_OPTIONS[IOS_VERSION_OPTIONS.length - 1].id;
     state.panel.webview.html = renderHtml(
-      buildPreviewModel(document.getText(), document.fileName, state.frameworksFolder, activeDevice),
+      buildPreviewModel(document.getText(), document.fileName, state.frameworksFolder, activeDevice, activeIosVersionId),
       activeDevice,
+      activeIosVersionId,
       context.extensionUri,
       state.panel.webview
     );
@@ -87,6 +96,7 @@ export function activate(context: vscode.ExtensionContext) {
       vscode.ViewColumn.Beside,
       { enableScripts: true }
     );
+    state.panel.webview.onDidReceiveMessage(handleWebviewMessage);
 
     renderDocument(document);
 
@@ -183,6 +193,54 @@ export function activate(context: vscode.ExtensionContext) {
     }
   });
 
+  const handleWebviewMessage = (message: { type?: string; value?: string }) => {
+    if (!state.panel || !state.uri || !message.type) {
+      return;
+    }
+
+    if (message.type === 'refresh') {
+      vscode.commands.executeCommand('lxcReactPreviewer.refreshPreview');
+      return;
+    }
+
+    if (message.type === 'settings') {
+      vscode.commands.executeCommand('lxcReactPreviewer.openSettings');
+      return;
+    }
+
+    if (message.type === 'preview') {
+      vscode.commands.executeCommand('lxcReactPreviewer.openPreview');
+      return;
+    }
+
+    if (message.type === 'device' && message.value) {
+      const selected = DEVICE_PROFILES.find((device) => device.id === message.value);
+      if (!selected) {
+        return;
+      }
+
+      state.device = selected;
+      void context.workspaceState.update('lxcReactPreviewer.deviceId', selected.id);
+      if (state.panel && state.uri) {
+        void vscode.workspace.openTextDocument(state.uri).then((doc) => renderDocument(doc));
+      }
+      return;
+    }
+
+    if (message.type === 'ios' && message.value) {
+      const selected = IOS_VERSION_OPTIONS.find((option) => option.id === message.value);
+      if (!selected) {
+        return;
+      }
+
+      state.iosVersionId = selected.id;
+      void context.workspaceState.update('lxcReactPreviewer.iosVersionId', selected.id);
+      if (state.panel && state.uri) {
+        void vscode.workspace.openTextDocument(state.uri).then((doc) => renderDocument(doc));
+      }
+    }
+  };
+
   const activeEditorSubscription = vscode.window.onDidChangeActiveTextEditor((editor) => {
     if (!editor || !state.panel) {
       return;
@@ -202,15 +260,16 @@ export function activate(context: vscode.ExtensionContext) {
   context.subscriptions.push(activeEditorSubscription);
 }
 
-function renderHtml(model: PreviewModel, device: DeviceProfile, extensionUri: vscode.Uri, webview: vscode.Webview): string {
+function renderHtml(model: PreviewModel, device: DeviceProfile, iosVersionId: string, extensionUri: vscode.Uri, webview: vscode.Webview): string {
   const styleUri = webview.asWebviewUri(vscode.Uri.joinPath(extensionUri, 'assets', 'webview-preview.css'));
+  const nonce = String(Date.now()) + Math.random().toString(36).slice(2);
 
   return `<!doctype html>
   <html lang="en">
     <head>
       <meta charset="UTF-8" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src ${webview.cspSource}; img-src data: https:; script-src 'none';" />
+      <meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src ${webview.cspSource}; img-src data: https:; script-src 'nonce-${nonce}';" />
       <link rel="stylesheet" href="${styleUri}" />
     </head>
     <body>
@@ -221,6 +280,29 @@ function renderHtml(model: PreviewModel, device: DeviceProfile, extensionUri: vs
           </div>
         </div>
       </div>
+      <script nonce="${nonce}">
+        (function() {
+          const vscode = acquireVsCodeApi();
+          const root = document.querySelector('.preview');
+          const send = (type, value) => vscode.postMessage({ type, value });
+
+          root.querySelectorAll('select[data-action]').forEach((select) => {
+            select.addEventListener('change', (event) => {
+              const target = event.currentTarget;
+              send(target.dataset.action, target.value);
+            });
+          });
+
+          root.querySelectorAll('button[data-action]').forEach((button) => {
+            button.addEventListener('click', () => {
+              send(button.dataset.action);
+            });
+          });
+
+          root.querySelector('.toolbar-select[data-action="device"]')?.setAttribute('title', 'Phone, pixels, PPI');
+          root.querySelector('.toolbar-select[data-action="ios"]')?.setAttribute('title', 'iOS version');
+        }());
+      </script>
     </body>
   </html>`;
 }
@@ -237,24 +319,4 @@ export function deactivate() {
   state.panel?.dispose();
   state.panel = undefined;
   state.uri = undefined;
-}
-
-function getBrandLogoUri(): string {
-  const candidates = [
-    path.join(__dirname, '..', 'assets', 'lexvora-consulting-logo.png'),
-    path.join(__dirname, '..', 'assets', 'lexvora-consulting-logo-meta.png')
-  ];
-
-  for (const candidate of candidates) {
-    if (!fs.existsSync(candidate)) {
-      continue;
-    }
-
-    const bytes = fs.readFileSync(candidate);
-    const extension = path.extname(candidate).toLowerCase();
-    const mimeType = extension === '.png' ? 'image/png' : 'image/jpeg';
-    return `data:${mimeType};base64,${bytes.toString('base64')}`;
-  }
-
-  return '';
 }

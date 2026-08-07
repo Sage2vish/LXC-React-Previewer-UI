@@ -119,7 +119,7 @@ It tracks what has been completed, what is in progress, and what remains before 
 - [x] Replace the `Open`-style preview action with the asset-backed `Preview` command
   - [x] Remove the `$(eye)` editor title override
   - [x] Keep the command label as `Preview`
-  - [x] Keep the release line on `0.1.4`
+  - [x] Keep the release line on `0.1.6`
 
 ### 3.2 Real Renderer
 
@@ -175,6 +175,16 @@ It tracks what has been completed, what is in progress, and what remains before 
   - [x] Surface iPhone 14 variants in the settings popup
   - [x] Persist the selected device across sessions
   - [x] Keep the frame width aligned to the selected device
+- [x] Extend the preview device presets to iPhone 11 through iPhone 14
+  - [x] Show device, pixels, and PPI in the dropdown
+  - [x] Keep the preview limited to a helper/designer flow
+- [x] Add an in-preview iOS version dropdown
+  - [x] Persist the selected iOS version across sessions
+  - [x] Keep the version selector inside the preview shell
+- [x] Make the preview toolbar buttons functional
+  - [x] Refresh button
+  - [x] Settings button
+  - [x] Preview/reveal button
 - [x] Move preview settings into a popup window
   - [x] Open settings from a dedicated command
   - [x] Present preview device and frameworks controls together
@@ -182,7 +192,7 @@ It tracks what has been completed, what is in progress, and what remains before 
 - [x] Place the explorer context action in the top navigation group
   - [x] Keep the preview command near the built-in open actions
   - [x] Preserve the `.tsx` file filter for the command
-  - [x] Keep the release version at `0.1.4`
+  - [x] Keep the release version at `0.1.6`
 - [x] Define the minimum required self-test for release
   - [x] Activation test
   - [x] Preview open test
@@ -244,13 +254,13 @@ It tracks what has been completed, what is in progress, and what remains before 
 ### 4.4 Feature And Release Tracking
 
 - [x] Create a release feature map
-  - [x] Document the release line from `0.1.1` through `0.1.4`
+  - [x] Document the release line from `0.1.1` through `0.1.5`
   - [x] Note that no distinct `0.1.1` tag exists in the current git history
   - [x] Capture the icon-led preview command feature
 - [x] Keep feature docs aligned with the release notes
   - [x] Add [`FEATURES.md`](FEATURES.md)
   - [x] Keep `TASKS.md` as the implementation checklist
-  - [x] Keep the current release work anchored to `0.1.4`
+  - [x] Keep the current release work anchored to `0.1.5`
 
 ### 4.5 Marketplace Publishing
 

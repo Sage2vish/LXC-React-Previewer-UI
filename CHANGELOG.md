@@ -15,6 +15,9 @@ The format follows a simple keep-a-changelog style so future releases stay easy 
 - Stronger preview shell branding and layout polish
 - Preview device selector with iPhone 14 variants, pixel labels, and DPI labels
 - Preview settings popup command for device and frameworks controls
+- Device presets from iPhone 11 through iPhone 14
+- In-preview iOS version dropdown
+- Functional preview toolbar buttons
 - Explorer context menu placement for the preview command in the top navigation group
 
 ### Changed
@@ -22,7 +25,7 @@ The format follows a simple keep-a-changelog style so future releases stay easy 
 - README rewritten as a visual product landing page
 - Preview shell styling updated to use the Lexvora consulting palette
 - Feature presentation upgraded to emphasize workflow, branding, and sample validation
-- Release package rebuilt at version `0.1.4` to carry the settings and device updates
+- Release package rebuilt at version `0.1.6` to carry the device and toolbar updates
 - Preview command presentation updated to use the asset-backed `Preview` label instead of the `Open` codicon
 
 ### Fixed

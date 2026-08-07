@@ -59,7 +59,8 @@ body {
 }
 
 .toolbar-chip,
-.toolbar-button {
+.toolbar-button,
+.toolbar-select {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -78,10 +79,23 @@ body {
   color: var(--muted);
 }
 
+.toolbar-select-wrap {
+  display: inline-flex;
+}
+
+.toolbar-select {
+  min-width: 220px;
+  padding: 6px 12px;
+  appearance: none;
+  cursor: pointer;
+}
+
 .toolbar-button {
   width: 28px;
   height: 28px;
   font-size: 15px;
+  cursor: pointer;
+  padding: 0;
 }
 
 .toolbar-button:first-child {
@@ -120,6 +134,16 @@ body {
 
 .device-frame.device-iphone-14-mini {
   width: min(100%, 360px);
+}
+
+.device-frame.device-iphone-11 .device-screen {
+  min-height: 520px;
+}
+
+.device-frame.device-iphone-12 .device-screen,
+.device-frame.device-iphone-13 .device-screen,
+.device-frame.device-iphone-14 .device-screen {
+  min-height: 620px;
 }
 
 .device-notch {

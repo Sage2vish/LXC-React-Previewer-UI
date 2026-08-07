@@ -3,11 +3,25 @@ set -euo pipefail
 
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 FRAMEWORKS_ENV="/Users/SageVish/Documents/Development Work/frameworks/env.sh"
-EXPECTED_VERSION="0.1.4"
+VERSION=""
 INSTALL_EXTENSION="false"
+
+usage() {
+  cat <<'EOF'
+Usage: ./rebuild-preview.sh <version> [--install]
+
+Examples:
+  ./rebuild-preview.sh 0.1.5
+  ./rebuild-preview.sh 0.1.5 --install
+EOF
+}
 
 for arg in "$@"; do
   case "$arg" in
+    -h|--help)
+      usage
+      exit 0
+      ;;
     --install)
       INSTALL_EXTENSION="true"
       ;;
@@ -15,12 +29,20 @@ for arg in "$@"; do
       fail_step "Unknown option: $arg"
       ;;
     *)
-      EXPECTED_VERSION="$arg"
+      if [[ -n "$VERSION" ]]; then
+        fail_step "Only one version argument is allowed"
+      fi
+      VERSION="$arg"
       ;;
   esac
 done
 
-TOTAL_STEPS=5
+if [[ -z "$VERSION" ]]; then
+  usage
+  fail_step "Missing version argument"
+fi
+
+TOTAL_STEPS=6
 CURRENT_STEP=0
 
 step() {
@@ -44,9 +66,10 @@ printf 'Checklist:\n'
 printf '1. Load shared Mac frameworks env\n'
 printf '2. Confirm Node and pnpm are available\n'
 printf '3. Install dependencies from pnpm-lock.yaml\n'
-printf '4. Build the extension\n'
-printf '5. Verify version and preview command wiring\n'
-printf 'Expected release version: %s\n' "$EXPECTED_VERSION"
+printf '4. Stamp the requested release version\n'
+printf '5. Build the extension\n'
+printf '6. Verify version and preview command wiring\n'
+printf 'Requested release version: %s\n' "$VERSION"
 printf 'Install after build: %s\n' "$INSTALL_EXTENSION"
 
 step "Loading shared frameworks environment"
@@ -69,12 +92,34 @@ step "Installing dependencies"
 corepack pnpm install --frozen-lockfile --reporter append-only
 done_step "Dependencies installed"
 
+step "Stamping release version"
+node - <<'NODE' "$VERSION"
+const fs = require('fs');
+const version = process.argv[2];
+
+const pkgPath = './package.json';
+const manifestPath = './extension.vsixmanifest';
+
+const pkg = JSON.parse(fs.readFileSync(pkgPath, 'utf8'));
+pkg.version = version;
+fs.writeFileSync(pkgPath, JSON.stringify(pkg, null, 2) + '\n');
+
+let manifest = fs.readFileSync(manifestPath, 'utf8');
+manifest = manifest.replace(
+  /Version="[^"]+"/,
+  `Version="${version}"`
+);
+fs.writeFileSync(manifestPath, manifest);
+console.log(`version stamped: ${version}`);
+NODE
+done_step "Release version stamped"
+
 step "Building extension"
 corepack pnpm run build
 done_step "Build completed"
 
 step "Verifying release"
-node -e "const expected=process.argv[1]; const pkg=require('./package.json'); if (pkg.version !== expected) { console.error('Expected version ' + expected + ' but found ' + pkg.version); process.exit(1); } console.log('version: ok (' + expected + ')');" "$EXPECTED_VERSION"
+node -e "const expected=process.argv[1]; const pkg=require('./package.json'); if (pkg.version !== expected) { console.error('Expected version ' + expected + ' but found ' + pkg.version); process.exit(1); } console.log('version: ok (' + expected + ')');" "$VERSION"
 node - <<'NODE'
 const fs = require('fs');
 const pkg = JSON.parse(fs.readFileSync('./package.json', 'utf8'));
@@ -90,10 +135,15 @@ console.log('preview command: ok');
 NODE
 done_step "Release checks passed"
 
+step "Packaging VSIX"
+mkdir -p release
+npx @vscode/vsce package --out "release/LXC-React-Previewer-UI-${VERSION}.vsix"
+done_step "VSIX packaged"
+
 if [[ "$INSTALL_EXTENSION" == "true" ]]; then
-  TOTAL_STEPS=6
+  TOTAL_STEPS=7
   step "Installing into VS Code"
-  EXT_DIR="$HOME/.vscode/extensions/sage2vish.lxc-react-previewer-ui-$EXPECTED_VERSION"
+  EXT_DIR="$HOME/.vscode/extensions/sage2vish.lxc-react-previewer-ui-$VERSION"
   if [[ -d "$EXT_DIR" ]]; then
     find "$EXT_DIR" -mindepth 1 -maxdepth 1 -exec rm -rf {} +
   fi
@@ -104,5 +154,6 @@ if [[ "$INSTALL_EXTENSION" == "true" ]]; then
 fi
 
 printf '\n[100%%] Done. Reload VS Code or restart the Extension Development Host, then test the Preview button.\n'
-printf 'Run example: ./rebuild-preview.sh 0.1.4\n'
-printf 'Install example: ./rebuild-preview.sh 0.1.4 --install\n'
+printf 'Built VSIX: release/LXC-React-Previewer-UI-%s.vsix\n' "$VERSION"
+printf 'Run example: ./rebuild-preview.sh 0.1.5\n'
+printf 'Install example: ./rebuild-preview.sh 0.1.5 --install\n'

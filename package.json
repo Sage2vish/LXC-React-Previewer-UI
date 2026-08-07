@@ -2,9 +2,9 @@
   "name": "lxc-react-previewer-ui",
   "displayName": "LXC React Previewer UI",
   "description": "Preview a React Native .tsx screen beside its source in VS Code.",
-  "version": "0.1.4",
-  "publisher": "Sage2vish",
-  "icon": "assets/icons-all-size/icon-128.png",
+  "version": "0.1.6",
+  "publisher": "sage2vish-career",
+  "icon": "assets/lexvora-consulting-marketplace-logo.png",
   "repository": {
     "type": "git",
     "url": "https://github.com/Sage2vish/LXC-React-Previewer-UI.git"

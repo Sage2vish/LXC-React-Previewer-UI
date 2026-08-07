@@ -14,7 +14,7 @@ Build an open-source VS Code extension that previews a React Native `.tsx` scree
 
 ## Current Direction
 
-The project is in a packaged installable stage and is being prepared for a cleaner Marketplace-ready extension workflow.
+The project is in a packaged installable stage and is being prepared for a cleaner Marketplace-ready extension workflow on release line `0.1.6`.
 
 ## Decisions Already Made
 
@@ -25,13 +25,20 @@ The project is in a packaged installable stage and is being prepared for a clean
 - Allow outside contributions
 - Keep the implementation focused on React Native UI previewing
 - Keep the explorer context action in the top navigation group for `.tsx` files
+- Keep the preview shell as a preview/designer helper, not a full drag-and-drop editor
 
 ## Files That Track Progress
 
+- `AGENTS.md`
+- `START_HERE.md`
 - `README.md`
 - `TASKS.md`
+- `FEATURES.md`
 - `VSCODE_PUBLISH.md`
+- `CHANGELOG.md`
 - `changelog.md`
+- `docs/PROJECT_CONTEXT.md`
+- `docs/DECISIONS.md`
 
 ## Branding And Legal
 
@@ -53,6 +60,18 @@ The project is in a packaged installable stage and is being prepared for a clean
 - The code should remain easy to package and distribute
 - The project should remain friendly to contributor input
 - Release packages should stay on the same semantic version until a deliberate version bump is approved
+- Treat `CONTEXT.md`, `TASKS.md`, `FEATURES.md`, and the changelog files as the source of future-session memory
+
+## Session Rules
+
+- Read `AGENTS.md` first, then `START_HERE.md`.
+- Start with `START_HERE.md` before implementation work.
+- Use `TASKS.md` to decide what is complete, in progress, or pending.
+- Use `FEATURES.md` and the changelog to keep release notes aligned.
+- Do the implementation work before editing documentation unless the task is specifically about docs or planning.
+- Update the tracker and release notes after the implementation work is verified.
+- Commit and push completed work after verification.
+- Keep the release line, docs, and package metadata in sync.
 
 ## Future Maintenance Notes
 

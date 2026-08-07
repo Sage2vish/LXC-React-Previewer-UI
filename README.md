@@ -452,7 +452,9 @@ This project is open source and welcomes contributors.
 
 ## Local Rebuild Script
 
-Run [`rebuild-preview.sh`](rebuild-preview.sh) to rebuild the extension, verify the `0.1.4` metadata, and package a VSIX if `vsce` is installed.
+Use [`build-release.sh`](scripts/build-release.sh) with a version like `0.1.6` to stamp the metadata, rebuild the extension, and package a matching VSIX.
+
+Use [`install-release.sh`](scripts/install-release.sh) with the same version to uninstall the existing VS Code extension if present and install the newly built VSIX.
 
 ## Changelog
 
