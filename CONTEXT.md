@@ -44,7 +44,7 @@ The project is in a packaged installable stage and is being prepared for a clean
 
 - Open-source license: MIT
 - Brand owner: Lexvora Consulting
-- Logo asset: `assets/lexvora-consulting-logo.svg`
+- Logo asset: `assets/lexvora-consulting-logo.png`
 
 ## Contribution Rules
 
