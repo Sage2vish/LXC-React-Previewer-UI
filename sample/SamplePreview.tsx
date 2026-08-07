@@ -1,20 +1,29 @@
 import React from 'react';
-import { SafeAreaView, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Image, SafeAreaView, ScrollView, StyleSheet, Text, View } from 'react-native';
 
 export default function SamplePreview() {
   return (
     <SafeAreaView style={styles.screen}>
       <ScrollView contentContainerStyle={styles.content}>
+        <View style={styles.hero}>
+          <Image
+            source={{ uri: 'https://images.unsplash.com/photo-1512941937669-90a1b58e7e9f?auto=format&fit=crop&w=900&q=80' }}
+            style={styles.heroImage}
+          />
+          <View style={styles.heroCopy}>
+            <Text style={styles.kicker}>Lexvora Consulting</Text>
+            <Text style={styles.title}>Sample Preview One</Text>
+            <Text style={styles.body}>Dark editorial card, landscape image, and layered callouts.</Text>
+          </View>
+        </View>
+
         <View style={styles.card}>
-          <Text style={styles.kicker}>Lexvora Consulting</Text>
-          <Text style={styles.title}>LXC React Previewer UI</Text>
-          <Text style={styles.body}>
-            This sample screen is meant for checking the preview workflow inside VS Code.
-          </Text>
-          <Text style={styles.body}>
-            The React Native runtime dependencies should live in the shared frameworks folder:
-          </Text>
-          <Text style={styles.path}>/Users/SageVish/Documents/Development Work/frameworks</Text>
+          <Text style={styles.section}>Use cases</Text>
+          <Text style={styles.body}>This screen checks hero imagery, stacked text, and a glass-like panel style.</Text>
+        </View>
+
+        <View style={styles.inlineNote}>
+          <Text style={styles.inlineText}>Open this file first to confirm the baseline preview path.</Text>
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -24,20 +33,35 @@ export default function SamplePreview() {
 const styles = StyleSheet.create({
   screen: {
     flex: 1,
-    backgroundColor: '#0f172a',
+    backgroundColor: '#09111f',
   },
   content: {
-    padding: 24,
+    padding: 20,
+    gap: 16,
+  },
+  hero: {
+    borderRadius: 28,
+    overflow: 'hidden',
+    backgroundColor: '#101a2d',
+    borderWidth: 1,
+    borderColor: '#1f3356',
+  },
+  heroImage: {
+    width: '100%',
+    height: 180,
+  },
+  heroCopy: {
+    padding: 18,
   },
   card: {
-    borderRadius: 20,
-    padding: 20,
-    backgroundColor: '#111827',
+    borderRadius: 22,
+    padding: 18,
+    backgroundColor: '#10192b',
     borderWidth: 1,
-    borderColor: '#334155',
+    borderColor: '#263756',
   },
   kicker: {
-    color: '#38bdf8',
+    color: '#7dd3fc',
     fontSize: 13,
     fontWeight: '700',
     letterSpacing: 1.4,
@@ -46,20 +70,34 @@ const styles = StyleSheet.create({
   },
   title: {
     color: '#f8fafc',
-    fontSize: 28,
+    fontSize: 30,
     fontWeight: '800',
     marginBottom: 12,
   },
   body: {
-    color: '#cbd5e1',
+    color: '#d4deeb',
     fontSize: 16,
     lineHeight: 24,
     marginBottom: 10,
   },
-  path: {
+  section: {
     color: '#93c5fd',
+    fontSize: 15,
+    fontWeight: '700',
+    marginBottom: 8,
+    textTransform: 'uppercase',
+    letterSpacing: 0.8,
+  },
+  inlineNote: {
+    borderRadius: 18,
+    padding: 14,
+    backgroundColor: 'rgba(125, 211, 252, 0.1)',
+    borderWidth: 1,
+    borderColor: 'rgba(125, 211, 252, 0.18)',
+  },
+  inlineText: {
+    color: '#cce7ff',
     fontSize: 14,
-    lineHeight: 22,
-    marginTop: 6,
+    lineHeight: 20,
   },
 });
