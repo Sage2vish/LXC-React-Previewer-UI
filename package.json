@@ -40,11 +40,13 @@
       },
       {
         "command": "lxcReactPreviewer.refreshPreview",
-        "title": "LXC React Previewer: Refresh Preview"
+        "title": "Refresh Preview",
+        "icon": "$(refresh)"
       },
       {
         "command": "lxcReactPreviewer.selectFrameworksFolder",
-        "title": "LXC React Previewer: Select Frameworks Folder"
+        "title": "Select Frameworks Folder",
+        "icon": "$(settings-gear)"
       }
     ],
     "menus": {
@@ -60,6 +62,12 @@
           "icon": "$(refresh)",
           "when": "resourceExtname == .tsx",
           "group": "navigation@2"
+        },
+        {
+          "command": "lxcReactPreviewer.selectFrameworksFolder",
+          "icon": "$(settings-gear)",
+          "when": "resourceExtname == .tsx",
+          "group": "navigation@3"
         }
       ],
       "commandPalette": [
@@ -83,11 +91,13 @@
           "command": "lxcReactPreviewer.refreshPreview",
           "when": "resourceExtname == .tsx",
           "group": "navigation@2"
-        },
+        }
+      ],
+      "statusBar/window": [
         {
           "command": "lxcReactPreviewer.selectFrameworksFolder",
-          "when": "resourceExtname == .tsx",
-          "group": "navigation@3"
+          "when": "workspaceFolderCount > 0",
+          "group": "navigation@1"
         }
       ]
     }

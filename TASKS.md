@@ -163,6 +163,10 @@ It tracks what has been completed, what is in progress, and what remains before 
 - [x] Add the editor title-bar quick preview action
   - [x] Expose the preview command in the `.tsx` editor header
   - [x] Expose the refresh command in the `.tsx` editor header
+- [x] Move the frameworks picker out of the explorer context menu
+  - [x] Keep it available from the command palette
+  - [x] Surface it from the window status area instead of the file menu
+  - [x] Keep the preview file actions focused on preview and refresh only
 - [x] Place the explorer context action in the top navigation group
   - [x] Keep the preview command near the built-in open actions
   - [x] Preserve the `.tsx` file filter for the command
