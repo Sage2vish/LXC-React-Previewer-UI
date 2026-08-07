@@ -1,8 +1,13 @@
-# LXC React Previewer UI
-
-<p align="center">
-  <img src="assets/lexvora-consulting-marketplace-logo.png" alt="Lexvora Consulting marketplace logo" width="320" />
-</p>
+<table>
+  <tr>
+    <td valign="middle" width="72" style="border: 0; padding: 0 14px 0 0;">
+      <img src="assets/lexvora-consulting-marketplace-logo.png" alt="Lexvora Consulting marketplace logo" width="56" />
+    </td>
+    <td valign="middle" style="border: 0; padding: 0;">
+      <h1 style="margin: 0; text-align: left;">LXC React Previewer UI</h1>
+    </td>
+  </tr>
+</table>
 
 <table align="center" width="100%" style="border-collapse: separate; border-spacing: 12px;">
   <tr>
