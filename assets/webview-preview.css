@@ -58,6 +58,20 @@ body {
   flex-wrap: wrap;
 }
 
+.toolbar-select-group {
+  display: grid;
+  gap: 6px;
+}
+
+.toolbar-label {
+  color: var(--muted);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-weight: 700;
+  padding-left: 4px;
+}
+
 .toolbar-chip,
 .toolbar-button,
 .toolbar-select {

@@ -1,44 +1,34 @@
 # Sample Source Tree
 
-This folder is a test workspace for React Native preview behavior.
+This folder is the preview test bed for the extension.
 
-## How It Is Meant To Be Used
+The goal is not to keep every screen visually similar. The goal is to prove that the previewer can handle distinct mobile layouts, different content densities, and different visual systems without flattening them into one generic template.
 
-- Treat this folder as a React source root.
-- Nested folders are allowed.
-- Any `.tsx` file inside this tree should be usable as a preview target.
-- The preview workflow should be tested against real folder structures, not only flat files.
+## How to use it
 
-## Example Structure
+- Treat `sample/` as a React Native source root.
+- Open any `.tsx` file inside this tree as a preview candidate.
+- Use the gallery hub in `SamplePreview.tsx` to jump between the major test cases.
+- Keep nested folders in play so the previewer is tested against realistic source structure.
 
-```text
-sample/
-  README.md
-  SamplePreview.tsx
-  screens/
-    Analytics/
-      AnalyticsScreen.tsx
-    Commerce/
-      CommerceScreen.tsx
-    Home/
-      HomeScreen.tsx
-    Profile/
-      ProfileScreen.tsx
-    Settings/
-      SettingsScreen.tsx
-  components/
-    cards/
-      PreviewCard.tsx
-```
+## Screen roles
 
-## What To Open
+- `SamplePreview.tsx`: gallery hub and sample selector
+- `screens/HomeScreen.tsx`: wallpaper-heavy home view with layered panels
+- `screens/ProfileScreen.tsx`: portrait-first profile surface with avatar and personal details
+- `screens/AnalyticsScreen.tsx`: graph-driven analytics and payment-style summary view
+- `screens/CommerceScreen.tsx`: storefront-style product and promotion layout
+- `screens/SettingsScreen.tsx`: sectioned settings surface inspired by iPhone settings
 
-- `SamplePreview.tsx` for the baseline editorial card
-- `screens/Profile/ProfileScreen.tsx` for a portrait-style profile card
-- `screens/Analytics/AnalyticsScreen.tsx` for a chart and metrics layout
-- `screens/Commerce/CommerceScreen.tsx` for a product and promo layout
-- `screens/Settings/SettingsScreen.tsx` for a settings and preferences layout
+## Expected behavior
 
-## Test Rule
+- Each screen should look meaningfully different.
+- The home screen should feel visual and layered.
+- The profile screen should emphasize the profile picture and identity details.
+- The analytics screen should lean toward charting, metrics, and finance-like blocks.
+- The settings screen should be organized into grouped sections, not a simple list.
+- The gallery hub should make it easy to understand what each sample is meant to prove.
 
-If a file sits anywhere under `sample/`, it should be treated as a valid React source candidate for manual preview testing.
+## Test rule
+
+If a file sits anywhere under `sample/`, it should be considered valid preview content for manual testing.

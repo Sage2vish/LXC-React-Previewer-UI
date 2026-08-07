@@ -16,7 +16,11 @@
   "engines": {
     "vscode": "^1.85.0"
   },
+  "extensionKind": [
+    "ui"
+  ],
   "categories": [
+    "Visualization",
     "Other"
   ],
   "keywords": [
@@ -37,7 +41,7 @@
     "commands": [
       {
         "command": "lxcReactPreviewer.openPreview",
-        "title": "Preview",
+        "title": "LXC - React Previewer",
         "shortTitle": "Preview",
         "icon": {
           "light": "assets/icons-all-size/icon-16.png",
@@ -46,7 +50,7 @@
       },
       {
         "command": "lxcReactPreviewer.refreshPreview",
-        "title": "Refresh Preview",
+        "title": "LXC - React Previewer : Refresh",
         "shortTitle": "Refresh",
         "icon": "$(refresh)"
       },

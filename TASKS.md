@@ -218,6 +218,16 @@ It tracks what has been completed, what is in progress, and what remains before 
 - [x] Mobile preview surface has been simplified toward the target screenshot
 - [x] Compatibility presets now include iPhone, iPad, Android phone, and Android tablet families
 
+### 3.6 Sample Screen Differentiation
+
+- [x] Turn `SamplePreview.tsx` into a gallery hub
+- [x] Give Home a wallpaper-style layered layout
+- [x] Give Profile a portrait-forward identity layout
+- [x] Give Analytics a graph and finance-style layout
+- [x] Give Commerce a storefront-style layout
+- [x] Give Settings an iPhone-settings-style section layout
+- [x] Keep the sample screens visually distinct enough to test the renderer properly
+
 ## 4. Marketplace Readiness
 
 ### 4.1 Public README

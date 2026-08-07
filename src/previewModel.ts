@@ -23,6 +23,7 @@ export type DeviceProfile = {
 export type IosVersionProfile = {
   id: string;
   label: string;
+  family: DeviceProfile['family'];
 };
 
 const DEVICE_PROFILES: DeviceProfile[] = [
@@ -72,10 +73,19 @@ const DEVICE_PROFILES: DeviceProfile[] = [
 ];
 
 const IOS_VERSIONS: IosVersionProfile[] = [
-  { id: 'ios-15', label: 'iOS 15' },
-  { id: 'ios-16', label: 'iOS 16' },
-  { id: 'ios-17', label: 'iOS 17' },
-  { id: 'ios-18', label: 'iOS 18' }
+  { id: 'ios-15', label: 'iOS 15', family: 'iphone' },
+  { id: 'ios-16', label: 'iOS 16', family: 'iphone' },
+  { id: 'ios-17', label: 'iOS 17', family: 'iphone' },
+  { id: 'ios-18', label: 'iOS 18', family: 'iphone' },
+  { id: 'ipados-16', label: 'iPadOS 16', family: 'ipad' },
+  { id: 'ipados-17', label: 'iPadOS 17', family: 'ipad' },
+  { id: 'ipados-18', label: 'iPadOS 18', family: 'ipad' },
+  { id: 'android-13', label: 'Android 13', family: 'android' },
+  { id: 'android-14', label: 'Android 14', family: 'android' },
+  { id: 'android-15', label: 'Android 15', family: 'android' },
+  { id: 'android-16', label: 'Android 16', family: 'android' },
+  { id: 'android-tablet-13', label: 'Android Tablet 13', family: 'android-tablet' },
+  { id: 'android-tablet-14', label: 'Android Tablet 14', family: 'android-tablet' }
 ];
 
 export function buildPreviewModel(
@@ -116,16 +126,29 @@ export function buildPreviewModel(
 
 function renderPreviewBody(source: string, frameworksFolder?: string, device?: DeviceProfile, iosVersionId?: string, logoDataUri = ''): string {
   const activeDevice = device ?? DEVICE_PROFILES[DEVICE_PROFILES.length - 1];
-  const iosVersion = IOS_VERSIONS.find((entry) => entry.id === iosVersionId) ?? IOS_VERSIONS[IOS_VERSIONS.length - 1];
+  const platformVersions = IOS_VERSIONS.filter((entry) => entry.family === activeDevice.family);
+  const defaultVersion = platformVersions[platformVersions.length - 1] ?? IOS_VERSIONS[IOS_VERSIONS.length - 1];
+  const versionLabel = activeDevice.family === 'android'
+    ? 'Android OS'
+    : activeDevice.family === 'ipad'
+      ? 'iPadOS'
+      : 'iOS';
+  const selectedVersion = platformVersions.find((entry) => entry.id === iosVersionId) ?? defaultVersion;
   const deviceOptions = renderDeviceOptions(activeDevice.id);
-  const iosOptions = renderIosOptions(iosVersion.id);
+  const iosOptions = renderOsOptions(versionLabel, platformVersions, selectedVersion.id);
   const match = source.match(/return\s*\(\s*([\s\S]*?)\s*\);\s*}/m);
   if (!match) {
     return [
       '<div class="device-toolbar">',
       '<div class="toolbar-left">',
+      '<div class="toolbar-select-group">',
+      '<span class="toolbar-label">Device</span>',
       `<label class="toolbar-select-wrap" aria-label="Preview device">${deviceOptions}</label>`,
-      `<label class="toolbar-select-wrap" aria-label="iOS version">${iosOptions}</label>`,
+      '</div>',
+      '<div class="toolbar-select-group">',
+      `<span class="toolbar-label">${escapeHtml(versionLabel)}</span>`,
+      `<label class="toolbar-select-wrap" aria-label="${escapeHtml(versionLabel)}">${iosOptions}</label>`,
+      '</div>',
       '</div>',
       '<div class="toolbar-right">',
       '<button class="toolbar-button" data-action="refresh" type="button" aria-label="Refresh preview">↻</button>',
@@ -150,8 +173,14 @@ function renderPreviewBody(source: string, frameworksFolder?: string, device?: D
   return [
     '<div class="device-toolbar">',
     '<div class="toolbar-left">',
+    '<div class="toolbar-select-group">',
+    '<span class="toolbar-label">Device</span>',
     `<label class="toolbar-select-wrap" aria-label="Preview device">${deviceOptions}</label>`,
-    `<label class="toolbar-select-wrap" aria-label="iOS version">${iosOptions}</label>`,
+    '</div>',
+    '<div class="toolbar-select-group">',
+    `<span class="toolbar-label">${escapeHtml(versionLabel)}</span>`,
+    `<label class="toolbar-select-wrap" aria-label="${escapeHtml(versionLabel)}">${iosOptions}</label>`,
+    '</div>',
     '</div>',
     '<div class="toolbar-right">',
     '<button class="toolbar-button" data-action="refresh" type="button" aria-label="Refresh preview">↻</button>',
@@ -180,10 +209,10 @@ function renderDeviceOptions(selectedId: string): string {
   ].join('');
 }
 
-function renderIosOptions(selectedId: string): string {
+function renderOsOptions(label: string, options: IosVersionProfile[], selectedId: string): string {
   return [
-    '<select class="toolbar-select" data-action="ios" aria-label="iOS version">',
-    ...IOS_VERSIONS.map((entry) => `<option value="${entry.id}"${entry.id === selectedId ? ' selected' : ''}>${escapeHtml(entry.label)}</option>`),
+    `<select class="toolbar-select" data-action="ios" aria-label="${escapeHtml(label)}">`,
+    ...options.map((entry) => `<option value="${entry.id}"${entry.id === selectedId ? ' selected' : ''}>${escapeHtml(entry.label)}</option>`),
     '</select>'
   ].join('');
 }
