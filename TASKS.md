@@ -172,10 +172,13 @@ It tracks what has been completed, what is in progress, and what remains before 
   - [x] Surface it from the window status area instead of the file menu
   - [x] Keep the preview file actions focused on preview and refresh only
 - [x] Add preview device selection with pixel and DPI labels
-  - [x] Surface iPhone 14 variants in the settings popup
+  - [x] Surface iPhone 11 through iPhone 18 variants in the settings popup
+  - [x] Surface iPad presets in the settings popup
+  - [x] Surface Android phone presets in the settings popup
+  - [x] Surface Android tablet presets in the settings popup
   - [x] Persist the selected device across sessions
   - [x] Keep the frame width aligned to the selected device
-- [x] Extend the preview device presets to iPhone 11 through iPhone 14
+- [x] Extend the preview device presets to iPhone 11 through the latest compatibility set
   - [x] Show device, pixels, and PPI in the dropdown
   - [x] Keep the preview limited to a helper/designer flow
 - [x] Add an in-preview iOS version dropdown
@@ -198,6 +201,8 @@ It tracks what has been completed, what is in progress, and what remains before 
   - [x] Preview open test
   - [x] Save-refresh test
   - [x] Preview icon visible test
+  - [x] Device selector visible and populated test
+  - [x] iPad / Android family compatibility list test
 
 ### 3.5 Preview Experience Status
 
@@ -211,6 +216,7 @@ It tracks what has been completed, what is in progress, and what remains before 
 - [ ] Manual VS Code smoke checks still need to be confirmed in the editor
 - [x] Reference UI alignment has been completed to the current code target
 - [x] Mobile preview surface has been simplified toward the target screenshot
+- [x] Compatibility presets now include iPhone, iPad, Android phone, and Android tablet families
 
 ## 4. Marketplace Readiness
 
@@ -260,7 +266,7 @@ It tracks what has been completed, what is in progress, and what remains before 
 - [x] Keep feature docs aligned with the release notes
   - [x] Add [`FEATURES.md`](FEATURES.md)
   - [x] Keep `TASKS.md` as the implementation checklist
-  - [x] Keep the current release work anchored to `0.1.5`
+  - [x] Keep the current release work anchored to `0.1.6`
 
 ### 4.5 Marketplace Publishing
 
@@ -317,11 +323,11 @@ It tracks what has been completed, what is in progress, and what remains before 
 
 ### 5.2 Windows Review
 
-- [ ] Prepare Windows contributor testing notes
-  - [ ] Confirm path handling
-  - [ ] Confirm packaging flow
-  - [ ] Confirm VS Code install behavior
-  - [ ] Confirm contribution steps are clear
+- [x] Prepare Windows contributor testing notes
+  - [x] Confirm path handling
+  - [x] Confirm packaging flow
+  - [x] Confirm VS Code install behavior
+  - [x] Confirm contribution steps are clear
 
 ### 5.3 Optional Linux Review
 
@@ -399,11 +405,15 @@ It tracks what has been completed, what is in progress, and what remains before 
 
 ### 8.2 Dependencies And Scripts
 
-- [ ] Identify required dependencies
-- [ ] Confirm build scripts
-- [ ] Confirm packaging scripts
-- [ ] Confirm lint and validation scripts
-- [ ] Verify the local toolchain is available in this environment
+- [x] Identify required dependencies
+  - [x] Confirm build scripts
+  - [x] Confirm packaging scripts
+  - [x] Confirm lint and validation scripts
+  - [x] Verify the local toolchain is available in this environment
+  - [x] Record the shared scripts entry points in `scripts/`
+    - [x] `scripts/build-release.sh`
+    - [x] `scripts/install-release.sh`
+    - [x] `scripts/rebuild-preview.sh`
 
 ### 8.3 Quality And Validation
 
@@ -431,6 +441,9 @@ It tracks what has been completed, what is in progress, and what remains before 
   - [ ] Repeat with a nested file under `sample/`
   - [ ] Use the frameworks picker before previewing
   - [ ] Open the file context menu and choose preview
+  - [ ] Change the device dropdown between iPhone, iPad, and Android presets
+  - [ ] Confirm the screen shell updates when the selected device changes
+  - [ ] Confirm the iOS dropdown still works alongside the device selector
 - [x] Keep one sample screen for manual preview checks
   - [x] Add sample component source
   - [x] Document how to use it
@@ -518,7 +531,11 @@ The project can be considered ready for a first public release when all of the f
 
 ### `0.1.6`
 
-- [x] Device presets from iPhone 11 through iPhone 14
+- [x] Latest compatibility device catalog
+- [x] iPhone, iPad, Android phone, and Android tablet preset coverage
+- [x] Dropdown affordance and preview shell polish
+- [x] Scripts and backlog alignment updated
+- [x] Device presets from iPhone 11 through the current compatibility catalog
 - [x] In-preview device dropdown with phone, pixels, and PPI labels
 - [x] Separate in-preview iOS version dropdown
 - [x] Working preview toolbar buttons

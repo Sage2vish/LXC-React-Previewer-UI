@@ -199,8 +199,8 @@ export function activate(context: vscode.ExtensionContext) {
       [
         {
           label: 'Preview Device',
-          description: state.device?.label ?? 'iPhone 14',
-          detail: `${state.device?.pixels ?? '1170 x 2532'} • ${state.device?.dpi ?? '460 PPI'}`
+          description: state.device?.label ?? 'Current compatibility preset',
+          detail: `${state.device?.pixels ?? 'Latest pixel profile'} • ${state.device?.dpi ?? 'Latest PPI profile'}`
         },
         {
           label: 'Frameworks Folder',

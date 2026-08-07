@@ -85,9 +85,22 @@ body {
 
 .toolbar-select {
   min-width: 220px;
-  padding: 6px 12px;
+  padding: 6px 36px 6px 12px;
   appearance: none;
   cursor: pointer;
+  background-image:
+    linear-gradient(45deg, transparent 50%, rgba(215, 226, 242, 0.95) 50%),
+    linear-gradient(135deg, rgba(215, 226, 242, 0.95) 50%, transparent 50%),
+    linear-gradient(to right, rgba(148, 163, 184, 0.18), rgba(148, 163, 184, 0.18));
+  background-position:
+    calc(100% - 18px) 50%,
+    calc(100% - 12px) 50%,
+    calc(100% - 32px) 50%;
+  background-size:
+    6px 6px,
+    6px 6px,
+    1px 18px;
+  background-repeat: no-repeat;
 }
 
 .toolbar-button {
@@ -120,6 +133,13 @@ body {
   width: min(100%, 390px);
 }
 
+.device-frame.device-iphone-15,
+.device-frame.device-iphone-16,
+.device-frame.device-iphone-17,
+.device-frame.device-iphone-18 {
+  width: min(100%, 393px);
+}
+
 .device-frame.device-iphone-14-pro {
   width: min(100%, 393px);
 }
@@ -136,14 +156,66 @@ body {
   width: min(100%, 360px);
 }
 
+.device-frame.device-ipad-11,
+.device-frame.device-ipad-air-11,
+.device-frame.device-ipad-pro-11 {
+  width: min(100%, 820px);
+}
+
+.device-frame.device-ipad-air-13,
+.device-frame.device-ipad-pro-13 {
+  width: min(100%, 980px);
+}
+
+.device-frame.device-pixel-8,
+.device-frame.device-pixel-9,
+.device-frame.device-galaxy-s24 {
+  width: min(100%, 412px);
+}
+
+.device-frame.device-pixel-8-pro,
+.device-frame.device-pixel-9-pro,
+.device-frame.device-galaxy-s24-ultra {
+  width: min(100%, 430px);
+}
+
+.device-frame.device-android-tablet-10,
+.device-frame.device-android-tablet-11 {
+  width: min(100%, 860px);
+}
+
+.device-frame.device-android-tablet-12,
+.device-frame.device-android-tablet-14 {
+  width: min(100%, 1024px);
+}
+
 .device-frame.device-iphone-11 .device-screen {
   min-height: 520px;
 }
 
 .device-frame.device-iphone-12 .device-screen,
 .device-frame.device-iphone-13 .device-screen,
-.device-frame.device-iphone-14 .device-screen {
+.device-frame.device-iphone-14 .device-screen,
+.device-frame.device-iphone-15 .device-screen,
+.device-frame.device-iphone-16 .device-screen,
+.device-frame.device-iphone-17 .device-screen,
+.device-frame.device-iphone-18 .device-screen {
   min-height: 620px;
+}
+
+.device-frame.device-ipad-11 .device-screen,
+.device-frame.device-ipad-air-11 .device-screen,
+.device-frame.device-ipad-pro-11 .device-screen,
+.device-frame.device-android-tablet-10 .device-screen,
+.device-frame.device-android-tablet-11 .device-screen {
+  min-height: 760px;
+}
+
+.device-frame.device-ipad-air-13 .device-screen,
+.device-frame.device-ipad-pro-13 .device-screen,
+.device-frame.device-android-tablet-12 .device-screen,
+.device-frame.device-android-tablet-14 .device-screen {
+  min-height: 860px;
 }
 
 .device-notch {
