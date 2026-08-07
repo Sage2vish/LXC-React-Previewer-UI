@@ -1,5 +1,9 @@
 # LXC React Previewer UI
 
+<p align="center">
+  <img src="assets/lexvora-consulting-marketplace-logo.png" alt="Lexvora Consulting marketplace logo" width="320" />
+</p>
+
 <table align="center" width="100%" style="border-collapse: separate; border-spacing: 12px;">
   <tr>
     <td align="center" style="background: linear-gradient(135deg, #061421 0%, #102d40 45%, #b88445 100%); color: #ffffff; border: 0; border-radius: 18px; padding: 24px 20px;">
