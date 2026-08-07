@@ -206,7 +206,9 @@ It tracks what has been completed, what is in progress, and what remains before 
   - [x] Use the local branding image in the extension preview
 - [x] Add `assets/marketplace-style.css` as the shared brand token source
 - [x] Add `assets/webview-preview.css` for the extension preview shell
-- [ ] Add marketplace icon assets if needed
+- [x] Add marketplace icon assets
+  - [x] Create a Lexvora Consulting marketplace logo asset
+  - [x] Point the extension icon at the marketplace logo
 - [ ] Polish extension display metadata
 
 ### 4.3 Publishing Metadata
