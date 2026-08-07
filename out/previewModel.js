@@ -13,7 +13,7 @@ const IOS_VERSIONS = [
     { id: 'ios-17', label: 'iOS 17' },
     { id: 'ios-18', label: 'iOS 18' }
 ];
-function buildPreviewModel(source, fileName, frameworksFolder, device, iosVersionId) {
+function buildPreviewModel(source, fileName, frameworksFolder, device, iosVersionId, logoDataUri = '') {
     const escapedSource = source
         .replace(/&/g, '&amp;')
         .replace(/</g, '&lt;')
@@ -26,7 +26,7 @@ function buildPreviewModel(source, fileName, frameworksFolder, device, iosVersio
     const frameworkHint = frameworksFolder
         ? 'This folder can provide the shared React Native framework and package root for preview work.'
         : 'Use the command palette to select your React Native frameworks folder.';
-    const previewHtml = renderPreviewBody(source, frameworksFolder, device, iosVersionId);
+    const previewHtml = renderPreviewBody(source, frameworksFolder, device, iosVersionId, logoDataUri);
     return {
         fileName,
         lineCount,
@@ -35,10 +35,11 @@ function buildPreviewModel(source, fileName, frameworksFolder, device, iosVersio
         sourceHtml: escapedSource || 'No source content loaded.',
         previewHtml,
         frameworksLabel,
-        frameworkHint
+        frameworkHint,
+        logoDataUri
     };
 }
-function renderPreviewBody(source, frameworksFolder, device, iosVersionId) {
+function renderPreviewBody(source, frameworksFolder, device, iosVersionId, logoDataUri = '') {
     const activeDevice = device ?? DEVICE_PROFILES[DEVICE_PROFILES.length - 1];
     const iosVersion = IOS_VERSIONS.find((entry) => entry.id === iosVersionId) ?? IOS_VERSIONS[IOS_VERSIONS.length - 1];
     const deviceOptions = renderDeviceOptions(activeDevice.id);
@@ -61,6 +62,7 @@ function renderPreviewBody(source, frameworksFolder, device, iosVersionId) {
             `<div class="device-frame ${activeDevice.viewportClass}">`,
             '<div class="device-notch"></div>',
             '<div class="device-screen">',
+            `<div class="brand-strip"><img class="brand-logo" src="${logoDataUri}" alt="Lexvora Consulting" /><div class="brand-copy"><span class="brand-kicker">LXC React Previewer</span><span class="brand-name">Lexvora Consulting</span></div></div>`,
             '<div class="phone-empty">Open a `.tsx` file with a `return (...)` block to render the preview.</div>',
             '</div>',
             '</div>',
@@ -85,6 +87,7 @@ function renderPreviewBody(source, frameworksFolder, device, iosVersionId) {
         `<div class="device-frame ${activeDevice.viewportClass}">`,
         '<div class="device-notch"></div>',
         '<div class="device-screen">',
+        `<div class="brand-strip"><img class="brand-logo" src="${logoDataUri}" alt="Lexvora Consulting" /><div class="brand-copy"><span class="brand-kicker">LXC React Previewer</span><span class="brand-name">Lexvora Consulting</span></div></div>`,
         '<div class="phone-status">9:41</div>',
         structure,
         '</div>',

@@ -294,7 +294,7 @@ It tracks what has been completed, what is in progress, and what remains before 
   - [ ] Install the published extension in VS Code
   - [ ] Record the published version and release notes
 
-### 4.5 Marketplace Status
+### 4.6 Marketplace Status
 
 - [x] README foundation exists
 - [x] License and brand asset exist
@@ -417,7 +417,7 @@ It tracks what has been completed, what is in progress, and what remains before 
   - [ ] Verify save refresh works
   - [ ] Verify the preview icon renders
 
-### 8.5 Test Requirements
+### 8.4 Test Requirements
 
 - [ ] Keep at least one basic automated test in the repo
   - [ ] Extension activation smoke test
@@ -435,7 +435,7 @@ It tracks what has been completed, what is in progress, and what remains before 
   - [x] Add sample component source
   - [x] Document how to use it
 
-### 8.4 Release Path
+### 8.5 Release Path
 
 - [ ] Commit all completed work
 - [ ] Push to GitHub
@@ -479,3 +479,49 @@ The project can be considered ready for a first public release when all of the f
 - Milestone 7: Marketplace listing prepared
 - Milestone 8: GitHub release or publish complete
 - Milestone 9: basic automated test and self-test in place
+
+## 11. Release Roadmap
+
+### `0.1.1`
+
+- [x] Baseline scaffold phase captured in history
+- [x] Initial repository and preview workflow established
+- [ ] No distinct `0.1.1` release tag exists in git history
+
+### `0.1.2`
+
+- [x] Initial extension scaffold
+- [x] Open and refresh preview commands
+- [x] First packaged `.vsix`
+- [x] GitHub remote and repository setup
+
+### `0.1.3`
+
+- [x] Mobile-style preview update
+- [x] Marketplace branding pass
+- [x] Extension icon branding refresh
+- [x] README and marketplace polish
+
+### `0.1.4`
+
+- [x] Preview device settings
+- [x] Frameworks-folder selection refinements
+- [x] Preview action cleanup
+- [x] Icon-led command presentation
+- [x] Release docs and task tracking updates
+
+### `0.1.5`
+
+- [x] Marketplace publisher alignment fix
+- [x] Extension metadata updated for the signed-in publisher account
+- [x] Release package prepared for the Marketplace upload retry
+
+### `0.1.6`
+
+- [x] Device presets from iPhone 11 through iPhone 14
+- [x] In-preview device dropdown with phone, pixels, and PPI labels
+- [x] Separate in-preview iOS version dropdown
+- [x] Working preview toolbar buttons
+- [x] Preview-helper scope preserved without drag-and-drop editor behavior
+- [x] Logo and preview branding polish
+- [ ] Manual VS Code smoke check for the new controls

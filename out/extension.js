@@ -37,6 +37,8 @@ exports.activate = activate;
 exports.deactivate = deactivate;
 const vscode = __importStar(require("vscode"));
 const previewModel_1 = require("./previewModel");
+const fs = __importStar(require("fs"));
+const path = __importStar(require("path"));
 const DEVICE_PROFILES = [
     { id: 'iphone-11', label: 'iPhone 11', pixels: '1792 x 828', dpi: '326 PPI', viewportClass: 'device-iphone-11' },
     { id: 'iphone-12', label: 'iPhone 12', pixels: '2532 x 1170', dpi: '460 PPI', viewportClass: 'device-iphone-12' },
@@ -50,6 +52,7 @@ const IOS_VERSION_OPTIONS = [
     { id: 'ios-18', label: 'iOS 18' }
 ];
 const state = {};
+const BRAND_LOGO_URI = getBrandLogoDataUri();
 function activate(context) {
     state.frameworksFolder = context.workspaceState.get('lxcReactPreviewer.frameworksFolder');
     const savedDeviceId = context.workspaceState.get('lxcReactPreviewer.deviceId');
@@ -63,7 +66,7 @@ function activate(context) {
         state.uri = document.uri;
         const activeDevice = state.device ?? DEVICE_PROFILES[0];
         const activeIosVersionId = state.iosVersionId ?? IOS_VERSION_OPTIONS[IOS_VERSION_OPTIONS.length - 1].id;
-        state.panel.webview.html = renderHtml((0, previewModel_1.buildPreviewModel)(document.getText(), document.fileName, state.frameworksFolder, activeDevice, activeIosVersionId), activeDevice, activeIosVersionId, context.extensionUri, state.panel.webview);
+        state.panel.webview.html = renderHtml((0, previewModel_1.buildPreviewModel)(document.getText(), document.fileName, state.frameworksFolder, activeDevice, activeIosVersionId, BRAND_LOGO_URI), activeDevice, activeIosVersionId, context.extensionUri, state.panel.webview);
     };
     const updatePreview = (document) => {
         if (!state.panel || !state.uri) {
@@ -73,46 +76,6 @@ function activate(context) {
             return;
         }
         renderDocument(document);
-    };
-    const handleWebviewMessage = (message) => {
-        if (!state.panel || !state.uri || !message.type) {
-            return;
-        }
-        if (message.type === 'refresh') {
-            vscode.commands.executeCommand('lxcReactPreviewer.refreshPreview');
-            return;
-        }
-        if (message.type === 'settings') {
-            vscode.commands.executeCommand('lxcReactPreviewer.openSettings');
-            return;
-        }
-        if (message.type === 'preview') {
-            vscode.commands.executeCommand('lxcReactPreviewer.openPreview');
-            return;
-        }
-        if (message.type === 'device' && message.value) {
-            const selected = DEVICE_PROFILES.find((device) => device.id === message.value);
-            if (!selected) {
-                return;
-            }
-            state.device = selected;
-            void context.workspaceState.update('lxcReactPreviewer.deviceId', selected.id);
-            if (state.panel && state.uri) {
-                void vscode.workspace.openTextDocument(state.uri).then((doc) => renderDocument(doc));
-            }
-            return;
-        }
-        if (message.type === 'ios' && message.value) {
-            const selected = IOS_VERSION_OPTIONS.find((option) => option.id === message.value);
-            if (!selected) {
-                return;
-            }
-            state.iosVersionId = selected.id;
-            void context.workspaceState.update('lxcReactPreviewer.iosVersionId', selected.id);
-            if (state.panel && state.uri) {
-                void vscode.workspace.openTextDocument(state.uri).then((doc) => renderDocument(doc));
-            }
-        }
     };
     const openPreview = vscode.commands.registerCommand('lxcReactPreviewer.openPreview', async () => {
         const editor = vscode.window.activeTextEditor;
@@ -208,6 +171,46 @@ function activate(context) {
             await vscode.commands.executeCommand('lxcReactPreviewer.selectFrameworksFolder');
         }
     });
+    const handleWebviewMessage = (message) => {
+        if (!state.panel || !state.uri || !message.type) {
+            return;
+        }
+        if (message.type === 'refresh') {
+            vscode.commands.executeCommand('lxcReactPreviewer.refreshPreview');
+            return;
+        }
+        if (message.type === 'settings') {
+            vscode.commands.executeCommand('lxcReactPreviewer.openSettings');
+            return;
+        }
+        if (message.type === 'preview') {
+            vscode.commands.executeCommand('lxcReactPreviewer.openPreview');
+            return;
+        }
+        if (message.type === 'device' && message.value) {
+            const selected = DEVICE_PROFILES.find((device) => device.id === message.value);
+            if (!selected) {
+                return;
+            }
+            state.device = selected;
+            void context.workspaceState.update('lxcReactPreviewer.deviceId', selected.id);
+            if (state.panel && state.uri) {
+                void vscode.workspace.openTextDocument(state.uri).then((doc) => renderDocument(doc));
+            }
+            return;
+        }
+        if (message.type === 'ios' && message.value) {
+            const selected = IOS_VERSION_OPTIONS.find((option) => option.id === message.value);
+            if (!selected) {
+                return;
+            }
+            state.iosVersionId = selected.id;
+            void context.workspaceState.update('lxcReactPreviewer.iosVersionId', selected.id);
+            if (state.panel && state.uri) {
+                void vscode.workspace.openTextDocument(state.uri).then((doc) => renderDocument(doc));
+            }
+        }
+    };
     const activeEditorSubscription = vscode.window.onDidChangeActiveTextEditor((editor) => {
         if (!editor || !state.panel) {
             return;
@@ -247,17 +250,20 @@ function renderHtml(model, device, iosVersionId, extensionUri, webview) {
           const vscode = acquireVsCodeApi();
           const root = document.querySelector('.preview');
           const send = (type, value) => vscode.postMessage({ type, value });
+
           root.querySelectorAll('select[data-action]').forEach((select) => {
             select.addEventListener('change', (event) => {
               const target = event.currentTarget;
               send(target.dataset.action, target.value);
             });
           });
+
           root.querySelectorAll('button[data-action]').forEach((button) => {
             button.addEventListener('click', () => {
               send(button.dataset.action);
             });
           });
+
           root.querySelector('.toolbar-select[data-action="device"]')?.setAttribute('title', 'Phone, pixels, PPI');
           root.querySelector('.toolbar-select[data-action="ios"]')?.setAttribute('title', 'iOS version');
         }());
@@ -271,6 +277,23 @@ function escapeHtml(value) {
         .replace(/</g, '&lt;')
         .replace(/>/g, '&gt;')
         .replace(/"/g, '&quot;');
+}
+function getBrandLogoDataUri() {
+    const candidates = [
+        path.join(__dirname, '..', 'assets', 'lexvora-consulting-logo.png'),
+        path.join(__dirname, '..', 'assets', 'lexvora-consulting-logo-meta.png'),
+        path.join(__dirname, '..', 'assets', 'lexvora-consulting-logo.svg')
+    ];
+    for (const candidate of candidates) {
+        if (!fs.existsSync(candidate)) {
+            continue;
+        }
+        const bytes = fs.readFileSync(candidate);
+        const extension = path.extname(candidate).toLowerCase();
+        const mimeType = extension === '.png' ? 'image/png' : extension === '.svg' ? 'image/svg+xml' : 'image/jpeg';
+        return `data:${mimeType};base64,${bytes.toString('base64')}`;
+    }
+    return '';
 }
 function deactivate() {
     state.panel?.dispose();

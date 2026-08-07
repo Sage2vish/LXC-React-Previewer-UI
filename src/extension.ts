@@ -1,5 +1,7 @@
 import * as vscode from 'vscode';
 import { buildPreviewModel, type PreviewModel } from './previewModel';
+import * as fs from 'fs';
+import * as path from 'path';
 
 type PreviewState = {
   panel?: vscode.WebviewPanel;
@@ -32,6 +34,7 @@ const IOS_VERSION_OPTIONS = [
 ];
 
 const state: PreviewState = {};
+const BRAND_LOGO_URI = getBrandLogoDataUri();
 
 export function activate(context: vscode.ExtensionContext) {
   state.frameworksFolder = context.workspaceState.get<string>('lxcReactPreviewer.frameworksFolder');
@@ -49,7 +52,7 @@ export function activate(context: vscode.ExtensionContext) {
     const activeDevice = state.device ?? DEVICE_PROFILES[0];
     const activeIosVersionId = state.iosVersionId ?? IOS_VERSION_OPTIONS[IOS_VERSION_OPTIONS.length - 1].id;
     state.panel.webview.html = renderHtml(
-      buildPreviewModel(document.getText(), document.fileName, state.frameworksFolder, activeDevice, activeIosVersionId),
+      buildPreviewModel(document.getText(), document.fileName, state.frameworksFolder, activeDevice, activeIosVersionId, BRAND_LOGO_URI),
       activeDevice,
       activeIosVersionId,
       context.extensionUri,
@@ -313,6 +316,27 @@ function escapeHtml(value: string): string {
     .replace(/</g, '&lt;')
     .replace(/>/g, '&gt;')
     .replace(/"/g, '&quot;');
+}
+
+function getBrandLogoDataUri(): string {
+  const candidates = [
+    path.join(__dirname, '..', 'assets', 'lexvora-consulting-logo.png'),
+    path.join(__dirname, '..', 'assets', 'lexvora-consulting-logo-meta.png'),
+    path.join(__dirname, '..', 'assets', 'lexvora-consulting-logo.svg')
+  ];
+
+  for (const candidate of candidates) {
+    if (!fs.existsSync(candidate)) {
+      continue;
+    }
+
+    const bytes = fs.readFileSync(candidate);
+    const extension = path.extname(candidate).toLowerCase();
+    const mimeType = extension === '.png' ? 'image/png' : extension === '.svg' ? 'image/svg+xml' : 'image/jpeg';
+    return `data:${mimeType};base64,${bytes.toString('base64')}`;
+  }
+
+  return '';
 }
 
 export function deactivate() {

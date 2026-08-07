@@ -2,6 +2,8 @@
 
 ## Release Map
 
+## Release Roadmap
+
 ### `0.1.1`
 
 - No distinct `0.1.1` release tag is present in the current git history.
@@ -38,10 +40,40 @@
 ### `0.1.6`
 
 - Device presets from iPhone 11 through iPhone 14
-- In-preview device dropdown with pixel and PPI labels
-- In-preview iOS version dropdown
+- In-preview device dropdown with phone, pixels, and PPI labels
+- Separate in-preview iOS version dropdown
 - Working preview toolbar buttons
 - Preview-helper scope preserved without drag-and-drop editor behavior
+
+### `0.1.6` Feature Details
+
+#### Goal
+
+Keep the extension as a preview helper for React Native `.tsx` files while improving device selection, iOS selection, and preview controls inside the preview UI.
+
+#### Feature List
+
+- Device presets from iPhone 11 through iPhone 14
+- In-preview device dropdown with phone, pixels, and PPI labels
+- Separate in-preview iOS version dropdown
+- Functional preview toolbar buttons
+- Logo and preview branding polish
+- Preview-helper scope preserved without drag-and-drop editor behavior
+
+#### Detailed Tasks
+
+- Build the device dropdown with saved state
+- Build the iOS dropdown with saved state
+- Make the preview buttons call real extension commands
+- Keep the controls inside the preview UI
+- Keep the feature limited to a helper/designer workflow
+
+#### Exit Criteria
+
+- The dropdowns are visible in the preview UI
+- The toolbar buttons work
+- The selected device and iOS version persist across sessions
+- The preview still behaves like a helper, not a designer canvas
 
 ## Icon-Led Preview Command
 
