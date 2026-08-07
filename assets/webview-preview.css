@@ -248,6 +248,18 @@ body {
   color: #0f172a;
   padding: 18px;
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.rn-root {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: auto;
+  border-radius: 18px;
 }
 
 .brand-strip {

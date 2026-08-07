@@ -1,7 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.IOS_VERSIONS = exports.DEVICE_PROFILES = void 0;
 exports.buildPreviewModel = buildPreviewModel;
-const DEVICE_PROFILES = [
+const moduleBundler_1 = require("./moduleBundler");
+exports.DEVICE_PROFILES = [
     { id: 'iphone-11', label: 'iPhone 11', family: 'iphone', pixels: '1792 x 828', dpi: '326 PPI', viewportClass: 'device-iphone-11' },
     { id: 'iphone-11-pro', label: 'iPhone 11 Pro', family: 'iphone', pixels: '2436 x 1125', dpi: '458 PPI', viewportClass: 'device-iphone-11-pro' },
     { id: 'iphone-11-pro-max', label: 'iPhone 11 Pro Max', family: 'iphone', pixels: '2688 x 1242', dpi: '458 PPI', viewportClass: 'device-iphone-11-pro-max' },
@@ -46,7 +48,7 @@ const DEVICE_PROFILES = [
     { id: 'android-tablet-12', label: 'Android Tablet 12"', family: 'android-tablet', pixels: '2560 x 1600', dpi: '240 PPI', viewportClass: 'device-android-tablet-12' },
     { id: 'android-tablet-14', label: 'Android Tablet 14"', family: 'android-tablet', pixels: '2800 x 1752', dpi: '240 PPI', viewportClass: 'device-android-tablet-14' }
 ];
-const IOS_VERSIONS = [
+exports.IOS_VERSIONS = [
     { id: 'ios-15', label: 'iOS 15', family: 'iphone' },
     { id: 'ios-16', label: 'iOS 16', family: 'iphone' },
     { id: 'ios-17', label: 'iOS 17', family: 'iphone' },
@@ -61,77 +63,37 @@ const IOS_VERSIONS = [
     { id: 'android-tablet-13', label: 'Android Tablet 13', family: 'android-tablet' },
     { id: 'android-tablet-14', label: 'Android Tablet 14', family: 'android-tablet' }
 ];
-function buildPreviewModel(source, fileName, frameworksFolder, device, iosVersionId, logoDataUri = '') {
-    const escapedSource = source
-        .replace(/&/g, '&amp;')
-        .replace(/</g, '&lt;')
-        .replace(/>/g, '&gt;')
-        .replace(/"/g, '&quot;');
-    const lineCount = source ? source.split(/\r?\n/).length : 0;
-    const previewSummary = source.includes('export default') ? 'Default export detected' : 'Source loaded and waiting for a renderer';
-    const accentState = source.includes('export default') ? 'ready' : 'waiting';
-    const frameworksLabel = frameworksFolder ?? 'Not selected yet';
-    const frameworkHint = frameworksFolder
-        ? 'This folder can provide the shared React Native framework and package root for preview work.'
-        : 'Use the command palette to select your React Native frameworks folder.';
-    const previewHtml = renderPreviewBody(source, frameworksFolder, device, iosVersionId, logoDataUri);
+function buildPreviewModel(source, filePath, device, iosVersionId, logoDataUri = '') {
+    const activeDevice = device ?? exports.DEVICE_PROFILES[exports.DEVICE_PROFILES.length - 1];
+    const hasDefaultExport = /export\s+default/.test(source);
+    const status = hasDefaultExport ? 'ready' : 'waiting';
+    const platformOS = activeDevice.family === 'android' || activeDevice.family === 'android-tablet' ? 'android' : 'ios';
+    let bundle;
+    if (status === 'ready') {
+        bundle = (0, moduleBundler_1.buildModuleGraph)(filePath, source);
+    }
     return {
-        fileName,
-        lineCount,
-        summary: previewSummary,
-        status: accentState,
-        sourceHtml: escapedSource || 'No source content loaded.',
-        previewHtml,
-        frameworksLabel,
-        frameworkHint,
-        logoDataUri
+        fileName: filePath,
+        status,
+        previewHtml: renderChrome(activeDevice, iosVersionId, logoDataUri, status),
+        bundlePayloadJson: bundle ? safeJsonForScript(bundle) : '',
+        platformOS
     };
 }
-function renderPreviewBody(source, frameworksFolder, device, iosVersionId, logoDataUri = '') {
-    const activeDevice = device ?? DEVICE_PROFILES[DEVICE_PROFILES.length - 1];
-    const platformVersions = IOS_VERSIONS.filter((entry) => entry.family === activeDevice.family);
-    const defaultVersion = platformVersions[platformVersions.length - 1] ?? IOS_VERSIONS[IOS_VERSIONS.length - 1];
-    const versionLabel = activeDevice.family === 'android'
+function renderChrome(device, iosVersionId, logoDataUri, status) {
+    const platformVersions = exports.IOS_VERSIONS.filter((entry) => entry.family === device.family);
+    const defaultVersion = platformVersions[platformVersions.length - 1] ?? exports.IOS_VERSIONS[exports.IOS_VERSIONS.length - 1];
+    const versionLabel = device.family === 'android' || device.family === 'android-tablet'
         ? 'Android OS'
-        : activeDevice.family === 'ipad'
+        : device.family === 'ipad'
             ? 'iPadOS'
             : 'iOS';
     const selectedVersion = platformVersions.find((entry) => entry.id === iosVersionId) ?? defaultVersion;
-    const deviceOptions = renderDeviceOptions(activeDevice.id);
+    const deviceOptions = renderDeviceOptions(device.id);
     const iosOptions = renderOsOptions(versionLabel, platformVersions, selectedVersion.id);
-    const match = source.match(/return\s*\(\s*([\s\S]*?)\s*\);\s*}/m);
-    if (!match) {
-        return [
-            '<div class="device-toolbar">',
-            '<div class="toolbar-left">',
-            '<div class="toolbar-select-group">',
-            '<span class="toolbar-label">Device</span>',
-            `<label class="toolbar-select-wrap" aria-label="Preview device">${deviceOptions}</label>`,
-            '</div>',
-            '<div class="toolbar-select-group">',
-            `<span class="toolbar-label">${escapeHtml(versionLabel)}</span>`,
-            `<label class="toolbar-select-wrap" aria-label="${escapeHtml(versionLabel)}">${iosOptions}</label>`,
-            '</div>',
-            '</div>',
-            '<div class="toolbar-right">',
-            '<button class="toolbar-button" data-action="refresh" type="button" aria-label="Refresh preview">↻</button>',
-            '<button class="toolbar-button" data-action="settings" type="button" aria-label="Open preview settings">⚙</button>',
-            '<button class="toolbar-button" data-action="preview" type="button" aria-label="Open preview">▶</button>',
-            '</div>',
-            '</div>',
-            '<div class="device-shell">',
-            `<div class="device-frame ${activeDevice.viewportClass}">`,
-            '<div class="device-notch"></div>',
-            '<div class="device-screen">',
-            `<div class="brand-strip"><img class="brand-logo" src="${logoDataUri}" alt="Lexvora Consulting" /><div class="brand-copy"><span class="brand-kicker">LXC React Previewer</span><span class="brand-name">Lexvora Consulting</span></div></div>`,
-            '<div class="phone-empty">Open a `.tsx` file with a `return (...)` block to render the preview.</div>',
-            '</div>',
-            '</div>',
-            '</div>'
-        ].join('');
-    }
-    const jsxSource = match[1].trim();
-    const structure = renderJsxLikeMarkup(jsxSource);
+    const body = status === 'ready'
+        ? '<div id="rn-root" class="rn-root"></div>'
+        : '<div class="phone-empty">Open a `.tsx` file with a component `export default` to render the preview.</div>';
     return [
         '<div class="device-toolbar">',
         '<div class="toolbar-left">',
@@ -151,12 +113,12 @@ function renderPreviewBody(source, frameworksFolder, device, iosVersionId, logoD
         '</div>',
         '</div>',
         '<div class="device-shell">',
-        `<div class="device-frame ${activeDevice.viewportClass}">`,
+        `<div class="device-frame ${device.viewportClass}">`,
         '<div class="device-notch"></div>',
         '<div class="device-screen">',
         `<div class="brand-strip"><img class="brand-logo" src="${logoDataUri}" alt="Lexvora Consulting" /><div class="brand-copy"><span class="brand-kicker">LXC React Previewer</span><span class="brand-name">Lexvora Consulting</span></div></div>`,
         '<div class="phone-status">9:41</div>',
-        structure,
+        body,
         '</div>',
         '</div>',
         '</div>'
@@ -165,7 +127,7 @@ function renderPreviewBody(source, frameworksFolder, device, iosVersionId, logoD
 function renderDeviceOptions(selectedId) {
     return [
         '<select class="toolbar-select" data-action="device" aria-label="Preview device">',
-        ...DEVICE_PROFILES.map((profile) => `<option value="${profile.id}"${profile.id === selectedId ? ' selected' : ''}>${escapeHtml(profile.label)} · ${escapeHtml(profile.pixels)} · ${escapeHtml(profile.dpi)}</option>`),
+        ...exports.DEVICE_PROFILES.map((profile) => `<option value="${profile.id}"${profile.id === selectedId ? ' selected' : ''}>${escapeHtml(profile.label)} · ${escapeHtml(profile.pixels)} · ${escapeHtml(profile.dpi)}</option>`),
         '</select>'
     ].join('');
 }
@@ -176,85 +138,19 @@ function renderOsOptions(label, options, selectedId) {
         '</select>'
     ].join('');
 }
-function renderJsxLikeMarkup(jsxSource) {
-    const stripped = jsxSource
-        .replace(/^\s*import[\s\S]*?from\s+['"][^'"]+['"];?/gm, '')
-        .replace(/\{\s*\/\*[\s\S]*?\*\/\s*\}/g, '')
-        .trim();
-    if (!stripped) {
-        return '<div class="preview-empty">No JSX markup found.</div>';
-    }
-    const textContent = stripped
-        .replace(/<[^>]+>/g, ' ')
-        .replace(/\{[^}]*\}/g, ' ')
-        .replace(/\s+/g, ' ')
-        .trim();
-    const heading = extractTagText(stripped, 'Text') || findFirstReadableText(textContent);
-    const hero = extractTagText(stripped, 'SafeAreaView') || extractTagText(stripped, 'View');
-    const imageAlt = stripped.includes('<Image') ? 'Image block detected' : 'No image block detected';
-    const subtitle = findSecondReadableText(textContent, heading);
-    return [
-        '<div class="phone-chrome">',
-        '<div class="phone-topbar">',
-        '<div class="phone-title">',
-        `<span class="phone-title-kicker">LXC React Previewer</span>`,
-        `<span class="phone-title-main">${escapeHtml(heading || 'Sample preview')}</span>`,
-        '</div>',
-        '<div class="phone-actions">',
-        '<span class="phone-action">⌕</span>',
-        '<span class="phone-action">⟳</span>',
-        '<span class="phone-action active">⟲</span>',
-        '<span class="phone-badge">4</span>',
-        '<span class="phone-badge">5</span>',
-        '</div>',
-        '</div>',
-        '<div class="phone-card">',
-        '<div class="phone-card-header">',
-        '<div>',
-        '<div class="phone-greeting">Good Morning 👋</div>',
-        '<div class="phone-subtext">Let\'s track your health today</div>',
-        '</div>',
-        '<div class="phone-ring">73%</div>',
-        '</div>',
-        '<div class="phone-grid">',
-        '<div class="phone-tile"><span>Daily Activity</span><strong>7,345</strong><small>steps</small></div>',
-        '<div class="phone-tile"><span>Heart Rate</span><strong>72</strong><small>bpm</small></div>',
-        '<div class="phone-tile"><span>Sleep</span><strong>7h 30m</strong><small>today</small></div>',
-        '<div class="phone-tile accent"><span>Upcoming</span><strong>Doctor Appointment</strong><small>10:30 AM</small></div>',
-        '</div>',
-        '<div class="phone-preview">',
-        `<div class="phone-preview-title">${escapeHtml(heading || 'React Native preview')}</div>`,
-        `<div class="phone-preview-body">${escapeHtml(subtitle || textContent || 'Rendered JSX content from the active file.')}</div>`,
-        `<div class="phone-preview-meta">${escapeHtml(hero || 'View')} · ${escapeHtml(imageAlt)}</div>`,
-        '</div>',
-        '</div>'
-    ].join('');
-}
-function findFirstReadableText(text) {
-    const words = text.split(/\s+/).filter((part) => part.length > 3);
-    return words[0];
-}
-function findSecondReadableText(text, first) {
-    const words = text.split(/\s+/).filter((part) => part.length > 3 && part !== first);
-    return words[0];
-}
-function extractTagText(source, tag) {
-    const regex = new RegExp(`<${tag}[^>]*>([\\s\\S]*?)<\\/${tag}>`, 'm');
-    const match = source.match(regex);
-    if (!match) {
-        return undefined;
-    }
-    return match[1]
-        .replace(/<[^>]+>/g, ' ')
-        .replace(/\{[^}]*\}/g, ' ')
-        .replace(/\s+/g, ' ')
-        .trim();
-}
 function escapeHtml(value) {
     return value
         .replace(/&/g, '&amp;')
         .replace(/</g, '&lt;')
         .replace(/>/g, '&gt;')
         .replace(/"/g, '&quot;');
+}
+/**
+ * JSON.stringify, plus escaping every `<` so the payload can sit inside a
+ * `<script type="application/json">` element without risking a premature `</script>` close
+ * (e.g. if the previewed source contains that literal substring in a string or comment).
+ */
+function safeJsonForScript(value) {
+    return JSON.stringify(value).replace(/</g, '\\u003C');
 }
 //# sourceMappingURL=previewModel.js.map
