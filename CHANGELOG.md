@@ -13,6 +13,8 @@ The format follows a simple keep-a-changelog style so future releases stay easy 
 - Sample React Native source tree for manual preview testing
 - Frameworks folder selection command and persisted state
 - Stronger preview shell branding and layout polish
+- Preview device selector with iPhone 14 variants, pixel labels, and DPI labels
+- Preview settings popup command for device and frameworks controls
 - Explorer context menu placement for the preview command in the top navigation group
 
 ### Changed
@@ -20,7 +22,7 @@ The format follows a simple keep-a-changelog style so future releases stay easy 
 - README rewritten as a visual product landing page
 - Preview shell styling updated to use the Lexvora consulting palette
 - Feature presentation upgraded to emphasize workflow, branding, and sample validation
-- Release package rebuilt at version `0.1.3` to carry the explorer menu update
+- Release package rebuilt at version `0.1.4` to carry the settings and device updates
 
 ### Fixed
 

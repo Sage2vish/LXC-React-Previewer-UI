@@ -102,6 +102,26 @@ body {
   box-shadow: 0 28px 56px rgba(2, 6, 23, 0.5);
 }
 
+.device-frame.device-iphone-14 {
+  width: min(100%, 390px);
+}
+
+.device-frame.device-iphone-14-pro {
+  width: min(100%, 393px);
+}
+
+.device-frame.device-iphone-14-plus {
+  width: min(100%, 430px);
+}
+
+.device-frame.device-iphone-14-pro-max {
+  width: min(100%, 430px);
+}
+
+.device-frame.device-iphone-14-mini {
+  width: min(100%, 360px);
+}
+
 .device-notch {
   width: 128px;
   height: 20px;

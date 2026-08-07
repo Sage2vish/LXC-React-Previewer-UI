@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.buildPreviewModel = buildPreviewModel;
-function buildPreviewModel(source, fileName, frameworksFolder) {
+function buildPreviewModel(source, fileName, frameworksFolder, device) {
     const escapedSource = source
         .replace(/&/g, '&amp;')
         .replace(/</g, '&lt;')
@@ -14,7 +14,7 @@ function buildPreviewModel(source, fileName, frameworksFolder) {
     const frameworkHint = frameworksFolder
         ? 'This folder can provide the shared React Native framework and package root for preview work.'
         : 'Use the command palette to select your React Native frameworks folder.';
-    const previewHtml = renderPreviewBody(source, frameworksFolder);
+    const previewHtml = renderPreviewBody(source, frameworksFolder, device);
     return {
         fileName,
         lineCount,
@@ -26,13 +26,17 @@ function buildPreviewModel(source, fileName, frameworksFolder) {
         frameworkHint
     };
 }
-function renderPreviewBody(source, frameworksFolder) {
+function renderPreviewBody(source, frameworksFolder, device) {
+    const deviceLabel = device?.label ?? 'iPhone 14';
+    const devicePixels = device?.pixels ?? '1170 x 2532';
+    const deviceDpi = device?.dpi ?? '460 PPI';
+    const viewportClass = device?.viewportClass ?? 'device-iphone-14';
     const match = source.match(/return\s*\(\s*([\s\S]*?)\s*\);\s*}/m);
     if (!match) {
         return [
             '<div class="device-toolbar">',
             '<div class="toolbar-left">',
-            '<span class="toolbar-chip">iPhone 14</span>',
+            `<span class="toolbar-chip">${escapeHtml(deviceLabel)} · ${escapeHtml(devicePixels)} · ${escapeHtml(deviceDpi)}</span>`,
             '<span class="toolbar-chip muted">Preview up to date</span>',
             '</div>',
             '<div class="toolbar-right">',
@@ -42,7 +46,7 @@ function renderPreviewBody(source, frameworksFolder) {
             '</div>',
             '</div>',
             '<div class="device-shell">',
-            '<div class="device-frame">',
+            `<div class="device-frame ${viewportClass}">`,
             '<div class="device-notch"></div>',
             '<div class="device-screen">',
             '<div class="phone-empty">Open a `.tsx` file with a `return (...)` block to render the preview.</div>',
@@ -56,7 +60,7 @@ function renderPreviewBody(source, frameworksFolder) {
     return [
         '<div class="device-toolbar">',
         '<div class="toolbar-left">',
-        '<span class="toolbar-chip">iPhone 14</span>',
+        `<span class="toolbar-chip">${escapeHtml(deviceLabel)} · ${escapeHtml(devicePixels)} · ${escapeHtml(deviceDpi)}</span>`,
         '<span class="toolbar-chip muted">Preview up to date</span>',
         '</div>',
         '<div class="toolbar-right">',
@@ -66,7 +70,7 @@ function renderPreviewBody(source, frameworksFolder) {
         '</div>',
         '</div>',
         '<div class="device-shell">',
-        '<div class="device-frame">',
+        `<div class="device-frame ${viewportClass}">`,
         '<div class="device-notch"></div>',
         '<div class="device-screen">',
         '<div class="phone-status">9:41</div>',

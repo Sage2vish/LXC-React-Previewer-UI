@@ -39,15 +39,25 @@ const fs = __importStar(require("fs"));
 const path = __importStar(require("path"));
 const vscode = __importStar(require("vscode"));
 const previewModel_1 = require("./previewModel");
+const DEVICE_PROFILES = [
+    { id: 'iphone-14', label: 'iPhone 14', pixels: '1170 x 2532', dpi: '460 PPI', viewportClass: 'device-iphone-14' },
+    { id: 'iphone-14-pro', label: 'iPhone 14 Pro', pixels: '1179 x 2556', dpi: '460 PPI', viewportClass: 'device-iphone-14-pro' },
+    { id: 'iphone-14-plus', label: 'iPhone 14 Plus', pixels: '1284 x 2778', dpi: '458 PPI', viewportClass: 'device-iphone-14-plus' },
+    { id: 'iphone-14-pro-max', label: 'iPhone 14 Pro Max', pixels: '1290 x 2796', dpi: '460 PPI', viewportClass: 'device-iphone-14-pro-max' },
+    { id: 'iphone-14-mini', label: 'iPhone 14 mini', pixels: '1080 x 2340', dpi: '476 PPI', viewportClass: 'device-iphone-14-mini' }
+];
 const state = {};
 function activate(context) {
     state.frameworksFolder = context.workspaceState.get('lxcReactPreviewer.frameworksFolder');
+    const savedDeviceId = context.workspaceState.get('lxcReactPreviewer.deviceId');
+    state.device = DEVICE_PROFILES.find((device) => device.id === savedDeviceId) ?? DEVICE_PROFILES[0];
     const renderDocument = (document) => {
         if (!state.panel) {
             return;
         }
         state.uri = document.uri;
-        state.panel.webview.html = renderHtml((0, previewModel_1.buildPreviewModel)(document.getText(), document.fileName, state.frameworksFolder), context.extensionUri, state.panel.webview);
+        const activeDevice = state.device ?? DEVICE_PROFILES[0];
+        state.panel.webview.html = renderHtml((0, previewModel_1.buildPreviewModel)(document.getText(), document.fileName, state.frameworksFolder, activeDevice), activeDevice, context.extensionUri, state.panel.webview);
     };
     const updatePreview = (document) => {
         if (!state.panel || !state.uri) {
@@ -108,6 +118,49 @@ function activate(context) {
             renderDocument(activeDocument);
         }
     });
+    const openSettings = vscode.commands.registerCommand('lxcReactPreviewer.openSettings', async () => {
+        const picked = await vscode.window.showQuickPick([
+            {
+                label: 'Preview Device',
+                description: state.device?.label ?? 'iPhone 14',
+                detail: `${state.device?.pixels ?? '1170 x 2532'} • ${state.device?.dpi ?? '460 PPI'}`
+            },
+            {
+                label: 'Frameworks Folder',
+                description: state.frameworksFolder ?? 'Not selected yet',
+                detail: 'Choose the shared React Native frameworks location'
+            }
+        ], {
+            placeHolder: 'Preview settings'
+        });
+        if (!picked) {
+            return;
+        }
+        if (picked.label === 'Preview Device') {
+            const deviceChoice = await vscode.window.showQuickPick(DEVICE_PROFILES.map((device) => ({
+                label: device.label,
+                description: device.pixels,
+                detail: device.dpi,
+                device
+            })), {
+                title: 'Select Preview Device',
+                placeHolder: 'Choose the device frame for the preview'
+            });
+            if (!deviceChoice) {
+                return;
+            }
+            state.device = deviceChoice.device;
+            await context.workspaceState.update('lxcReactPreviewer.deviceId', state.device.id);
+            if (state.panel && state.uri) {
+                const activeDocument = await vscode.workspace.openTextDocument(state.uri);
+                renderDocument(activeDocument);
+            }
+            return;
+        }
+        if (picked.label === 'Frameworks Folder') {
+            await vscode.commands.executeCommand('lxcReactPreviewer.selectFrameworksFolder');
+        }
+    });
     const activeEditorSubscription = vscode.window.onDidChangeActiveTextEditor((editor) => {
         if (!editor || !state.panel) {
             return;
@@ -119,11 +172,11 @@ function activate(context) {
         state.uri = document.uri;
         renderDocument(document);
     });
-    context.subscriptions.push(openPreview, refreshPreview, selectFrameworksFolder);
+    context.subscriptions.push(openPreview, refreshPreview, selectFrameworksFolder, openSettings);
     context.subscriptions.push(vscode.workspace.onDidSaveTextDocument(updatePreview));
     context.subscriptions.push(activeEditorSubscription);
 }
-function renderHtml(model, extensionUri, webview) {
+function renderHtml(model, device, extensionUri, webview) {
     const styleUri = webview.asWebviewUri(vscode.Uri.joinPath(extensionUri, 'assets', 'webview-preview.css'));
     return `<!doctype html>
   <html lang="en">
@@ -136,7 +189,7 @@ function renderHtml(model, extensionUri, webview) {
     <body>
       <div class="frame">
         <div class="mobile-stage">
-          <div class="preview">
+          <div class="preview ${device.viewportClass}">
             ${model.previewHtml}
           </div>
         </div>

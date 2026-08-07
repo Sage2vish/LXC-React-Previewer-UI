@@ -167,10 +167,18 @@ It tracks what has been completed, what is in progress, and what remains before 
   - [x] Keep it available from the command palette
   - [x] Surface it from the window status area instead of the file menu
   - [x] Keep the preview file actions focused on preview and refresh only
+- [x] Add preview device selection with pixel and DPI labels
+  - [x] Surface iPhone 14 variants in the settings popup
+  - [x] Persist the selected device across sessions
+  - [x] Keep the frame width aligned to the selected device
+- [x] Move preview settings into a popup window
+  - [x] Open settings from a dedicated command
+  - [x] Present preview device and frameworks controls together
+  - [x] Keep the settings entry off the file context menu
 - [x] Place the explorer context action in the top navigation group
   - [x] Keep the preview command near the built-in open actions
   - [x] Preserve the `.tsx` file filter for the command
-  - [x] Keep the release version at `0.1.3`
+  - [x] Keep the release version at `0.1.4`
 - [x] Define the minimum required self-test for release
   - [x] Activation test
   - [x] Preview open test
