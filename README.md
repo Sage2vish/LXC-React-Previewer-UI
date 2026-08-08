@@ -11,7 +11,7 @@
               <span style="color:#d2a15f;">LXC</span> React Previewer UI
             </div>
             <div style="font-size:22px;line-height:1.35;color:#d8e2ea;margin:0 0 14px 0;">
-              React Native UI Preview <span style="color:#38bdf8;">Inside VS Code</span>
+              React Native UI Previewer <span style="color:#38bdf8;">Inside VS Code</span>
             </div>
             <div style="font-size:18px;line-height:1.55;color:#f7f3ed;max-width:920px;margin:0 0 18px 0;">
               Preview your <code>.tsx</code> screens directly beside your source code. No simulator. No emulator. Less waiting. More building.
